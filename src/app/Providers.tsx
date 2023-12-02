@@ -1,29 +1,34 @@
 "use client";
-
-import { usePathname, useRouter } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import { SessionProvider } from "next-auth/react";
 import ThemeProvider from "@/components/ThemeProvider";
 import { useEffect } from "react";
 
-const Providers = ({ children }: { children: React.ReactNode }) => {
+type ProvidersProps = {
+    children: React.ReactNode;
+    session?: any;
+};
+
+const Providers = ({ children }: ProvidersProps) => {
     const pathname = usePathname();
-    const router = useRouter();
-    const isStudent = true;
+    const role: unknown = "Teacher";
 
     useEffect(() => {
         if (pathname !== "/") {
-            if (isStudent && !pathname.startsWith("/s")) {
-                router.push("/s/dashboard");
-            } else if (!isStudent && pathname.startsWith("/s")) {
-                router.push("/dashboard");
+            if (role === "Student" && !pathname.startsWith("/s")) {
+                redirect("/s/dashboard");
+            } else if (role === "Teacher" && pathname.startsWith("/s")) {
+                redirect("/dashboard");
+            } else if (role === "") {
+                redirect("/onboarding");
             }
         }
     }, []);
 
     if (pathname !== "/") {
-        if (isStudent && !pathname.startsWith("/s")) {
+        if (role === "Student" && !pathname.startsWith("/s")) {
             return <div className="w-full h-screen bg-white"></div>;
-        } else if (!isStudent && pathname.startsWith("/s")) {
+        } else if (role === "Teacher" && pathname.startsWith("/s")) {
             return <div className="w-full h-screen bg-white"></div>;
         }
     }

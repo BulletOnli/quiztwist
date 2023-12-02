@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
-import "../globals.css";
+import { poppins } from "@/lib/utils";
+import "@/styles/globals.css";
 import Navbar from "@/components/Navbar";
 import Providers from "../Providers";
-
-const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
     title: "Quiz101",
