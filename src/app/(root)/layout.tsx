@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { poppins } from "@/lib/utils";
 import "@/styles/globals.css";
-import Providers from "../Providers";
+import Providers from "../../context/Providers";
 import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {

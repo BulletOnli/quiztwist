@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import Providers from "../Providers";
+import Providers from "../../context/Providers";
 import Navbar from "@/components/Navbar";
 import { poppins } from "@/lib/utils";
 

@@ -3,7 +3,6 @@ import connectToDB from "@/lib/mongoose";
 import NextAuth from "next-auth";
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { redirect } from "next/navigation";
 
 export const authOptions: NextAuthOptions = {
     secret: process.env.NEXTAUTH_SECRET!,
