@@ -1,4 +1,4 @@
-import User from "@/lib/models/user.model";
+import User, { UserType } from "@/lib/models/user.model";
 import connectToDB from "@/lib/mongoose";
 import NextAuth from "next-auth";
 import type { NextAuthOptions } from "next-auth";
@@ -14,13 +14,12 @@ export const authOptions: NextAuthOptions = {
     ],
     callbacks: {
         async session({ session }) {
-            await connectToDB();
-            const sessionUser = await User.findOne({
+            const userFromDb = await User.findOne({
                 email: session.user?.email,
             });
-            session.user.id = sessionUser._id;
 
-            // todo Checks if the user is in the db also check if they have a role, if not redirect to the onboarding page
+            session.user.id = userFromDb?._id.toString();
+            session.user.role = userFromDb?.role;
 
             return session;
         },
@@ -34,6 +33,7 @@ export const authOptions: NextAuthOptions = {
                         email: user?.email,
                         username: user?.name,
                         profilePic: user?.image,
+                        role: "Guest",
                     });
                 }
 

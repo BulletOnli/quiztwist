@@ -1,5 +1,5 @@
 "use client";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -10,10 +10,26 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ChevronDown, LogOut, User } from "lucide-react";
+import { redirect, usePathname, useRouter } from "next/navigation";
+import { NextAuthUser } from "@/types/next-auth";
 
-const AccountAvatar = () => {
-    const { data: session } = useSession();
-    const user = session?.user;
+const AccountAvatar = ({ user }: { user: NextAuthUser }) => {
+    const pathname = usePathname();
+
+    if (pathname !== "/") {
+        // Prevents users with the "Guest" role from accessing other routes.
+        if (user?.role === "Guest" && pathname !== "/onboarding") {
+            redirect("/onboarding");
+        }
+
+        // Redirect the user based on their role to the appropriate routes.
+        // Users are restricted to accessing routes that match their assigned role.
+        if (user?.role === "Student" && !pathname.startsWith("/s")) {
+            redirect(`/s${pathname}`);
+        } else if (user?.role === "Teacher" && pathname.startsWith("/s")) {
+            redirect(`${pathname}`);
+        }
+    }
 
     return (
         <DropdownMenu>

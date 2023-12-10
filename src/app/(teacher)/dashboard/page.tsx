@@ -1,8 +1,4 @@
-import React from "react";
-
-const Dashboard = () => {
-
-    
+const Dashboard = async () => {
     return <div className="w-full h-screen">Teacher Dashboard</div>;
 };
 

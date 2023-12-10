@@ -1,4 +1,4 @@
-const OnBoardingForm = async () => {
+const OnBoardingForm = () => {
     return <div>OnBoardingForm</div>;
 };
 
