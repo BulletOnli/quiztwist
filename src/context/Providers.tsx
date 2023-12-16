@@ -1,6 +1,6 @@
 "use client";
 import { SessionProvider } from "next-auth/react";
-import ThemeProvider from "@/components/ThemeProvider";
+import ThemeProvider from "@/context/ThemeProvider";
 
 type ProvidersProps = {
     children: React.ReactNode;

@@ -9,8 +9,8 @@ const Navbar = async () => {
     const session = await getServerSession(authOptions);
 
     return (
-        <nav className="w-full sticky top-0 z-50 flex justify-center items-center p-3 bg-inherit border-b border-b-[#DEE2E6]">
-            <div className="w-full max-w-[1000px] flex justify-between items-center  ">
+        <nav className="w-full sticky top-0 z-[100] flex justify-center items-center p-3 bg-inherit border-b border-b-[#DEE2E6]">
+            <div className="w-full max-w-7xl flex justify-between items-center  ">
                 <Link href="/">
                     <p>Navbar</p>
                 </Link>

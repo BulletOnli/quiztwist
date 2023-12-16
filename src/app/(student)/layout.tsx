@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { poppins } from "@/lib/utils";
 import "@/styles/globals.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navbar/Navbar";
 import Provider from "../../context/Providers";
 
 export const metadata: Metadata = {
@@ -19,10 +19,7 @@ export default function RootLayout({
             <body className={`${poppins.className} `}>
                 <Provider>
                     <Navbar />
-                    <div className="w-full flex ">
-                        <div className="w-[40rem] h-screen border">
-                            student sidebar
-                        </div>
+                    <div className="w-full max-w-7xl flex flex-col mx-auto">
                         {children}
                     </div>
                 </Provider>

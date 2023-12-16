@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import Providers from "../../context/Providers";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navbar/Navbar";
 import { poppins } from "@/lib/utils";
 
 export default async function RootLayout({

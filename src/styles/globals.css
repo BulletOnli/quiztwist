@@ -16,7 +16,12 @@
         --primary: 222.2 47.4% 11.2%;
         --primary-foreground: 210 40% 98%;
 
-        --secondary: 210 40% 96.1%;
+        /* CUSTOM */
+        --secondary: 210 40% 96%;
+        --secondary-gray: "#F1F5F9";
+
+        /* DEFAULT */
+        /* --secondary: 210 40% 96.1%; */
         --secondary-foreground: 222.2 47.4% 11.2%;
 
         --muted: 210 40% 96.1%;
@@ -36,7 +41,9 @@
     }
 
     .dark {
-        --background: #1a1b1e;
+        /* CUSTOM */
+        --background: 217 9% 11%;
+        /* DEFAULT */
         --foreground: 210 40% 98%;
 
         --card: 222.2 84% 4.9%;
@@ -46,6 +53,7 @@
         --popover-foreground: 210 40% 98%;
 
         --primary: 210 40% 98%;
+        --secondary-gray: "red";
         --primary-foreground: 222.2 47.4% 11.2%;
 
         --secondary: 217.2 32.6% 17.5%;

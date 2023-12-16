@@ -9,9 +9,10 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ChevronDown, LogOut, User } from "lucide-react";
+import { ChevronDown, LayoutDashboard, LogOut, User } from "lucide-react";
 import { redirect, usePathname, useRouter } from "next/navigation";
 import { NextAuthUser } from "@/types/next-auth";
+import Link from "next/link";
 
 const AccountAvatar = ({ user }: { user: NextAuthUser }) => {
     const pathname = usePathname();
@@ -22,12 +23,12 @@ const AccountAvatar = ({ user }: { user: NextAuthUser }) => {
             redirect("/onboarding");
         }
 
-        // Redirect the user based on their role to the appropriate routes.
-        // Users are restricted to accessing routes that match their assigned role.
+        // Redirect the user to the appropriate routes based on their role
+        // This prevents user accessing routes that is not in eligible for their role
         if (user?.role === "Student" && !pathname.startsWith("/s")) {
             redirect(`/s${pathname}`);
         } else if (user?.role === "Teacher" && pathname.startsWith("/s")) {
-            redirect(`${pathname}`);
+            redirect(`${pathname.slice(2, pathname.length)}`);
         }
     }
 
@@ -53,7 +54,11 @@ const AccountAvatar = ({ user }: { user: NextAuthUser }) => {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                     <User className="mr-2 h-4 w-4" />
-                    <span>Profile</span>
+                    <Link href="/">Profile</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                    <LayoutDashboard className="mr-2 h-4 w-4" />
+                    <Link href="/dashboard">Dashboard</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
                     <LogOut className="mr-2 h-4 w-4" />

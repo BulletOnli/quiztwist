@@ -1,5 +1,5 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import GoogleSignInBtn from "@/components/GoogleSignInBtn";
+import GoogleSignInBtn from "@/components/auth/GoogleSignInBtn";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import Link from "next/link";

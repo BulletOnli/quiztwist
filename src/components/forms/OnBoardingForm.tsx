@@ -1,5 +1,11 @@
+import { addStudent } from "@/lib/actions/sample.actions";
+
 const OnBoardingForm = () => {
-    return <div>OnBoardingForm</div>;
+    return (
+        <form action={addStudent}>
+            <input type="text" />
+        </form>
+    );
 };
 
 export default OnBoardingForm;
