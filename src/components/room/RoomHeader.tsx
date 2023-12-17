@@ -8,7 +8,7 @@ const RoomHeader = ({ roomId }: { roomId: string }) => {
     const currentPathname = pathname.split("/").pop();
 
     return (
-        <div className="w-full h-[10rem] flex flex-col justify-end p-6 pb-0 bg-secondary-grayBg border-b border-[#CED4DA]">
+        <div className="w-full h-[10rem] flex flex-col justify-end p-6 pb-0 bg-secondary border-b border-[#CED4DA]">
             <h1 className="text-2xl font-bold ">BSIT 1A</h1>
             <p>Introduction to Computing</p>
 
