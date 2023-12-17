@@ -16,13 +16,13 @@
         --primary: 222.2 47.4% 11.2%;
         --primary-foreground: 210 40% 98%;
 
-        /* CUSTOM */
-        --secondary: 210 40% 96%;
-        --secondary-gray: "#F1F5F9";
-
         /* DEFAULT */
-        /* --secondary: 210 40% 96.1%; */
+        --secondary: 210 40% 96.1%;
         --secondary-foreground: 222.2 47.4% 11.2%;
+        /* CUSTOM */
+        --secondary-gray-text: 0 0% 42.7%;
+        --secondary-gray-bg: 210 5% 97.8%;
+        /* --secondary-gray-bg: 210 40% 96%; */
 
         --muted: 210 40% 96.1%;
         --muted-foreground: 215.4 16.3% 46.9%;

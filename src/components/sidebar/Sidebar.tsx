@@ -12,7 +12,7 @@ const Sidebar = () => {
     }
 
     return (
-        <div className="w-[20rem]  h-[93.5vh] sticky top-[3.8rem] p-4 flex flex-col items-center bg-secondary border-r border-[#CED4DA]">
+        <div className="w-[20rem] h-[100vh] sticky top-[48px] p-4 flex flex-col items-center bg-secondary-grayBg border-r border-[#CED4DA]">
             sdfds
         </div>
     );

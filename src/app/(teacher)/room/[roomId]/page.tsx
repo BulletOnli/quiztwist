@@ -1,17 +1,11 @@
-import RoomHeader from "@/components/room/RoomHeader";
-import TabsContentSection from "@/components/room/TabsContentSection";
+import { redirect } from "next/navigation";
 
 type RoomPageProps = {
     params: { roomId: string };
 };
 
 const RoomPage = ({ params }: RoomPageProps) => {
-    return (
-        <div className="relative w-full min-h-screen flex flex-col">
-            <RoomHeader roomId={params.roomId} />
-            <TabsContentSection />
-        </div>
-    );
+    redirect(`/room/${params.roomId}/classwork`);
 };
 
 export default RoomPage;

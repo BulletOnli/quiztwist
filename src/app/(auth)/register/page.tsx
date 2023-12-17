@@ -18,7 +18,7 @@ const RegisterPage = async () => {
     return (
         <div className="w-full flex flex-col items-center p-6">
             <h1 className="text-2xl font-bold mt-6">Create an account!</h1>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-secondary-grayText">
                 Already have an account?{" "}
                 <Link
                     href="/login"

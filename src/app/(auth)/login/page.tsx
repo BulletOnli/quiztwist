@@ -18,7 +18,7 @@ const LoginPage = async () => {
     return (
         <div className="w-full flex flex-col items-center p-6">
             <h1 className="text-2xl font-bold mt-6">Welcome back!</h1>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-secondary-grayText">
                 Don't have an account yet?{" "}
                 <Link
                     href="/register"
