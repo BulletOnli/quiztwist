@@ -12,7 +12,16 @@ const UserSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
     profilePic: String,
-    role: String,
+    role: {
+        type: String,
+        default: "Guest",
+    },
+    classrooms: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Classroom",
+        },
+    ],
 });
 
 export type UserType = mongoose.InferSchemaType<typeof UserSchema>;

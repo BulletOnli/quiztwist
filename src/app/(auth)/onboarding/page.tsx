@@ -1,6 +1,5 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import OnBoardingForm from "@/components/forms/OnBoardingForm";
-import { fetchUsers } from "@/lib/actions/sample.actions";
 import { UserType } from "@/lib/models/user.model";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -17,17 +16,9 @@ const OnBoardingPage = async () => {
 
     if (session?.user.role !== "Guest") redirect("/dashboard");
 
-    const users = await fetchUsers();
-
     return (
         <div>
             <OnBoardingForm />
-
-            <div className="mt-10 flex flex-col gap-1">
-                {users.map((user: UserType) => (
-                    <p key={`${user.email}` + 1}>{user.username}</p>
-                ))}
-            </div>
         </div>
     );
 };
