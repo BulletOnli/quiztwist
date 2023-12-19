@@ -1,6 +1,7 @@
 import ClassroomsGrid from "@/components/dashboard/ClassroomsGrid";
-import CreateClassroomBtn from "@/components/dashboard/CreateClassroomBtn";
+import CreateClassroomModal from "@/components/dashboard/create-classroom/CreateClassroomModal";
 import { Button } from "@/components/ui/button";
+
 import { Search } from "lucide-react";
 
 const Dashboard = async () => {
@@ -18,10 +19,9 @@ const Dashboard = async () => {
                     <Button variant={"outline"} size="icon">
                         <Search className="w-5" />
                     </Button>
-                    <CreateClassroomBtn />
+                    <CreateClassroomModal />
                 </div>
             </div>
-
             <ClassroomsGrid />
         </div>
     );

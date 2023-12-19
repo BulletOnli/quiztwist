@@ -28,9 +28,12 @@ const classroomSchema = new mongoose.Schema({
     ],
 });
 
-export type ClassroomType = mongoose.InferSchemaType<typeof classroomSchema>;
+export type ClassroomType = mongoose.InferSchemaType<typeof classroomSchema> & {
+    _id: mongoose.Types.ObjectId;
+};
 
 const Classroom =
-    mongoose.models.Classroom || mongoose.model("Classroom", classroomSchema);
+    mongoose.models.Classroom ||
+    mongoose.model<ClassroomType>("Classroom", classroomSchema);
 
 export default Classroom;
