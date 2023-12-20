@@ -6,7 +6,7 @@ import { Search } from "lucide-react";
 
 const Dashboard = async () => {
     return (
-        <div className="w-full max-w-7xl min-h-screen flex flex-col">
+        <div className="w-full max-w-7xl flex flex-col">
             <div className="w-full flex justify-between items-center mt-10">
                 <div>
                     <h1 className="font-bold text-2xl">My Classrooms</h1>

@@ -1,4 +1,5 @@
-import mongoose, { models } from "mongoose";
+import mongoose, { Model, ObjectId, models } from "mongoose";
+import { ClassroomType } from "./classroom.model";
 
 const UserSchema = new mongoose.Schema({
     email: {
@@ -26,8 +27,9 @@ const UserSchema = new mongoose.Schema({
 
 export type UserType = mongoose.InferSchemaType<typeof UserSchema> & {
     _id: mongoose.Schema.Types.ObjectId;
+    classrooms: ClassroomType[];
 };
 
-const User = models.User || mongoose.model<UserType>("User", UserSchema);
+const User: Model<UserType> = models.User || mongoose.model("User", UserSchema);
 
 export default User;

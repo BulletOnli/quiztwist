@@ -1,4 +1,4 @@
-import mongoose, { models } from "mongoose";
+import mongoose, { Model, models } from "mongoose";
 
 //todo in the future
 // Deadline
@@ -33,6 +33,7 @@ export type QuizSchemaType = mongoose.InferSchemaType<typeof QuizSchema> & {
     _id: mongoose.Schema.Types.ObjectId;
 };
 
-const Quiz = models.Quiz || mongoose.model<QuizSchemaType>("Quiz", QuizSchema);
+const Quiz: Model<QuizSchemaType> =
+    models.Quiz || mongoose.model("Quiz", QuizSchema);
 
 export default Quiz;

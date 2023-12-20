@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Button } from "@/components/ui/button";
-import { Bell, MoreVertical } from "lucide-react";
+import QuizTemplates from "@/components/room/QuizTemplates";
+import UpcomingQuiz from "@/components/room/UpcomingQuiz";
+import Classcode from "@/components/room/Classcode";
 
 export const metadata: Metadata = {
     title: "Classwork | TestTwist",
@@ -11,58 +12,13 @@ const ClassworkPage = () => {
     return (
         <div className="w-full max-w-6xl mx-auto flex gap-10 p-6">
             <div className="flex flex-col items-center gap-4">
-                <div className="w-[14rem] min-h-[7rem] p-3 flex flex-col gap-2 border border-borderColor bg-secondary-gray rounded-lg">
-                    <p className="text-sm font-medium">Upcoming</p>
-                    <ul className="ml-4 text-xs list-disc">
-                        <li>Exam #1 - 10 Items</li>
-                        <li>Exam #1 - 10 Items</li>
-                        <li>Exam #1 - 10 Items</li>
-                    </ul>
-                    <Button size="xs" className="mt-2">
-                        View All
-                    </Button>
-                </div>
-                <div className="w-[14rem] min-h-[7rem] p-3 flex flex-col gap-2 border border-borderColor bg-secondary-gray rounded-lg">
-                    <div className="flex items-center justify-between">
-                        <p className="text-sm font-medium">Class code</p>
-                        <Button size="xs" variant="secondary" className="p-0">
-                            <MoreVertical className="w-5" />
-                        </Button>
-                    </div>
-                    <div className="w-full h-full flex justify-center items-center">
-                        <p className="font-semibold text-xl text-secondary-grayText">
-                            AbCdE
-                        </p>
-                    </div>
-                </div>
+                <UpcomingQuiz />
+                <Classcode />
             </div>
 
             <div className="w-full flex flex-col">
                 <p className="mb-2">Start a new Test</p>
-                <div className="flex items-center flex-wrap gap-4">
-                    <div className="flex flex-col gap-2">
-                        <div className="w-[8rem] h-[6rem] flex justify-center items-center border border-borderColor rounded-lg bg-secondary-gray">
-                            <img src="/plus.png" alt="" />
-                        </div>
-                        <p className="text-sm">Blank test</p>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                        <div className="w-[8rem] h-[6rem] flex justify-center items-center border border-borderColor rounded-lg bg-secondary-gray"></div>
-                        <p className="text-sm">Template 1</p>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                        <div className="w-[8rem] h-[6rem] flex justify-center items-center border border-borderColor rounded-lg bg-secondary-gray"></div>
-                        <p className="text-sm">Template 2</p>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                        <div className="w-[8rem] h-[6rem] flex justify-center items-center border border-borderColor rounded-lg bg-secondary-gray"></div>
-                        <p className="text-sm">Template 3</p>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                        <div className="w-[8rem] h-[6rem] flex justify-center items-center border border-borderColor rounded-lg bg-secondary-gray"></div>
-                        <p className="text-sm">Template 4</p>
-                    </div>
-                </div>
+                <QuizTemplates />
                 <div className="w-full flex flex-col bg-slate-500 mt-10">
                     <p>Quize</p>
                 </div>

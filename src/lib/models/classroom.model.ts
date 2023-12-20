@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 
 const classroomSchema = new mongoose.Schema({
     subject: {
@@ -32,8 +32,7 @@ export type ClassroomType = mongoose.InferSchemaType<typeof classroomSchema> & {
     _id: mongoose.Types.ObjectId;
 };
 
-const Classroom =
-    mongoose.models.Classroom ||
-    mongoose.model<ClassroomType>("Classroom", classroomSchema);
+const Classroom: Model<ClassroomType> =
+    mongoose.models.Classroom || mongoose.model("Classroom", classroomSchema);
 
 export default Classroom;
