@@ -22,7 +22,10 @@ export const getClassrooms = async () => {
 export const getClassroomData = async (id: string) => {
     await connectToDB();
 
-    const classroom = await Classroom.findById(id);
+    const classroom = await Classroom.findById(id).populate([
+        "teacher",
+        "students",
+    ]);
 
     if (classroom) {
         return classroom;

@@ -1,4 +1,4 @@
-import RoomHeader from "@/components/room/header/RoomHeader";
+import RoomHeader from "@/components/room/classwork/header/RoomHeader";
 
 type RoomLayoutProps = {
     children: React.ReactNode;

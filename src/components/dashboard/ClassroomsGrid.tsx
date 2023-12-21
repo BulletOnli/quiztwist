@@ -18,16 +18,16 @@ const ClassroomsGrid = async () => {
                 <Link
                     key={classroom._id.toString()}
                     href={`/room/${classroom._id.toString()}/classwork`}
-                    className="flex-grow min-w-[12.5rem] max-w-[14rem] h-[9rem] flex flex-col p-3 bg-secondary rounded-xl border border-borderColor"
+                    className="flex-grow min-w-[12.5rem] max-w-[16rem] h-[9rem] flex flex-col p-3 bg-secondary rounded-xl border border-borderColor"
                 >
                     <div className="w-full flex justify-between ">
-                        <p>{classroom.section}</p>
+                        <p className="text-sm">{classroom.subject}</p>
                         <div className="flex items-center gap-1">
                             <p className="text-sm">3</p>
                             <Users className="w-4" />
                         </div>
                     </div>
-                    <p className="text-xs">{classroom.subject}</p>
+                    <p className="text-xs">{classroom.section}</p>
                 </Link>
             ))}
         </div>

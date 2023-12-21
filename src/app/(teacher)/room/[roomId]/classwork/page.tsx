@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import QuizTemplates from "@/components/room/QuizTemplates";
-import UpcomingQuiz from "@/components/room/UpcomingQuiz";
-import Classcode from "@/components/room/Classcode";
+import QuizTemplates from "@/components/room/classwork/QuizTemplates";
+import UpcomingQuiz from "@/components/room/classwork/UpcomingQuiz";
+import Classcode from "@/components/room/classwork/Classcode";
 
 export const metadata: Metadata = {
     title: "Classwork | TestTwist",
