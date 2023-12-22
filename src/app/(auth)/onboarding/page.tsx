@@ -1,6 +1,5 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import OnBoardingForm from "@/components/forms/OnBoardingForm";
-import { UserType } from "@/lib/models/user.model";
+import Onboardingform from "@/components/auth/onboarding/Onboardingform";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -17,8 +16,8 @@ const OnBoardingPage = async () => {
     if (session?.user.role !== "Guest") redirect("/dashboard");
 
     return (
-        <div>
-            <OnBoardingForm />
+        <div className="w-full h-[90vh] flex justify-center items-center">
+            <Onboardingform />
         </div>
     );
 };

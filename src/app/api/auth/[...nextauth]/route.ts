@@ -19,8 +19,10 @@ export const authOptions: NextAuthOptions = {
                 email: session.user?.email,
             });
 
-            session.user.id = userFromDb?._id.toString();
-            session.user.role = userFromDb?.role;
+            if (userFromDb) {
+                session.user.id = userFromDb?._id.toString();
+                session.user.role = userFromDb?.role;
+            }
 
             return session;
         },
