@@ -1,23 +1,29 @@
+"use client";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Image from "next/image";
 import teacherIcon from "/public/teacherIcon.png";
 import studentIcon from "/public/studentIcon.png";
-import { Button } from "@/components/ui/button";
 import { onboardingAction } from "@/lib/actions/user.actions";
 import { Label } from "@/components/ui/label";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import OnboardingformButton from "./OnboardingformButton";
+import { useSession } from "next-auth/react";
+import { toast } from "sonner";
 
-//todo Radio buttons is not
+const Onboardingform = () => {
+    const { data } = useSession();
 
-const Onboardingform = async () => {
-    const session = await getServerSession(authOptions);
+    const formAction = async (formData: FormData) => {
+        const result = await onboardingAction(formData);
+
+        if (result?.error) {
+            toast.error(result.error);
+        }
+    };
 
     return (
         <form
-            action={onboardingAction}
+            action={formAction}
             className="w-[27rem] p-6 flex flex-col items-center border border-borderColor rounded-lg"
         >
             <h2 className="text-lg font-semibold">Setup your account</h2>
@@ -36,7 +42,7 @@ const Onboardingform = async () => {
                 <Input
                     id="username"
                     name="username"
-                    defaultValue={session?.user.name}
+                    defaultValue={data?.user.name}
                     disabled
                 />
             </div>
@@ -45,7 +51,7 @@ const Onboardingform = async () => {
                 <Input
                     id="email"
                     name="email"
-                    defaultValue={session?.user.email}
+                    defaultValue={data?.user.email}
                     disabled
                 />
             </div>

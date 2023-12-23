@@ -1,6 +1,7 @@
 "use client";
 import { SessionProvider } from "next-auth/react";
 import ThemeProvider from "@/context/ThemeProvider";
+import { Toaster } from "sonner";
 
 type ProvidersProps = {
     children: React.ReactNode;
@@ -16,6 +17,7 @@ const Providers = ({ children }: ProvidersProps) => {
                 disableTransitionOnChange
             >
                 {children}
+                <Toaster richColors />
             </ThemeProvider>
         </SessionProvider>
     );
