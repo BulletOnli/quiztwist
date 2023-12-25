@@ -14,14 +14,14 @@ const Sidebar = () => {
         <div className="w-[20rem] h-[100vh] sticky top-[60px] p-4 flex flex-col items-center border-r border-[#CED4DA]">
             <div className="w-full">
                 <div className="w-full flex flex-col items-center gap-2">
-                    <Link href="/" className="w-full">
+                    <Link href="/dashboard" className="w-full">
                         <Button variant="outline" size="lg" className="w-full">
                             Dashboard
                         </Button>
                     </Link>
                     <Link href="/" className="w-full">
                         <Button variant="outline" size="lg" className="w-full">
-                            BSIT 1A
+                            N/A
                         </Button>
                     </Link>
                 </div>

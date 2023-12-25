@@ -29,34 +29,7 @@ const Onboardingform = () => {
             <h2 className="text-lg font-semibold">Setup your account</h2>
             <p className="text-sm mb-6">Please complete your account</p>
 
-            <div className="w-full flex flex-col gap-2 mb-4">
-                <Label htmlFor="firstName">First name</Label>
-                <Input id="firstName" name="firstName" required />
-            </div>
-            <div className="w-full flex flex-col gap-2 mb-4">
-                <Label htmlFor="lastName">Last name</Label>
-                <Input id="lastName" name="lastName" required />
-            </div>
-            <div className="w-full flex flex-col gap-2 mb-4">
-                <Label htmlFor="username">Username</Label>
-                <Input
-                    id="username"
-                    name="username"
-                    defaultValue={data?.user.name}
-                    disabled
-                />
-            </div>
-            <div className="w-full flex flex-col gap-2 mb-4">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                    id="email"
-                    name="email"
-                    defaultValue={data?.user.email}
-                    disabled
-                />
-            </div>
-
-            <p className="mt-2">Choose your role</p>
+            <p className="font-medium">Choose your role</p>
             <RadioGroup
                 name="role"
                 defaultValue="Teacher"
@@ -83,6 +56,33 @@ const Onboardingform = () => {
                     <RadioGroupItem value="Student" id="StudentRadio" />
                 </div>
             </RadioGroup>
+
+            <div className="w-full flex flex-col gap-2 mb-3">
+                <Label htmlFor="firstName">First name</Label>
+                <Input id="firstName" name="firstName" minLength={3} required />
+            </div>
+            <div className="w-full flex flex-col gap-2 mb-3">
+                <Label htmlFor="lastName">Last name</Label>
+                <Input id="lastName" name="lastName" minLength={3} required />
+            </div>
+            <div className="w-full flex flex-col gap-2 mb-3">
+                <Label htmlFor="username">Username</Label>
+                <Input
+                    id="username"
+                    name="username"
+                    defaultValue={data?.user.name}
+                    disabled
+                />
+            </div>
+            <div className="w-full flex flex-col gap-2 mb-6">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                    id="email"
+                    name="email"
+                    defaultValue={data?.user.email}
+                    disabled
+                />
+            </div>
 
             <OnboardingformButton />
         </form>

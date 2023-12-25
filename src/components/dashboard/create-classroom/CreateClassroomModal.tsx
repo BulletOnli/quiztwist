@@ -19,8 +19,7 @@ const CreateClassroomModal = () => {
                 <DialogHeader>
                     <DialogTitle>Create Classroom</DialogTitle>
                     <DialogDescription>
-                        Make changes to your profile here. Click save when
-                        you're done.
+                        Enter the subject and section name
                     </DialogDescription>
                 </DialogHeader>
                 <CreateClassroomForm />

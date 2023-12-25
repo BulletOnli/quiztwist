@@ -5,6 +5,9 @@ import { UserType } from "@/lib/models/user.model";
 const StudentsList = ({ students }: { students: any }) => {
     return (
         <div className="w-full flex flex-wrap items-center gap-4">
+            {students.length === 0 && (
+                <p className="mx-auto my-4">There are no students yet!</p>
+            )}
             {students.map((student: UserType) => (
                 <div
                     key={student.email}
@@ -19,7 +22,11 @@ const StudentsList = ({ students }: { students: any }) => {
                         />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
-                    <p className="text-sm">{student.username}</p>
+                    <p className="text-sm">
+                        {student.firstName}
+                        <br />
+                        {student.lastName}
+                    </p>
                 </div>
             ))}
         </div>

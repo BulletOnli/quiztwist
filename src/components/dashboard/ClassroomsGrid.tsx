@@ -11,19 +11,23 @@ const ClassroomsGrid = async () => {
         <div className="w-full flex flex-wrap items-center gap-6 mt-10">
             {classrooms?.length == 0 && (
                 <div className="w-full h-[50vh] flex items-center justify-center">
-                    sdfsd
+                    No Classroom yet
                 </div>
             )}
             {classrooms?.map((classroom) => (
                 <Link
                     key={classroom._id.toString()}
                     href={`/room/${classroom._id.toString()}/classwork`}
-                    className="flex-grow min-w-[12.5rem] max-w-[16rem] h-[9rem] flex flex-col p-3 bg-secondary rounded-xl border border-borderColor"
+                    className="flex-grow min-w-[12.5rem] max-w-[16rem] h-[9rem] flex flex-col p-3 bg-secondary hover:shadow rounded-lg border border-borderColor"
                 >
                     <div className="w-full flex justify-between ">
-                        <p className="text-sm">{classroom.subject}</p>
+                        <p className="font-semibold overflow-x-hidden mr-6">
+                            {classroom.subject}
+                        </p>
                         <div className="flex items-center gap-1">
-                            <p className="text-sm">3</p>
+                            <p className="text-sm">
+                                {classroom.students.length + 1}
+                            </p>
                             <Users className="w-4" />
                         </div>
                     </div>
