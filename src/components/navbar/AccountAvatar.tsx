@@ -22,14 +22,6 @@ const AccountAvatar = ({ user }: { user: NextAuthUser }) => {
         if (user?.role === "Guest" && pathname !== "/onboarding") {
             redirect("/onboarding");
         }
-
-        // Redirect the user to the appropriate routes based on their role
-        // This prevents user accessing routes that is not in eligible for their role
-        if (user?.role === "Student" && !pathname.startsWith("/s")) {
-            redirect(`/s${pathname}`);
-        } else if (user?.role === "Teacher" && pathname.startsWith("/s")) {
-            redirect(`${pathname.slice(2, pathname.length)}`);
-        }
     }
 
     return (
@@ -45,6 +37,7 @@ const AccountAvatar = ({ user }: { user: NextAuthUser }) => {
                     <div className="w-[8rem] flex flex-col items-start overflow-x-hidden">
                         <p className="text-xs font-semibold">{user?.name}</p>
                         <small className="text-xs">{user?.email}</small>
+                        {/* <small className="text-xs">{user?.role}</small> */}
                     </div>
                     <ChevronDown size={17} />
                 </div>

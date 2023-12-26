@@ -89,7 +89,7 @@ export const joinClassroom = async (formData: FormData) => {
                 user.classrooms.push(targetClassroom._id);
                 await user.save();
 
-                revalidatePath("/s/dashboard");
+                revalidatePath("/dashboard");
 
                 return;
             }

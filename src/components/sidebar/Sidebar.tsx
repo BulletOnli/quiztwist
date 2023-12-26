@@ -1,15 +1,8 @@
-"use client";
-import { usePathname } from "next/navigation";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import SidebarLinks from "./SidebarLinks";
 
-const NO_SIDEBAR = ["/dashboard", "/s/dashboard"];
-
 const Sidebar = () => {
-    const pathname = usePathname();
-    if (NO_SIDEBAR.includes(pathname)) return null;
-
     return (
         <div className="w-[20rem] h-[100vh] sticky top-[60px] p-4 flex flex-col items-center border-r border-[#CED4DA]">
             <div className="w-full">
