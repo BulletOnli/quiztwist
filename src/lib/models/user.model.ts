@@ -1,4 +1,4 @@
-import mongoose, { Model, ObjectId, models } from "mongoose";
+import mongoose, { Model, models } from "mongoose";
 import { ClassroomType } from "./classroom.model";
 
 const UserSchema = new mongoose.Schema({
@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 export type UserType = mongoose.InferSchemaType<typeof UserSchema> & {
-    _id: mongoose.Schema.Types.ObjectId;
+    _id: mongoose.Types.ObjectId;
     classrooms: ClassroomType[];
 };
 

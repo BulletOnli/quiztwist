@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { poppins } from "@/lib/utils";
 import "@/styles/globals.css";
 import Navbar from "@/components/navbar/Navbar";
-import Providers from "../../context/Providers";
+import GlobalProviders from "../../context/GlobalProviders";
 import Sidebar from "@/components/sidebar/Sidebar";
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export default async function TeacherRootLayout({
     return (
         <html lang="en">
             <body className={`${poppins.className} bg-background`}>
-                <Providers>
+                <GlobalProviders>
                     <Navbar />
                     <div className="w-full relative flex">
                         <Sidebar />
@@ -26,7 +26,7 @@ export default async function TeacherRootLayout({
                             {children}
                         </div>
                     </div>
-                </Providers>
+                </GlobalProviders>
             </body>
         </html>
     );

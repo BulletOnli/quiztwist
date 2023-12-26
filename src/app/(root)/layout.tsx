@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { poppins } from "@/lib/utils";
 import "@/styles/globals.css";
-import Providers from "../../context/Providers";
+import GlobalProviders from "../../context/GlobalProviders";
 import Navbar from "@/components/navbar/Navbar";
 
 export const metadata: Metadata = {
@@ -17,10 +17,10 @@ export default async function RootLayout({
     return (
         <html lang="en">
             <body className={poppins.className}>
-                <Providers>
+                <GlobalProviders>
                     <Navbar />
                     {children}
-                </Providers>
+                </GlobalProviders>
             </body>
         </html>
     );

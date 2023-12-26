@@ -23,7 +23,7 @@ const questionSchema = new mongoose.Schema({
 });
 
 export type QuestionType = mongoose.InferSchemaType<typeof questionSchema> & {
-    _id: mongoose.Schema.Types.ObjectId;
+    _id: mongoose.Types.ObjectId;
 };
 
 const Question: Model<QuestionType> =

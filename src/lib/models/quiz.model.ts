@@ -30,7 +30,7 @@ const QuizSchema = new mongoose.Schema({
 });
 
 export type QuizSchemaType = mongoose.InferSchemaType<typeof QuizSchema> & {
-    _id: mongoose.Schema.Types.ObjectId;
+    _id: mongoose.Types.ObjectId;
 };
 
 const Quiz: Model<QuizSchemaType> =

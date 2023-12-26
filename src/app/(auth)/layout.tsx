@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import Providers from "../../context/Providers";
+import GlobalProviders from "../../context/GlobalProviders";
 import Navbar from "@/components/navbar/Navbar";
 import { poppins } from "@/lib/utils";
 
@@ -11,10 +11,10 @@ export default async function RootLayout({
     return (
         <html lang="en">
             <body className={poppins.className}>
-                <Providers>
+                <GlobalProviders>
                     <Navbar />
                     {children}
-                </Providers>
+                </GlobalProviders>
             </body>
         </html>
     );

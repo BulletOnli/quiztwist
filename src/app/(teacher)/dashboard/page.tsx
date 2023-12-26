@@ -1,5 +1,5 @@
 import ClassroomsGrid from "@/components/dashboard/ClassroomsGrid";
-import CreateClassroomModal from "@/components/dashboard/create-classroom/CreateClassroomModal";
+import CreateClassroomModal from "@/components/dashboard/teacher/create-classroom/CreateClassroomModal";
 import { Button } from "@/components/ui/button";
 
 import { Search } from "lucide-react";

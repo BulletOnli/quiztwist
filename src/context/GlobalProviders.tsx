@@ -7,7 +7,7 @@ type ProvidersProps = {
     children: React.ReactNode;
 };
 
-const Providers = ({ children }: ProvidersProps) => {
+const GlobalProviders = ({ children }: ProvidersProps) => {
     return (
         <SessionProvider>
             <ThemeProvider
@@ -23,4 +23,4 @@ const Providers = ({ children }: ProvidersProps) => {
     );
 };
 
-export default Providers;
+export default GlobalProviders;

@@ -26,7 +26,7 @@ const Classcode = () => {
 };
 
 export const extractClassCode = (id: string) => {
-    return id.slice(id.length - 5, id.length);
+    return id.slice(-5);
 };
 
 export default Classcode;

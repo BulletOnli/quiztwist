@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { poppins } from "@/lib/utils";
 import "@/styles/globals.css";
 import Navbar from "@/components/navbar/Navbar";
-import Provider from "../../context/Providers";
+import Provider from "../../context/GlobalProviders";
 
 export const metadata: Metadata = {
     title: "TestTwist",
