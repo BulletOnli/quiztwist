@@ -7,6 +7,10 @@ const classroomSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    description: {
+        type: String,
+        required: true,
+    },
     section: {
         type: String,
         required: true,

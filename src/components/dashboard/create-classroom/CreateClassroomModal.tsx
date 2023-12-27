@@ -35,6 +35,19 @@ const CreateClassroomModal = () => {
                                 id="subject"
                                 className="col-span-3"
                                 name="subject"
+                                placeholder="CC 101"
+                                required
+                            />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="description" className="text-right">
+                                Description
+                            </Label>
+                            <Input
+                                id="description"
+                                className="col-span-3"
+                                name="description"
+                                placeholder="Computer Programming 1"
                                 required
                             />
                         </div>
@@ -45,6 +58,7 @@ const CreateClassroomModal = () => {
                             <Input
                                 id="section"
                                 className="col-span-3"
+                                placeholder="BSIT 1A"
                                 required
                                 name="section"
                             />

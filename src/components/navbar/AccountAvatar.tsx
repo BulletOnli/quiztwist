@@ -45,7 +45,7 @@ const AccountAvatar = ({ user }: { user: NextAuthUser }) => {
             <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem disabled>
                     <User className="mr-2 h-4 w-4" />
                     <Link href="/">Profile</Link>
                 </DropdownMenuItem>

@@ -8,7 +8,7 @@ const JoinBtn = () => {
 
     return (
         <DialogFooter>
-            <DialogClose>
+            <DialogClose asChild>
                 <Button type="submit" disabled={pending}>
                     {pending ? "Joining..." : "Join"}
                 </Button>

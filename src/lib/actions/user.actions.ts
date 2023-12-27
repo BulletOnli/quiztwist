@@ -6,10 +6,11 @@ import connectToDB from "../mongoose";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { getErrorMessage } from "../utils";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export const onboardingAction = async (formData: FormData) => {
     try {
-        const session = await getServerSession();
+        const session = await getServerSession(authOptions);
         if (!session) throw new Error("Please sign in first!");
 
         await connectToDB();

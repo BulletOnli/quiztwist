@@ -28,9 +28,11 @@ const PeoplePage = async ({ params }: PeoplePageProps) => {
                                     "https://github.com/shadcn.png"
                                 }
                             />
-                            <AvatarFallback>CN</AvatarFallback>
+                            <AvatarFallback>
+                                {classroom?.teacher.firstName?.slice(0, 1)}
+                            </AvatarFallback>
                         </Avatar>
-                        <p className="text-sm">
+                        <p className="text-sm text-center">
                             {classroom?.teacher.firstName}
                             <br />
                             {classroom?.teacher.lastName}
@@ -41,7 +43,7 @@ const PeoplePage = async ({ params }: PeoplePageProps) => {
             <hr className="my-6" />
             <div className="w-full flex flex-col gap-4 ">
                 <h1 className="text-xl font-medium">Students</h1>
-                <StudentsList students={classroom?.students} />
+                <StudentsList students={classroom?.students || []} />
             </div>
         </div>
     );

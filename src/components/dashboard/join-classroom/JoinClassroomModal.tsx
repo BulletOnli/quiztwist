@@ -7,9 +7,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import JoinBtn from "./JoinBtn";
-import { Input } from "@/components/ui/input";
-import { joinClassroom } from "@/lib/actions/classroom.actions";
+import JoinClassroomForm from "./JoinClassroomForm";
 
 const JoinClassroomModal = () => {
     return (
@@ -24,17 +22,7 @@ const JoinClassroomModal = () => {
                         Enter the classroom code
                     </DialogDescription>
                 </DialogHeader>
-                <form action={joinClassroom} className="flex flex-col gap-4">
-                    <Input
-                        id="classCode"
-                        className="text-lg text-center"
-                        name="classCode"
-                        required
-                        maxLength={5}
-                        minLength={5}
-                    />
-                    <JoinBtn />
-                </form>
+                <JoinClassroomForm />
             </DialogContent>
         </Dialog>
     );

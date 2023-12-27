@@ -1,20 +1,18 @@
 "use client";
-import { MoreVertical } from "lucide-react";
-import { Button } from "../../ui/button";
+import { Copy } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 const Classcode = () => {
     // The last 5 digits in the room id
     const roomId = usePathname().split("/")[2];
-    const classCode = extractClassCode(roomId);
+    const classCode = roomId.slice(-5);
 
     return (
         <div className="w-[14rem] min-h-[7rem] p-3 flex flex-col gap-2 border border-borderColor bg-secondary-gray rounded-lg">
             <div className="flex items-center justify-between">
                 <p className="text-sm font-medium">Class code</p>
-                <Button size="xs" variant="secondary" className="p-0">
-                    <MoreVertical className="w-5" />
-                </Button>
+
+                <Copy className="w-4 cursor-pointer" />
             </div>
             <div className="w-full h-full flex justify-center items-center">
                 <p className="font-semibold text-xl text-secondary-grayText">
@@ -23,10 +21,6 @@ const Classcode = () => {
             </div>
         </div>
     );
-};
-
-export const extractClassCode = (id: string) => {
-    return id.slice(-5);
 };
 
 export default Classcode;

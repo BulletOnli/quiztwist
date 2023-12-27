@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 const GoogleSignInBtn = () => {
     return (
         <Button
-            className="w-full gap-1 font-semibold rounded-full"
+            className="w-full gap-2 rounded-full"
             variant="outline"
             onClick={() =>
                 signIn("google", {

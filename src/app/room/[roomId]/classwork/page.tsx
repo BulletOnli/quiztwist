@@ -19,8 +19,8 @@ const ClassworkPage = () => {
             <div className="w-full flex flex-col">
                 <p className="mb-2">Start a new Test</p>
                 <QuizTemplates />
-                <div className="w-full flex flex-col bg-slate-500 mt-10">
-                    <p>Quize</p>
+                <div className="w-full flex flex-col mt-10">
+                    <p>Quizzess</p>
                 </div>
             </div>
         </div>

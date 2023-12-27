@@ -1,5 +1,4 @@
 import { getClassrooms } from "@/lib/actions/classroom.actions";
-import { ClassroomType } from "@/lib/models/classroom.model";
 import { Users } from "lucide-react";
 import Link from "next/link";
 import React from "react";
