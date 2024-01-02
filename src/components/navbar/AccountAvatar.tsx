@@ -32,12 +32,11 @@ const AccountAvatar = ({ user }: { user: NextAuthUser }) => {
                         <AvatarImage
                             src={user?.image || "https://github.com/shadcn.png"}
                         />
-                        <AvatarFallback>CN</AvatarFallback>
+                        <AvatarFallback>{user.name.slice(0, 1)}</AvatarFallback>
                     </Avatar>
                     <div className="w-[8rem] flex flex-col items-start overflow-x-hidden">
                         <p className="text-xs font-semibold">{user?.name}</p>
                         <small className="text-xs">{user?.email}</small>
-                        {/* <small className="text-xs">{user?.role}</small> */}
                     </div>
                     <ChevronDown size={17} />
                 </div>

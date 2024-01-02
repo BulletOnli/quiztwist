@@ -29,13 +29,14 @@ const Sidebar = async () => {
             <div className="w-full flex flex-col items-center gap-4">
                 <p className="font-medium">Classrooms</p>
 
-                <div className="w-full flex flex-col">
+                <div className="w-full flex flex-col items-center gap-2">
                     {classrooms.map((classroom) => (
                         <Link
                             href={`/room/${classroom._id}/classwork`}
                             key={classroom._id.toString()}
+                            className="w-full"
                         >
-                            <div className="hover:bg-secondary py-2 px-3 rounded-full flex items-center gap-2">
+                            <div className="bg-secondary-grayBg border border-borderColor hover:shadow py-1 px-2 rounded-full flex items-center gap-2">
                                 <Avatar className="w-9 h-9 ">
                                     <AvatarImage />
                                     <AvatarFallback>
@@ -43,7 +44,7 @@ const Sidebar = async () => {
                                     </AvatarFallback>
                                 </Avatar>
                                 <div className="flex flex-col">
-                                    <p className="w-full font-medium text-sm overflow-x-hidden whitespace-nowrap">
+                                    <p className="w-full font-medium text-sm overflow-x-hidden">
                                         {classroom.subject}
                                     </p>
                                     <p className="text-xs">

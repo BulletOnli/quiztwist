@@ -19,7 +19,7 @@ const JoinClassroomModal = () => {
                 <DialogHeader>
                     <DialogTitle>Join a Classroom</DialogTitle>
                     <DialogDescription>
-                        Enter the classroom code
+                        Please enter the 5-letter classroom code.
                     </DialogDescription>
                 </DialogHeader>
                 <JoinClassroomForm />

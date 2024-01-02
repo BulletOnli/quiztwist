@@ -2,16 +2,25 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UserType } from "@/lib/models/user.model";
 
 const StudentsList = ({ students }: { students: UserType[] }) => {
+    const sortedStudents = students.slice().sort((a: UserType, b: UserType) => {
+        const firstnameA = a.firstName?.toLowerCase() ?? "";
+        const firstnameB = b.firstName?.toLowerCase() ?? "";
+
+        if (firstnameA < firstnameB) return -1;
+        if (firstnameA > firstnameB) return 1;
+        return 0;
+    });
+
     return (
         <div className="w-full flex flex-wrap items-center gap-4">
-            {students.length === 0 && (
+            {sortedStudents.length === 0 && (
                 <p className="mx-auto my-4">There are no students yet!</p>
             )}
 
-            {students.map((student: UserType) => (
+            {sortedStudents.map((student: UserType) => (
                 <div
                     key={student.email}
-                    className="max-w-[4rem] flex-grow flex flex-col items-center gap-1"
+                    className="min-w-[4rem] max-w-fit flex-grow flex flex-col items-center gap-1"
                 >
                     <Avatar className="w-14 h-14">
                         <AvatarImage

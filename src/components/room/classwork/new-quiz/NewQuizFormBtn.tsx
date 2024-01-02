@@ -1,20 +1,22 @@
 "use client";
+
+import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
-import { useFormStatus } from "react-dom";
 
-const JoinBtn = ({ inputLength }: { inputLength: number }) => {
+const NewQuizFormBtn = () => {
     const { pending } = useFormStatus();
 
     return (
         <DialogFooter>
             <DialogClose asChild>
-                <Button type="submit" disabled={inputLength < 5}>
-                    {pending ? "Joining..." : "Join"}
+                <Button type="button" variant="secondary" disabled={pending}>
+                    Close
                 </Button>
             </DialogClose>
+            <Button type="submit">{pending ? "Creating..." : "Create"}</Button>
         </DialogFooter>
     );
 };
 
-export default JoinBtn;
+export default NewQuizFormBtn;

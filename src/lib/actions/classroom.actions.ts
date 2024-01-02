@@ -13,17 +13,17 @@ export const getClassrooms = async () => {
 
     const user = await User.findById(session?.user.id)
         .select(["classrooms"])
-        .populate("classrooms");
+        .populate("classrooms")
+        .lean();
 
     return user?.classrooms as ClassroomType[];
 };
 
 export const getClassroomData = async (id: string) => {
     await connectToDB();
-    const classroom = await Classroom.findById(id).populate([
-        "teacher",
-        "students",
-    ]);
+    const classroom = await Classroom.findById(id)
+        .populate(["teacher", "students"])
+        .lean();
 
     return classroom;
 };
@@ -65,6 +65,7 @@ export const joinClassroom = async (formData: FormData) => {
         if (!user || !session) throw new Error("Please login first!");
 
         const inputCode = formData.get("classCode") as string;
+
         const classrooms = await Classroom.find().select(["_id"]);
 
         for (const classroom of classrooms) {
