@@ -50,7 +50,7 @@ export const createQuiz = async (formData: FormData, roomId: string) => {
 
         return {
             message: "Quiz created!",
-            quizId: newQuiz._id,
+            quizId: newQuiz._id.toString(),
         };
     } catch (error) {
         return {

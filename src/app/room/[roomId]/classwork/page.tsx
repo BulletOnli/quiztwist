@@ -27,7 +27,7 @@ const ClassworkPage = async ({ params }: { params: { roomId: string } }) => {
             <div className="w-full flex flex-col">
                 {!isStudent && (
                     <>
-                        <p className="mb-2 font-medium">Start a new Test</p>
+                        <p className="mb-2 font-medium">Start a new Quiz</p>
                         <QuizTemplates />
                     </>
                 )}

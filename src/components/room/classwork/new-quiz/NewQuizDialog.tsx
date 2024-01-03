@@ -16,7 +16,7 @@ const NewQuizDialog = () => {
                     <div className="w-[8rem] h-[6rem] flex justify-center items-center border border-borderColor rounded-lg bg-secondary-gray">
                         <img src="/plus.png" alt="" />
                     </div>
-                    <p className="text-sm text-start">Blank test</p>
+                    <p className="text-sm text-start">Blank Quiz</p>
                 </div>
             </DialogTrigger>
             <DialogContent>
