@@ -34,7 +34,7 @@ export const createQuestion = async (formData: FormData, quizId: string) => {
         quiz?.questions.push(newQuestion._id);
         await quiz?.save();
 
-        revalidatePath(`/quiz/${quizId}`);
+        revalidatePath(`/quiz/${quizId}/questions`);
 
         return {
             message: "You've added a Question!",

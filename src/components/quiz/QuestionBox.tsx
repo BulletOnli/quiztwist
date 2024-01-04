@@ -22,52 +22,52 @@ const QuestionBox = ({ question, index }: QuestionBoxProps) => {
                 <div className="flex flex-col items-center gap-4">
                     <div className="w-full flex items-center space-x-2">
                         <RadioGroupItem
-                            value={question.choices[0]}
+                            value="A"
                             id={question.question + question.choices[0]}
                         />
                         <Label
                             htmlFor={question.question + question.choices[0]}
                             className="font-normal"
                         >
-                            {question.choices[0]}
+                            A. {question.choices[0]}
                         </Label>
                     </div>
                     <div className="w-full flex items-center space-x-2">
                         <RadioGroupItem
-                            value={question.choices[1]}
+                            value="B"
                             id={question.question + question.choices[1]}
                         />
                         <Label
                             htmlFor={question.question + question.choices[1]}
                             className="font-normal"
                         >
-                            {question.choices[1]}
+                            B. {question.choices[1]}
                         </Label>
                     </div>
                 </div>
                 <div className="flex flex-col items-center gap-4">
                     <div className="w-full flex items-center space-x-2">
                         <RadioGroupItem
-                            value={question.choices[2]}
+                            value="C"
                             id={question.question + question.choices[2]}
                         />
                         <Label
                             htmlFor={question.question + question.choices[2]}
                             className="font-normal"
                         >
-                            {question.choices[2]}
+                            C. {question.choices[2]}
                         </Label>
                     </div>
                     <div className="w-full flex items-center space-x-2">
                         <RadioGroupItem
-                            value={question.choices[3]}
+                            value="D"
                             id={question.question + question.choices[3]}
                         />
                         <Label
                             htmlFor={question.question + question.choices[3]}
                             className="font-normal"
                         >
-                            {question.choices[3]}
+                            D. {question.choices[3]}
                         </Label>
                     </div>
                 </div>

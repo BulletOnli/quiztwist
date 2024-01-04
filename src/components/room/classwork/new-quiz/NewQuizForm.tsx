@@ -17,7 +17,7 @@ const NewQuizForm = () => {
         }
 
         toast.success(response.message);
-        router.push(`/quiz/${response.quizId}`);
+        router.push(`/quiz/${response.quizId}/questions`);
     };
 
     return (

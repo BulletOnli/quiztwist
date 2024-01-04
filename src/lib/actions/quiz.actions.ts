@@ -8,6 +8,42 @@ import User from "../models/user.model";
 import { revalidatePath } from "next/cache";
 import Question from "../models/question.model";
 
+// Just checking if the user is already participated in the quiz
+export const checkUserEligibility = async (quizId: string) => {
+    try {
+        await connectToDB();
+        const session = await getServerSession(authOptions);
+        const user = await User.findById(session?.user.id)
+            .select(["_id"])
+            .lean();
+        if (!user || !session) throw new Error("Please login first!");
+
+        const quizInfo = await Quiz.findById(quizId)
+            .select(["respondents"])
+            .populate({
+                path: "respondents",
+                select: "_id",
+            })
+            .lean();
+
+        const isAlreadyAnswered = quizInfo?.respondents.some(
+            (respondent) => respondent._id.toString() === user._id.toString()
+        );
+
+        if (isAlreadyAnswered) {
+            throw new Error("You already answered this Quiz!");
+        }
+
+        return {
+            message: "You are able to participate in this Quiz!",
+        };
+    } catch (error) {
+        return {
+            error: getErrorMessage(error),
+        };
+    }
+};
+
 export const getAllQuizzes = async (roomId: string) => {
     const quizzes = await Quiz.find({ room: roomId })
         .sort({ updatedAt: -1 })
@@ -17,10 +53,12 @@ export const getAllQuizzes = async (roomId: string) => {
 };
 
 export const getQuizInfo = async (quizId: string) => {
-    const quizInfo = await Quiz.findById(quizId).populate({
-        path: "questions",
-        model: Question,
-    });
+    const quizInfo = await Quiz.findById(quizId)
+        .populate({
+            path: "questions",
+            model: Question,
+        })
+        .lean();
 
     return quizInfo;
 };
@@ -57,6 +95,61 @@ export const createQuiz = async (formData: FormData, roomId: string) => {
         return {
             message: "Quiz created!",
             quizId: newQuiz._id.toString(),
+        };
+    } catch (error) {
+        return {
+            error: getErrorMessage(error),
+        };
+    }
+};
+
+export const submitQuiz = async (formData: FormData, quizId: string) => {
+    try {
+        await connectToDB();
+        const session = await getServerSession(authOptions);
+        const user = await User.findById(session?.user.id).select([
+            "_id",
+            "answeredQuizzes",
+        ]);
+
+        if (!user || !session) throw new Error("Please login first!");
+
+        const quizInfo = await Quiz.findById(quizId)
+            .populate({
+                path: "questions",
+                select: ["rightAnswer"],
+                model: Question,
+            })
+            .select(["questions", "respondents", "isOpen"]);
+
+        if (!quizInfo) {
+            throw new Error("An error occured! Quiz not found!");
+        }
+
+        let SCORE = 0;
+
+        for (let question of quizInfo?.questions) {
+            // The answer of the user per question
+            const user_answer = formData.get(
+                `question#${question._id.toString()}_answer`
+            );
+
+            if (question.rightAnswer === user_answer) SCORE++;
+        }
+
+        // Add the user to the respondents array of the quiz
+        quizInfo?.respondents.push(user._id);
+        await quizInfo.save();
+
+        // Add the quiz to the answeredQuizzes of the user
+        user?.answeredQuizzes.push({
+            quiz: quizInfo._id,
+            score: SCORE,
+        });
+        await user.save();
+
+        return {
+            message: "Thank you for participating in this Quiz!",
         };
     } catch (error) {
         return {

@@ -41,7 +41,7 @@ const ClassworkPage = async ({ params }: { params: { roomId: string } }) => {
                         )}
                         {quizzes.map((quiz) => (
                             <Link
-                                href={`/quiz/${quiz._id}`}
+                                href={`/quiz/${quiz._id}/questions`}
                                 key={quiz._id.toString()}
                             >
                                 <div className="min-w-[10rem] max-w-[10rem] h-[10rem] flex flex-grow items-center justify-center border border-borderColor rounded-lg">

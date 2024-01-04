@@ -1,13 +1,23 @@
 import QuestionList from "@/components/quiz/QuestionList";
 import NewQuestionDialog from "@/components/quiz/question/NewQuestionDialog";
 import { Button } from "@/components/ui/button";
-import { getQuizInfo } from "@/lib/actions/quiz.actions";
+import { checkUserEligibility, getQuizInfo } from "@/lib/actions/quiz.actions";
 
 type QuizPageProps = {
     params: { quizId: string };
 };
 
 const QuizPage = async ({ params }: QuizPageProps) => {
+    const isAlreadyAnswered = await checkUserEligibility(params.quizId);
+
+    if (isAlreadyAnswered.error) {
+        return (
+            <main className="w-full relative min-h-screen bg-secondary flex justify-center p-6">
+                <p>{isAlreadyAnswered.error}</p>
+            </main>
+        );
+    }
+
     const quizInfo = await getQuizInfo(params.quizId);
 
     return (
@@ -26,7 +36,10 @@ const QuizPage = async ({ params }: QuizPageProps) => {
                 </div>
             </div>
             <div className="w-full flex flex-col items-center px-10">
-                <QuestionList questions={quizInfo?.questions || []} />
+                <QuestionList
+                    questions={quizInfo?.questions || []}
+                    quizId={params.quizId}
+                />
             </div>
         </main>
     );
