@@ -8,11 +8,9 @@ const JoinBtn = ({ inputLength }: { inputLength: number }) => {
 
     return (
         <DialogFooter>
-            <DialogClose asChild>
-                <Button type="submit" disabled={inputLength < 5}>
-                    {pending ? "Joining..." : "Join"}
-                </Button>
-            </DialogClose>
+            <Button type="submit" disabled={inputLength < 5}>
+                {pending ? "Joining..." : "Join"}
+            </Button>
         </DialogFooter>
     );
 };

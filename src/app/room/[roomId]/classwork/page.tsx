@@ -18,7 +18,7 @@ const ClassworkPage = async ({ params }: { params: { roomId: string } }) => {
     const quizzes = await getAllQuizzes(params.roomId);
 
     return (
-        <div className="w-full max-w-6xl mx-auto flex gap-10 p-6">
+        <main className="w-full max-w-6xl mx-auto flex gap-10 p-6">
             <div className="flex flex-col items-center gap-4">
                 <UpcomingQuiz />
                 <Classcode />
@@ -52,7 +52,7 @@ const ClassworkPage = async ({ params }: { params: { roomId: string } }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     );
 };
 

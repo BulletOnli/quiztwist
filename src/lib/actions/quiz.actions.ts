@@ -6,15 +6,21 @@ import { getErrorMessage } from "../utils";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import User from "../models/user.model";
 import { revalidatePath } from "next/cache";
+import Question from "../models/question.model";
 
 export const getAllQuizzes = async (roomId: string) => {
-    const quizzes = await Quiz.find({ room: roomId }).sort({ updatedAt: -1 });
+    const quizzes = await Quiz.find({ room: roomId })
+        .sort({ updatedAt: -1 })
+        .lean();
 
     return quizzes;
 };
 
 export const getQuizInfo = async (quizId: string) => {
-    const quizInfo = await Quiz.findById(quizId);
+    const quizInfo = await Quiz.findById(quizId).populate({
+        path: "questions",
+        model: Question,
+    });
 
     return quizInfo;
 };
@@ -35,7 +41,7 @@ export const createQuiz = async (formData: FormData, roomId: string) => {
             .lean();
 
         if (isTitleAvailable.length !== 0) {
-            throw new Error("Title is already taken!");
+            throw new Error("Title already exist!");
         }
 
         const newQuiz = await Quiz.create({

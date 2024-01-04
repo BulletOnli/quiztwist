@@ -23,6 +23,17 @@ const UserSchema = new mongoose.Schema({
             ref: "Classroom",
         },
     ],
+    answeredQuizzes: [
+        {
+            quiz: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Quiz",
+            },
+            score: {
+                type: Number,
+            },
+        },
+    ],
 });
 
 export type UserType = mongoose.InferSchemaType<typeof UserSchema> & {

@@ -16,7 +16,7 @@ const PeoplePage = async ({ params }: PeoplePageProps) => {
     const classroom = await getClassroomData(params.roomId);
 
     return (
-        <div className="w-full max-w-7xl mx-auto flex flex-col p-10 ">
+        <main className="w-full max-w-7xl mx-auto flex flex-col p-10 ">
             <div className="w-full flex flex-col gap-4">
                 <h1 className="text-xl font-medium">Teacher</h1>
                 <div className="w-full flex flex-wrap items-center gap-6">
@@ -45,7 +45,7 @@ const PeoplePage = async ({ params }: PeoplePageProps) => {
                 <h1 className="text-xl font-medium">Students</h1>
                 <StudentsList students={classroom?.students || []} />
             </div>
-        </div>
+        </main>
     );
 };
 

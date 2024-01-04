@@ -5,18 +5,18 @@ const questionSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please provide a Question!"],
     },
-    answer: {
+    rightAnswer: {
         type: String,
         required: [true, "Please provide the answer key!"],
+        validate: {
+            validator: function (value: string) {
+                return value.length <= 1; // For example, requiring at least 5 characters
+            },
+            message: "Answer must be a single character!",
+        },
     },
     choices: {
         type: [String],
-        validate: {
-            validator: function (arr: string[]) {
-                return arr.length <= 2;
-            },
-            message: `Choices must be at least 2.`,
-        },
         required: [true, "Please provide a choices!"],
         default: [],
     },

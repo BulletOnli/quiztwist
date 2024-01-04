@@ -13,7 +13,7 @@ const DashboardPage = async () => {
     const session = await getServerSession(authOptions);
 
     return (
-        <div className="w-full max-w-7xl flex flex-col">
+        <main className="w-full max-w-7xl flex flex-col">
             <div className="w-full flex justify-between items-center mt-10">
                 <div>
                     <h1 className="font-bold text-2xl">My Classrooms</h1>
@@ -25,7 +25,7 @@ const DashboardPage = async () => {
                 <DashboardButtons session={session} />
             </div>
             <ClassroomsGrid />
-        </div>
+        </main>
     );
 };
 

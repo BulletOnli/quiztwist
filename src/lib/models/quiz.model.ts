@@ -1,4 +1,5 @@
 import mongoose, { Model, models } from "mongoose";
+import { QuestionType } from "./question.model";
 
 //todo in the future
 // Deadline
@@ -32,6 +33,12 @@ const QuizSchema = new mongoose.Schema(
             type: Boolean,
             default: false,
         },
+        respondents: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User",
+            },
+        ],
     },
     {
         timestamps: true,
@@ -40,6 +47,7 @@ const QuizSchema = new mongoose.Schema(
 
 export type QuizSchemaType = mongoose.InferSchemaType<typeof QuizSchema> & {
     _id: mongoose.Types.ObjectId;
+    questions: QuestionType[];
 };
 
 const Quiz: Model<QuizSchemaType> =
