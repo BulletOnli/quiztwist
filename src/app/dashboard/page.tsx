@@ -22,7 +22,7 @@ const DashboardPage = async () => {
                     </p>
                 </div>
 
-                <DashboardButtons session={session} />
+                <DashboardButtons user={session!.user} />
             </div>
             <ClassroomsGrid />
         </main>

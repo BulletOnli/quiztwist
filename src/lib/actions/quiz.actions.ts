@@ -26,6 +26,7 @@ export const checkUserEligibility = async (quizId: string) => {
             })
             .lean();
 
+        // Checks if the user id is in the respondents array
         const isAlreadyAnswered = quizInfo?.respondents.some(
             (respondent) => respondent._id.toString() === user._id.toString()
         );

@@ -59,11 +59,23 @@ const Onboardingform = () => {
 
             <div className="w-full flex flex-col gap-2 mb-3">
                 <Label htmlFor="firstName">First name</Label>
-                <Input id="firstName" name="firstName" minLength={3} required />
+                <Input
+                    id="firstName"
+                    name="firstName"
+                    placeholder="Enter your first name"
+                    minLength={3}
+                    required
+                />
             </div>
             <div className="w-full flex flex-col gap-2 mb-3">
                 <Label htmlFor="lastName">Last name</Label>
-                <Input id="lastName" name="lastName" minLength={3} required />
+                <Input
+                    id="lastName"
+                    name="lastName"
+                    placeholder="Enter your last name"
+                    minLength={3}
+                    required
+                />
             </div>
             <div className="w-full flex flex-col gap-2 mb-3">
                 <Label htmlFor="username">Username</Label>

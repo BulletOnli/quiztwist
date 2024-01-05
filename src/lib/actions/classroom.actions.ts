@@ -37,7 +37,7 @@ export const createClassroom = async (formData: FormData) => {
         ]);
         if (!user || !session) throw new Error("Please login first!");
 
-        const classroom: ClassroomType = await Classroom.create({
+        const classroom = await Classroom.create({
             subject: formData.get("subject"),
             description: formData.get("description"),
             section: formData.get("section"),
@@ -48,6 +48,11 @@ export const createClassroom = async (formData: FormData) => {
         await user.save();
 
         revalidatePath("/dashboard");
+
+        return {
+            message: "New Classroom created!",
+            roomId: classroom._id,
+        };
     } catch (error) {
         return {
             error: getErrorMessage(error),
@@ -95,6 +100,7 @@ export const joinClassroom = async (formData: FormData) => {
                     revalidatePath("/dashboard");
                     return {
                         message: "Successfully joined!",
+                        roomId: classroom._id,
                     };
                 } else {
                     throw new Error("You already joined this classroom");

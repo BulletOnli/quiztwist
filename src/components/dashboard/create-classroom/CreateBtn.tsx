@@ -8,11 +8,9 @@ const CreateBtn = () => {
 
     return (
         <DialogFooter>
-            <DialogClose asChild>
-                <Button type="submit" disabled={pending}>
-                    {pending ? "Creating..." : "Create"}
-                </Button>
-            </DialogClose>
+            <Button type="submit" disabled={pending}>
+                {pending ? "Creating..." : "Create"}
+            </Button>
         </DialogFooter>
     );
 };

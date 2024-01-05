@@ -13,8 +13,10 @@ import JoinBtn from "./JoinBtn";
 import { useState } from "react";
 import { joinClassroom } from "@/lib/actions/classroom.actions";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const JoinClassroomModal = () => {
+    const router = useRouter();
     const [inputLength, setInputLength] = useState(0);
     const [open, setOpen] = useState(false);
 
@@ -27,6 +29,7 @@ const JoinClassroomModal = () => {
 
         toast.success(response.message);
         setOpen(false);
+        router.push(`/room/${response.roomId}/classwork`);
     };
 
     return (

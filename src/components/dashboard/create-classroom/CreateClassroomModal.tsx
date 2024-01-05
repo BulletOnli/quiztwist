@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -11,10 +12,28 @@ import CreateBtn from "./CreateBtn";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClassroom } from "@/lib/actions/classroom.actions";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const CreateClassroomModal = () => {
+    const router = useRouter();
+    const [open, setOpen] = useState(false);
+
+    const createClassroomModalAction = async (formData: FormData) => {
+        const response = await createClassroom(formData);
+
+        if (response.error) {
+            return toast.error(response.error);
+        }
+
+        toast.success(response.message);
+        router.push(`/room/${response.roomId}/classwork`);
+        setOpen(false);
+    };
+
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button>New Classroom</Button>
             </DialogTrigger>
@@ -25,7 +44,7 @@ const CreateClassroomModal = () => {
                         Enter the subject and section name
                     </DialogDescription>
                 </DialogHeader>
-                <form action={createClassroom}>
+                <form action={createClassroomModalAction}>
                     <div className="grid gap-4 py-4">
                         <div className="grid grid-cols-4 items-center gap-4">
                             <Label htmlFor="subject" className="text-right">
