@@ -15,6 +15,8 @@ import { createQuestion } from "@/lib/actions/question.actions";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import NewQuestionFormBtn from "./NewQuestionFormBtn";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 
 const NewQuestionDialog = () => {
     const [open, setOpen] = useState(false);
@@ -49,6 +51,7 @@ const NewQuestionDialog = () => {
                     <div className="flex flex-col gap-2">
                         <p className="font-medium text-sm">Question</p>
                         <Input
+                            autoComplete="off"
                             id="question"
                             name="question"
                             placeholder="Enter a Question"
@@ -59,6 +62,7 @@ const NewQuestionDialog = () => {
                     <div className="flex items-center gap-2">
                         <p className="font-medium text-sm">A.</p>
                         <Input
+                            autoComplete="off"
                             id="optionA"
                             name="optionA"
                             placeholder="Option A"
@@ -68,6 +72,7 @@ const NewQuestionDialog = () => {
                     <div className="flex items-center gap-2">
                         <p className="font-medium text-sm">B.</p>
                         <Input
+                            autoComplete="off"
                             id="optionB"
                             name="optionB"
                             placeholder="Option B"
@@ -77,6 +82,7 @@ const NewQuestionDialog = () => {
                     <div className="flex items-center gap-2">
                         <p className="font-medium text-sm">C.</p>
                         <Input
+                            autoComplete="off"
                             id="optionC"
                             name="optionC"
                             placeholder="Option C"
@@ -86,6 +92,7 @@ const NewQuestionDialog = () => {
                     <div className="flex items-center gap-2">
                         <p className="font-medium text-sm">D.</p>
                         <Input
+                            autoComplete="off"
                             id="optionD"
                             name="optionD"
                             placeholder="Option D"
@@ -94,13 +101,51 @@ const NewQuestionDialog = () => {
                     </div>
                     <div className="flex flex-col gap-2 mt-2">
                         <p className="font-medium text-sm">Answer:</p>
-                        <Input
+                        {/* <Input
+                            autoComplete="off"
                             id="rightAnswer"
                             name="rightAnswer"
                             placeholder="Right Answer"
                             required
                             maxLength={1}
-                        />
+                        /> */}
+                        <RadioGroup
+                            name="rightAnswer"
+                            className="w-[70%] mx-auto grid grid-cols-4 place-items-center"
+                        >
+                            <div className="flex items-center space-x-2">
+                                <RadioGroupItem
+                                    value="A"
+                                    id="answerA"
+                                    className="w-5 h-5"
+                                />
+                                <Label htmlFor="answerA">A</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <RadioGroupItem
+                                    value="B"
+                                    id="answerB"
+                                    className="w-5 h-5"
+                                />
+                                <Label htmlFor="answerB">B</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <RadioGroupItem
+                                    value="C"
+                                    id="answerC"
+                                    className="w-5 h-5"
+                                />
+                                <Label htmlFor="answerC">C</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <RadioGroupItem
+                                    value="D"
+                                    id="answerD"
+                                    className="w-5 h-5"
+                                />
+                                <Label htmlFor="answerD">D</Label>
+                            </div>
+                        </RadioGroup>
                     </div>
                     <NewQuestionFormBtn />
                 </form>

@@ -9,9 +9,10 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 type QuestionListProps = {
     questions: QuestionType[];
     quizId: string;
+    isTeacher: any;
 };
 
-const QuestionList = ({ questions, quizId }: QuestionListProps) => {
+const QuestionList = ({ questions, quizId, isTeacher }: QuestionListProps) => {
     const submitQuizAction = async (formData: FormData) => {
         "use server";
         const response = await submitQuiz(formData, quizId);
@@ -72,7 +73,9 @@ const QuestionList = ({ questions, quizId }: QuestionListProps) => {
                     key={question._id.toString()}
                 />
             ))}
-            {questions.length !== 0 && <Button type="submit">Submit</Button>}
+            {!isTeacher && questions.length !== 0 && (
+                <Button type="submit">Submit</Button>
+            )}
         </form>
     );
 };

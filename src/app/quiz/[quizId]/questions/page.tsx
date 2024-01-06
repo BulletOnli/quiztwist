@@ -46,6 +46,7 @@ const QuizPage = async ({ params }: QuizPageProps) => {
                 <QuestionList
                     questions={quizInfo?.questions || []}
                     quizId={params.quizId}
+                    isTeacher={isTeacher}
                 />
             </div>
         </main>
