@@ -101,17 +101,10 @@ const NewQuestionDialog = () => {
                     </div>
                     <div className="flex flex-col gap-2 mt-2">
                         <p className="font-medium text-sm">Answer:</p>
-                        {/* <Input
-                            autoComplete="off"
-                            id="rightAnswer"
-                            name="rightAnswer"
-                            placeholder="Right Answer"
-                            required
-                            maxLength={1}
-                        /> */}
                         <RadioGroup
                             name="rightAnswer"
                             className="w-[70%] mx-auto grid grid-cols-4 place-items-center"
+                            required
                         >
                             <div className="flex items-center space-x-2">
                                 <RadioGroupItem

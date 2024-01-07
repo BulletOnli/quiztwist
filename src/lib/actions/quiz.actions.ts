@@ -55,10 +55,17 @@ export const getAllQuizzes = async (roomId: string) => {
 
 export const getQuizInfo = async (quizId: string) => {
     const quizInfo = await Quiz.findById(quizId)
-        .populate({
-            path: "questions",
-            model: Question,
-        })
+        .populate([
+            {
+                path: "questions",
+                model: Question,
+            },
+            {
+                path: "teacher",
+                select: ["username"],
+                model: User,
+            },
+        ])
         .lean();
 
     return quizInfo;

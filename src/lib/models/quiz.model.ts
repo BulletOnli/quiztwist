@@ -1,5 +1,6 @@
 import mongoose, { Model, models } from "mongoose";
 import { QuestionType } from "./question.model";
+import { UserType } from "./user.model";
 
 //todo in the future
 // Deadline
@@ -48,6 +49,7 @@ const QuizSchema = new mongoose.Schema(
 export type QuizSchemaType = mongoose.InferSchemaType<typeof QuizSchema> & {
     _id: mongoose.Types.ObjectId;
     questions: QuestionType[];
+    teacher: UserType;
 };
 
 const Quiz: Model<QuizSchemaType> =

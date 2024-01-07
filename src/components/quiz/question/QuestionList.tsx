@@ -1,10 +1,10 @@
 import { QuestionType } from "@/lib/models/question.model";
 import QuestionBox from "./QuestionBox";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { submitQuiz } from "@/lib/actions/quiz.actions";
 import { redirect } from "next/navigation";
-import { Label } from "../ui/label";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { Label } from "../../ui/label";
+import { RadioGroup, RadioGroupItem } from "../../ui/radio-group";
 
 type QuestionListProps = {
     questions: QuestionType[];
