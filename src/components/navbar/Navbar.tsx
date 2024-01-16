@@ -12,7 +12,7 @@ const Navbar = async () => {
         <nav className="w-full sticky top-0 z-[100] flex justify-center items-center p-3 bg-inherit border-b border-b-borderColor">
             <div className="w-full max-w-7xl flex justify-between items-center  ">
                 <Link href="/">
-                    <p className="text-lg font-medium">TestTwist</p>
+                    <p className="text-lg font-medium">QuizTwist</p>
                 </Link>
 
                 <div className="flex items-center gap-2">
