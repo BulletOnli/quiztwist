@@ -12,6 +12,7 @@ import { createQuiz } from "@/lib/actions/quiz.actions";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import NewQuizFormBtn from "./NewQuizFormBtn";
+import Image from "next/image";
 
 const NewQuizDialog = () => {
     const roomId = usePathname().split("/")[2];
@@ -33,7 +34,7 @@ const NewQuizDialog = () => {
             <DialogTrigger>
                 <div className="flex flex-col gap-2">
                     <div className="w-[8rem] h-[6rem] flex justify-center items-center border border-borderColor rounded-lg bg-secondary-gray">
-                        <img src="/plus.png" alt="" />
+                        <Image width="30" height="30" src="/plus.png" alt="" />
                     </div>
                     <p className="text-sm text-start">Blank Quiz</p>
                 </div>
