@@ -3,10 +3,10 @@ import { getServerSession } from "next-auth";
 import Quiz from "../models/quiz.model";
 import connectToDB from "../mongoose";
 import { getErrorMessage } from "../utils";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import User from "../models/user.model";
 import { revalidatePath } from "next/cache";
 import Question from "../models/question.model";
+import authOptions from "@/utils/authOptions";
 
 // Just checking if the user is already participated in the quiz
 export const checkUserEligibility = async (quizId: string) => {

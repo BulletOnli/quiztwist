@@ -1,11 +1,11 @@
 "use server";
 import { getServerSession } from "next-auth";
 import Classroom, { ClassroomType } from "../models/classroom.model";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import connectToDB from "../mongoose";
 import { revalidatePath } from "next/cache";
 import User from "../models/user.model";
 import { getErrorMessage } from "../utils";
+import authOptions from "@/utils/authOptions";
 
 export const getClassrooms = async () => {
     await connectToDB();

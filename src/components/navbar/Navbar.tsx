@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import ToggleTheme from "./ToggleTheme";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import authOptions from "@/utils/authOptions";
 
 const Navbar = async () => {
     const session = await getServerSession(authOptions);

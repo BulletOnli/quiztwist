@@ -1,10 +1,10 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import QuestionList from "@/components/quiz/question/QuestionList";
 import NewQuestionDialog from "@/components/quiz/question/NewQuestionDialog";
 import { Button } from "@/components/ui/button";
 import { checkUserEligibility, getQuizInfo } from "@/lib/actions/quiz.actions";
 import { getServerSession } from "next-auth";
 import SubmitReportModal from "@/components/quiz/SubmitReportModal";
+import authOptions from "@/utils/authOptions";
 
 type QuizPageProps = {
     params: { quizId: string };
