@@ -5,7 +5,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import connectToDB from "../mongoose";
 import { revalidatePath } from "next/cache";
 import User from "../models/user.model";
-import { getErrorMessage } from "../utils";
+import getErrorMessage from "@/utils/getErrorMessage";
 
 export const getClassrooms = async () => {
     await connectToDB();

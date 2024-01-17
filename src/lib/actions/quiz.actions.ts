@@ -2,7 +2,7 @@
 import { getServerSession } from "next-auth";
 import Quiz from "../models/quiz.model";
 import connectToDB from "../mongoose";
-import { getErrorMessage } from "../utils";
+import getErrorMessage from "@/utils/getErrorMessage";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import User from "../models/user.model";
 import { revalidatePath } from "next/cache";

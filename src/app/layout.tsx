@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { poppins } from "@/lib/utils";
 import "@/styles/globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import GlobalProviders from "@/context/GlobalProviders";
+import { poppins } from "@/utils/googleFonts";
 
 export const metadata: Metadata = {
     title: "QuizTwist",
