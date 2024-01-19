@@ -45,12 +45,16 @@ const AccountAvatar = ({ user }: { user: NextAuthUser }) => {
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem disabled>
-                    <User className="mr-2 h-4 w-4" />
-                    <Link href="/">Profile</Link>
+                    <Link href="/" className="flex items-center">
+                        <User className="mr-2 h-4 w-4" />
+                        <p>Profile</p>
+                    </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                    <LayoutDashboard className="mr-2 h-4 w-4" />
-                    <Link href="/dashboard">Dashboard</Link>
+                    <Link href="/dashboard" className="flex items-center">
+                        <LayoutDashboard className="mr-2 h-4 w-4" />
+                        <p>Dashboard</p>
+                    </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
                     <LogOut className="mr-2 h-4 w-4" />

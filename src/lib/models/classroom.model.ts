@@ -1,6 +1,5 @@
 import mongoose, { Model } from "mongoose";
 import { UserType } from "./user.model";
-import { QuizSchemaType } from "./quiz.model";
 
 const classroomSchema = new mongoose.Schema(
     {
@@ -27,12 +26,6 @@ const classroomSchema = new mongoose.Schema(
                 ref: "User",
             },
         ],
-        quizzes: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Quiz",
-            },
-        ],
     },
     {
         timestamps: true,
@@ -43,7 +36,6 @@ export type ClassroomType = mongoose.InferSchemaType<typeof classroomSchema> & {
     _id: mongoose.Types.ObjectId;
     teacher: UserType;
     students: UserType[];
-    quizzes: QuizSchemaType[];
 };
 
 const Classroom: Model<ClassroomType> =

@@ -13,7 +13,14 @@ export const getClassrooms = async () => {
 
     const user = await User.findById(session?.user.id)
         .select(["classrooms"])
-        .populate("classrooms")
+        .populate({
+            path: "classrooms",
+            populate: {
+                path: "teacher",
+                model: User,
+                select: ["firstName", "lastName"],
+            },
+        })
         .lean();
 
     return user?.classrooms as ClassroomType[];
