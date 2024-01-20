@@ -1,5 +1,5 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Onboardingform from "@/components/auth/onboarding/Onboardingform";
+import authOptions from "@/utils/authOptions";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";

@@ -1,8 +1,8 @@
 import ClassroomsGrid from "@/components/dashboard/ClassroomsGrid";
 import DashboardButtons from "@/components/dashboard/DashboardButtons";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
 import type { Metadata } from "next";
+import authOptions from "@/utils/authOptions";
 
 export const metadata: Metadata = {
     title: "Dashboard | QuizTwist",

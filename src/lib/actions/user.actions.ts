@@ -6,7 +6,7 @@ import connectToDB from "../mongoose";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import getErrorMessage from "@/utils/getErrorMessage";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import authOptions from "@/utils/authOptions";
 
 export const onboardingAction = async (formData: FormData) => {
     try {

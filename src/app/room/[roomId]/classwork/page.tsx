@@ -3,10 +3,10 @@ import QuizTemplates from "@/components/room/classwork/QuizTemplates";
 import UpcomingQuiz from "@/components/room/classwork/UpcomingQuiz";
 import Classcode from "@/components/room/classwork/Classcode";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getAllQuizzes } from "@/lib/actions/quiz.actions";
 import Link from "next/link";
 import { CalendarClock } from "lucide-react";
+import authOptions from "@/utils/authOptions";
 
 export const metadata: Metadata = {
     title: "Classwork | QuizTwist",
