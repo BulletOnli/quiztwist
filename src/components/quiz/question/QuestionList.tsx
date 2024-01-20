@@ -70,6 +70,7 @@ const QuestionList = ({ questions, quizId, isTeacher }: QuestionListProps) => {
                 <QuestionBox
                     question={question}
                     index={index + 1}
+                    quizId={quizId}
                     key={question._id.toString()}
                 />
             ))}

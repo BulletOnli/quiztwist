@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { checkUserEligibility, getQuizInfo } from "@/lib/actions/quiz.actions";
 import { getServerSession } from "next-auth";
 import SubmitReportModal from "@/components/quiz/SubmitReportModal";
+import { QuizSchemaType } from "@/lib/models/quiz.model";
 
 type QuizPageProps = {
     params: { quizId: string };
@@ -37,7 +38,7 @@ const QuizPage = async ({ params }: QuizPageProps) => {
                     <h1 className="text-xl font-semibold">{quizInfo?.title}</h1>
                     <p className="text-sm ">{quizInfo?.description}</p>
                     <hr className="my-2" />
-                    <p className="text-sm">
+                    <p className="text-xs">
                         Prepared by: {quizInfo?.teacher.username}
                     </p>
                 </div>
