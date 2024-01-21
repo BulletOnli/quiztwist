@@ -37,8 +37,15 @@ const ClassroomsGrid = async () => {
 
                         <div className="flex items-center gap-2">
                             <Avatar>
-                                <AvatarImage src="https://github.com/shadcn.png" />
-                                <AvatarFallback>CN</AvatarFallback>
+                                <AvatarImage
+                                    src={
+                                        classroom?.teacher.profilePic ||
+                                        "https://github.com/shadcn.png"
+                                    }
+                                />
+                                <AvatarFallback>
+                                    {classroom?.teacher.firstName?.slice(0, 1)}
+                                </AvatarFallback>
                             </Avatar>
                             <div>
                                 <p className="text-xs">

@@ -11,10 +11,10 @@ export default async function RoomLayout({
     params,
 }: RoomLayoutProps) {
     return (
-        <div className="w-full relative flex">
+        <div className="w-full min-h-screen relative flex">
             <Sidebar />
             <div className="w-full flex flex-col items-center mx-auto">
-                <div className="relative w-full min-h-screen flex flex-col">
+                <div className="relative w-full flex flex-col">
                     <RoomHeader roomId={params.roomId} />
                     {children}
                 </div>

@@ -18,7 +18,7 @@ export const getClassrooms = async () => {
             populate: {
                 path: "teacher",
                 model: User,
-                select: ["firstName", "lastName"],
+                select: ["firstName", "lastName", "profilePic"],
             },
         })
         .lean();
@@ -116,6 +116,36 @@ export const joinClassroom = async (formData: FormData) => {
         }
 
         throw new Error("Invalid Code, Try again!");
+    } catch (error) {
+        return {
+            error: getErrorMessage(error),
+        };
+    }
+};
+
+export const deleteClassroomAction = async (
+    formData: FormData,
+    roomId: string
+) => {
+    try {
+        await connectToDB();
+        const session = await getServerSession(authOptions);
+        const user = await User.findById(session?.user.id).select([
+            "classrooms",
+        ]);
+        if (!user || !session) throw new Error("Please login first!");
+
+        const deleteConfirmed = formData.get("confirmDelete") === "Confirm";
+
+        if (!deleteConfirmed) {
+            throw new Error("Please confirm before deleting!");
+        }
+
+        await Classroom.findByIdAndDelete(roomId);
+
+        return {
+            message: "Classroom deleted!",
+        };
     } catch (error) {
         return {
             error: getErrorMessage(error),

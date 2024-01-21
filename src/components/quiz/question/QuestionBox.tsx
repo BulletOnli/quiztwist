@@ -1,23 +1,29 @@
 import { QuestionType } from "@/lib/models/question.model";
 import { Label } from "../../ui/label";
 import { RadioGroup, RadioGroupItem } from "../../ui/radio-group";
-import { Trash2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import DeleteQuestionDialog from "./DeleteQuestionDialog";
 
 type QuestionBoxProps = {
     question: QuestionType;
     index: number;
     quizId: string;
+    isTeacher: boolean;
 };
 
-const QuestionBox = ({ question, index, quizId }: QuestionBoxProps) => {
+const QuestionBox = ({
+    question,
+    index,
+    quizId,
+    isTeacher,
+}: QuestionBoxProps) => {
     return (
         <div className="relative min-w-[45rem] max-w-full p-6 bg-white border border-l-4 border-r-4 border-borderColor rounded-xl">
-            <DeleteQuestionDialog
-                questionId={question._id.toString()}
-                quizId={quizId}
-            />
+            {isTeacher && (
+                <DeleteQuestionDialog
+                    questionId={question._id.toString()}
+                    quizId={quizId}
+                />
+            )}
 
             <div className="flex items-center gap-2">
                 <p className="text-xs text-gray">{index}.</p>
