@@ -143,6 +143,8 @@ export const deleteClassroomAction = async (
 
         await Classroom.findByIdAndDelete(roomId);
 
+        revalidatePath("/dashboard");
+
         return {
             message: "Classroom deleted!",
         };
