@@ -11,9 +11,9 @@ import {
 import { Input } from "@/components/ui/input";
 import JoinBtn from "./JoinBtn";
 import { useState } from "react";
-import { joinClassroom } from "@/lib/actions/classroom.actions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { joinClassroomAction } from "@/lib/actions/classroom.actions";
 
 const JoinClassroomModal = () => {
     const router = useRouter();
@@ -21,7 +21,7 @@ const JoinClassroomModal = () => {
     const [open, setOpen] = useState(false);
 
     const joinFormAction = async (formData: FormData) => {
-        const response = await joinClassroom(formData);
+        const response = await joinClassroomAction(formData);
 
         if (response?.error) {
             return toast.error(response.error);

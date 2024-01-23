@@ -1,5 +1,6 @@
 import DeleteClassroomDialog from "@/components/room/settings/DeleteClassroomDialog";
 import UpdateClassroomForm from "@/components/room/settings/UpdateClassroomForm";
+import { getClassroomData } from "@/lib/actions/classroom.actions";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,13 +12,18 @@ type SettingsPageProps = {
     params: { roomId: string };
 };
 
-const SettingsPage = ({ params }: SettingsPageProps) => {
+const SettingsPage = async ({ params }: SettingsPageProps) => {
+    const classroomData = await getClassroomData(params.roomId);
+
     return (
         <main className="w-full flex flex-col items-center justify-between p-10">
             <div className="w-[30rem] flex flex-col items-center justify-center p-4 border border-borderColor rounded-lg">
                 <p className="font-medium text-lg">Edit Classroom Details</p>
                 <div className="w-full flex flex-col p-4">
-                    <UpdateClassroomForm />
+                    <UpdateClassroomForm
+                        roomId={params.roomId}
+                        classroomData={JSON.stringify(classroomData)}
+                    />
                 </div>
             </div>
 

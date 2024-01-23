@@ -11,17 +11,17 @@ import {
 import CreateBtn from "./CreateBtn";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createClassroom } from "@/lib/actions/classroom.actions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { createClassroomAction } from "@/lib/actions/classroom.actions";
 
 const CreateClassroomModal = () => {
     const router = useRouter();
     const [open, setOpen] = useState(false);
 
     const createClassroomModalAction = async (formData: FormData) => {
-        const response = await createClassroom(formData);
+        const response = await createClassroomAction(formData);
 
         if (response.error) {
             return toast.error(response.error);

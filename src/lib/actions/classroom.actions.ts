@@ -35,7 +35,7 @@ export const getClassroomData = async (id: string) => {
     return classroom;
 };
 
-export const createClassroom = async (formData: FormData) => {
+export const createClassroomAction = async (formData: FormData) => {
     try {
         await connectToDB();
         const session = await getServerSession(authOptions);
@@ -67,7 +67,7 @@ export const createClassroom = async (formData: FormData) => {
     }
 };
 
-export const joinClassroom = async (formData: FormData) => {
+export const joinClassroomAction = async (formData: FormData) => {
     try {
         await connectToDB();
         const session = await getServerSession(authOptions);
@@ -116,6 +116,44 @@ export const joinClassroom = async (formData: FormData) => {
         }
 
         throw new Error("Invalid Code, Try again!");
+    } catch (error) {
+        return {
+            error: getErrorMessage(error),
+        };
+    }
+};
+
+export const updateClassroomAction = async (
+    formData: FormData,
+    roomId: string
+) => {
+    try {
+        await connectToDB();
+        const session = await getServerSession(authOptions);
+        const user = await User.findById(session?.user.id).select([
+            "classrooms",
+        ]);
+        if (!user || !session) throw new Error("Please login first!");
+
+        const classroom = await Classroom.findById(roomId);
+        if (!classroom) throw new Error("Classroom not found!");
+
+        const data = Object.fromEntries(formData) as {
+            subject: string;
+            description: string;
+            section: string;
+        };
+
+        classroom.subject = data.subject;
+        classroom.description = data.description;
+        classroom.section = data.section;
+        await classroom.save();
+
+        revalidatePath(`/room/${roomId}`);
+
+        return {
+            message: "Update classroom Successfully",
+        };
     } catch (error) {
         return {
             error: getErrorMessage(error),
