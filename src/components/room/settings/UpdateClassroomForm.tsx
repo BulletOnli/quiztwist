@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 
 const UpdateClassroomForm = () => {
     return (
-        <form>
+        <form className="flex flex-col gap-2">
             <div>
                 <Label>Subject:</Label>
                 <Input placeholder="Enter a Subject" />

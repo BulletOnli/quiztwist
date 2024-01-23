@@ -15,10 +15,8 @@ const SettingsPage = ({ params }: SettingsPageProps) => {
     return (
         <main className="w-full flex flex-col items-center justify-between p-10">
             <div className="w-[30rem] flex flex-col items-center justify-center p-4 border border-borderColor rounded-lg">
-                <p className="font-medium mb-4 text-lg">
-                    Edit Classroom Details
-                </p>
-                <div className="w-full flex flex-col gap-2">
+                <p className="font-medium text-lg">Edit Classroom Details</p>
+                <div className="w-full flex flex-col p-4">
                     <UpdateClassroomForm />
                 </div>
             </div>
