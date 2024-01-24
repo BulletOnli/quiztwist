@@ -1,8 +1,11 @@
-import ClassroomsGrid from "@/components/dashboard/ClassroomsGrid";
-import DashboardButtons from "@/components/dashboard/DashboardButtons";
+import ClassroomsGrid from "@/components/room/ClassroomsGrid";
 import { getServerSession } from "next-auth";
 import type { Metadata } from "next";
 import authOptions from "@/utils/authOptions";
+import { Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import CreateClassroomModal from "@/components/room/create-classroom/CreateClassroomModal";
+import JoinClassroomModal from "@/components/room/join-classroom/JoinClassroomModal";
 
 export const metadata: Metadata = {
     title: "Dashboard | QuizTwist",
@@ -22,7 +25,16 @@ const DashboardPage = async () => {
                     </p>
                 </div>
 
-                <DashboardButtons user={session!.user} />
+                <div className="flex items-center gap-2">
+                    <Button variant={"outline"} size="icon">
+                        <Search className="w-5" />
+                    </Button>
+                    {session?.user.role === "Teacher" ? (
+                        <CreateClassroomModal />
+                    ) : (
+                        <JoinClassroomModal />
+                    )}
+                </div>
             </div>
             <ClassroomsGrid />
         </main>

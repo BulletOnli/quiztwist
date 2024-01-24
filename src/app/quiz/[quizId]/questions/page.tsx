@@ -1,5 +1,5 @@
-import QuestionList from "@/components/quiz/question/QuestionList";
-import NewQuestionDialog from "@/components/quiz/question/NewQuestionDialog";
+import QuestionList from "@/components/question/QuestionList";
+import NewQuestionDialog from "@/components/question/NewQuestionDialog";
 import { Button } from "@/components/ui/button";
 import { checkUserEligibility, getQuizInfo } from "@/lib/actions/quiz.actions";
 import { getServerSession } from "next-auth";

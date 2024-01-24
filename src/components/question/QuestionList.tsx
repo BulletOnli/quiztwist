@@ -1,6 +1,6 @@
 import { QuestionType } from "@/lib/models/question.model";
 import QuestionBox from "./QuestionBox";
-import { Button } from "../../ui/button";
+import { Button } from "../ui/button";
 import { submitQuiz } from "@/lib/actions/quiz.actions";
 import { redirect } from "next/navigation";
 import SampleQuestion from "./SampleQuestion";

@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
-import NewQuestionFormBtn from "./question/NewQuestionFormBtn";
+import NewQuestionFormBtn from "../question/NewQuestionFormBtn";
 
 const SubmitReportModal = () => {
     const [open, setOpen] = useState(false);

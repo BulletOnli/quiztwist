@@ -1,4 +1,4 @@
-import NewQuizDialog from "./new-quiz/NewQuizDialog";
+import NewQuizDialog from "@/components/quiz/new-quiz/NewQuizDialog";
 
 const QuizTemplates = () => {
     return (
