@@ -2,6 +2,7 @@ import { QuestionType } from "@/lib/models/question.model";
 import { Label } from "../../ui/label";
 import { RadioGroup, RadioGroupItem } from "../../ui/radio-group";
 import DeleteQuestionDialog from "./DeleteQuestionDialog";
+import EditQuestionDialog from "./EditQuestionDialog";
 
 type QuestionBoxProps = {
     question: QuestionType;
@@ -19,15 +20,21 @@ const QuestionBox = ({
     return (
         <div className="relative min-w-[45rem] max-w-full p-6 bg-white border border-l-4 border-r-4 border-borderColor rounded-xl">
             {isTeacher && (
-                <DeleteQuestionDialog
-                    questionId={question._id.toString()}
-                    quizId={quizId}
-                />
+                <div className="absolute -right-4 -top-5 px-2 py-1 flex items-center gap-2 bg-white border border-borderColor rounded-full">
+                    <EditQuestionDialog
+                        question={JSON.stringify(question)}
+                        quizId={quizId}
+                    />
+                    <DeleteQuestionDialog
+                        questionId={question._id.toString()}
+                        quizId={quizId}
+                    />
+                </div>
             )}
 
             <div className="flex items-center gap-2">
                 <p className="text-xs text-gray">{index}.</p>
-                <p>{question.question}</p>D B D
+                <p>{question.question}</p>
             </div>
 
             <RadioGroup

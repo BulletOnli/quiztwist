@@ -45,7 +45,64 @@ export const createQuestion = async (formData: FormData, quizId: string) => {
     }
 };
 
-export const deleteQuestion = async (quizId: string, questionId: string) => {
+type UpdateQuestionProps = {
+    formData: FormData;
+    quizId: string;
+    questionId: string;
+};
+
+export const updateQuestionAction = async ({
+    formData,
+    quizId,
+    questionId,
+}: UpdateQuestionProps) => {
+    try {
+        await connectToDB();
+        const session = await getServerSession(authOptions);
+        const user = await User.findById(session?.user.id)
+            .select(["_id"])
+            .lean();
+        if (!user || !session) throw new Error("Please login first!");
+
+        const question = await Question.findById(questionId);
+
+        if (!question) throw new Error("Question not found!");
+
+        const bodyData = Object.fromEntries(formData) as {
+            question: string;
+            rightAnswer: string;
+            optionA: string;
+            optionB: string;
+            optionC: string;
+            optionD: string;
+        };
+
+        question.question = bodyData.question;
+        question.rightAnswer = bodyData.rightAnswer.toUpperCase();
+        question.choices = [
+            bodyData.optionA,
+            bodyData.optionB,
+            bodyData.optionC,
+            bodyData.optionD,
+        ];
+
+        await question.save();
+        revalidatePath(`/quiz/${quizId}`);
+
+        return {
+            message: "Question details updated!",
+        };
+    } catch (error) {
+        return {
+            error: getErrorMessage(error),
+        };
+    }
+};
+
+export const deleteQuestionAction = async (
+    quizId: string,
+    questionId: string
+) => {
     try {
         await connectToDB();
         const session = await getServerSession(authOptions);

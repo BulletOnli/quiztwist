@@ -11,7 +11,7 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { deleteQuestion } from "@/lib/actions/question.actions";
+import { deleteQuestionAction } from "@/lib/actions/question.actions";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -28,7 +28,7 @@ const DeleteQuestionDialog = ({
     const [dialogOpen, setDialogOpen] = useState(false);
 
     const handleDelete = async () => {
-        const response = await deleteQuestion(quizId, questionId);
+        const response = await deleteQuestionAction(quizId, questionId);
 
         if (response.error) {
             return toast.error(response.message);
@@ -44,7 +44,8 @@ const DeleteQuestionDialog = ({
                 <Button
                     size="icon"
                     type="button"
-                    className="absolute -right-4 -top-3 rounded-full"
+                    className="w-7 h-7 rounded-full"
+                    variant="outline"
                 >
                     <Trash2 className="w-4 h-4" />
                 </Button>

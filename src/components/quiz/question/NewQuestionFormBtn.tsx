@@ -13,7 +13,9 @@ const NewQuestionFormBtn = () => {
                     Close
                 </Button>
             </DialogClose>
-            <Button type="submit">{pending ? "Creating..." : "Create"}</Button>
+            <Button type="submit">
+                {pending ? "Saving..." : "Save Changes"}
+            </Button>
         </DialogFooter>
     );
 };
