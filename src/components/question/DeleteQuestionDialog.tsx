@@ -62,9 +62,7 @@ const DeleteQuestionDialog = ({
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleDelete}>
-                        Delete
-                    </AlertDialogAction>
+                    <Button onClick={handleDelete}>Delete</Button>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

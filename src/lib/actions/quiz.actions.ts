@@ -98,11 +98,53 @@ export const createQuiz = async (formData: FormData, roomId: string) => {
             isOpen: false,
         });
 
-        revalidatePath(`/room/${roomId}/classwork`);
+        revalidatePath(`/room/${roomId}`);
 
         return {
             message: "Quiz created!",
             quizId: newQuiz._id.toString(),
+        };
+    } catch (error) {
+        return {
+            error: getErrorMessage(error),
+        };
+    }
+};
+
+export const updateQuizAction = async ({
+    formData,
+    quizId,
+}: {
+    formData: FormData;
+    quizId: string;
+}) => {
+    try {
+        await connectToDB();
+        const session = await getServerSession(authOptions);
+        const user = await User.findById(session?.user.id)
+            .select(["_id"])
+            .lean();
+        if (!user || !session) throw new Error("Please login first!");
+
+        const quiz = await Quiz.findById(quizId).select([
+            "title",
+            "description",
+        ]);
+        if (!quiz) throw new Error("Quiz not found!");
+
+        const data = Object.fromEntries(formData) as {
+            quizTitle: string;
+            quizDescription?: string;
+        };
+
+        quiz.title = data.quizTitle;
+        quiz.description = data.quizDescription;
+        await quiz.save();
+
+        revalidatePath(`quiz/${quizId}`);
+
+        return {
+            message: "Quiz info updated!",
         };
     } catch (error) {
         return {

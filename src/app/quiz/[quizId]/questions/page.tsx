@@ -5,6 +5,8 @@ import { checkUserEligibility, getQuizInfo } from "@/lib/actions/quiz.actions";
 import { getServerSession } from "next-auth";
 import SubmitReportModal from "@/components/quiz/SubmitReportModal";
 import authOptions from "@/utils/authOptions";
+import EditQuizDialog from "@/components/quiz/edit-quiz/EditQuizDialog";
+import QuizSettingsDialog from "@/components/quiz/QuizSettingsDialog";
 
 type QuizPageProps = {
     params: { quizId: string };
@@ -33,7 +35,12 @@ const QuizPage = async ({ params }: QuizPageProps) => {
     return (
         <main className="w-full relative min-h-screen bg-secondary flex justify-center p-6">
             <div className="w-[40rem] max-h-[30rem] sticky top-[85px] flex flex-col items-center">
-                <div className="w-full flex flex-col justify-center p-8 bg-white border border-t-8 border-borderColor rounded-xl">
+                <div className="relative w-full flex flex-col justify-center p-8 bg-white border border-t-8 border-borderColor rounded-xl">
+                    <EditQuizDialog
+                        quizInfo={JSON.stringify(quizInfo)}
+                        quizId={params.quizId}
+                    />
+
                     <h1 className="text-xl font-semibold">{quizInfo?.title}</h1>
                     <p className="text-sm ">{quizInfo?.description}</p>
                     <hr className="my-2" />
@@ -41,15 +48,15 @@ const QuizPage = async ({ params }: QuizPageProps) => {
                         Prepared by: {quizInfo?.teacher.username}
                     </p>
                 </div>
+
                 <div className="w-full flex flex-col items-center gap-2 mt-4">
                     {isTeacher && <NewQuestionDialog />}
-                    <Button className="w-full" variant="outline">
-                        Settings
-                    </Button>
+                    <QuizSettingsDialog />
                     {/* {!isTeacher && <SubmitReportModal />} */}
                     <SubmitReportModal />
                 </div>
             </div>
+
             <div className="w-full flex flex-col items-center px-10">
                 <QuestionList
                     questions={quizInfo?.questions || []}
