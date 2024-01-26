@@ -1,28 +1,69 @@
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import {
+    DialogTrigger,
+    DialogTitle,
+    DialogHeader,
+    DialogFooter,
+    DialogContent,
+    Dialog,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import {
+    SelectValue,
+    SelectTrigger,
+    SelectItem,
+    SelectContent,
+    Select,
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 
 const QuizSettingsDialog = () => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className="w-full" variant="outline">
+                <Button variant="outline" className="w-full">
                     Settings
                 </Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>General Settings</DialogTitle>
-                    <DialogDescription>
-                        Lorem ipsum dolor sit amet.
-                    </DialogDescription>
+                    <DialogTitle>Quiz Settings</DialogTitle>
                 </DialogHeader>
+                <form className="grid gap-4">
+                    <div className="grid gap-2">
+                        <Label htmlFor="theme">Theme</Label>
+                        <Select disabled>
+                            <SelectTrigger className="text-gray-500 dark:text-gray-400">
+                                <SelectValue placeholder="Select theme" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="light">Light</SelectItem>
+                                <SelectItem value="dark">Dark</SelectItem>
+                                <SelectItem value="system">
+                                    System Default
+                                </SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <div className="grid gap-2">
+                        <Label htmlFor="language">Language</Label>
+                        <Select disabled>
+                            <SelectTrigger className="text-gray-500 dark:text-gray-400">
+                                <SelectValue placeholder="Select language" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="en">English</SelectItem>
+                                <SelectItem value="es">Spanish</SelectItem>
+                                <SelectItem value="fr">French</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                </form>
+                <DialogFooter>
+                    <Button className="w-full text-red-500" variant="outline">
+                        Delete Quiz
+                    </Button>
+                </DialogFooter>
             </DialogContent>
         </Dialog>
     );

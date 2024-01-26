@@ -46,8 +46,8 @@ const DeleteClassroomDialog = ({ roomId }: DeleteClassroomDialogProps) => {
                     <DialogTitle>Delete this classroom?</DialogTitle>
                     <DialogDescription className="font-medium">
                         To confirm, type{" "}
-                        <span className="font-bold">"Confirm"</span> in the box
-                        below
+                        <span className="font-bold">&quot;Confirm&quot;</span>{" "}
+                        in the box below
                     </DialogDescription>
                 </DialogHeader>
                 <form action={joinFormAction} className="flex flex-col gap-4 ">
