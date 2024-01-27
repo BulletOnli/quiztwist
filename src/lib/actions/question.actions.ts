@@ -46,7 +46,7 @@ export const createQuestion = async ({
         quiz?.questions.push(newQuestion._id);
         await quiz?.save();
 
-        revalidatePath(`r/${roomId}/quiz/${quizId}`);
+        revalidatePath(`quiz/${quizId}/questions`);
 
         return {
             message: "You've added a Question!",
@@ -102,7 +102,7 @@ export const updateQuestionAction = async ({
         ];
 
         await question.save();
-        revalidatePath(`r/${roomId}/quiz/${quizId}`);
+        revalidatePath(`quiz/${quizId}/questions`);
 
         return {
             message: "Question details updated!",
@@ -146,7 +146,8 @@ export const deleteQuestionAction = async ({
         quiz.questions = filteredQuestions;
         await quiz.save();
         await Question.findByIdAndDelete(questionId);
-        revalidatePath(`r/${roomId}/quiz/${quizId}`);
+
+        revalidatePath(`quiz/${quizId}/questions`);
 
         return {
             message: "You've deleted a Question!",

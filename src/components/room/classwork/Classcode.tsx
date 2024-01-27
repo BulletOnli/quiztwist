@@ -1,6 +1,5 @@
 "use client";
 import { Copy } from "lucide-react";
-import { usePathname } from "next/navigation";
 import { toast } from "sonner";
 
 const Classcode = ({ roomId }: { roomId: string }) => {

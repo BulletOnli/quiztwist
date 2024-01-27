@@ -7,7 +7,6 @@ import User from "../models/user.model";
 import { revalidatePath } from "next/cache";
 import Question from "../models/question.model";
 import authOptions from "@/utils/authOptions";
-import { redirect } from "next/navigation";
 
 // Just checking if the user is already participated in the quiz
 export const checkUserEligibility = async (quizId: string) => {
@@ -94,7 +93,7 @@ export const createQuiz = async ({ formData, roomId }: CreateQuizType) => {
             isOpen: false,
         });
 
-        revalidatePath(`/r/${roomId}`);
+        revalidatePath(`/r/${roomId}/classwork`);
 
         return {
             message: "Quiz created!",

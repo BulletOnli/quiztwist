@@ -16,7 +16,13 @@ import {
 } from "@/components/ui/select";
 import DeleteQuizAlert from "./delete-quiz/DeleteQuizAlert";
 
-const QuizSettingsDialog = ({ quizId }: { quizId: string }) => {
+const QuizSettingsDialog = ({
+    quizId,
+    roomId,
+}: {
+    quizId: string;
+    roomId: string;
+}) => {
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -59,7 +65,7 @@ const QuizSettingsDialog = ({ quizId }: { quizId: string }) => {
                     </div>
                 </form>
 
-                <DeleteQuizAlert quizId={quizId} />
+                <DeleteQuizAlert roomId={roomId} quizId={quizId} />
             </DialogContent>
         </Dialog>
     );

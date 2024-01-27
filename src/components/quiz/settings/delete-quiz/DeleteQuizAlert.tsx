@@ -15,7 +15,13 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import DeleteQuizBtn from "./DeleteQuizBtn";
 
-const DeleteQuizAlert = ({ quizId }: { quizId: string }) => {
+const DeleteQuizAlert = ({
+    quizId,
+    roomId,
+}: {
+    quizId: string;
+    roomId: string;
+}) => {
     const router = useRouter();
 
     const handleDeleteAction = async () => {
@@ -26,7 +32,7 @@ const DeleteQuizAlert = ({ quizId }: { quizId: string }) => {
         }
 
         toast.success(response.message);
-        router.push("/dashboard");
+        router.push(`/r/${roomId}/classwork`);
     };
 
     return (

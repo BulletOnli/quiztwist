@@ -24,7 +24,7 @@ const QuestionBox = ({
             {isTeacher && (
                 <div className="absolute -right-4 -top-5 px-2 py-1 flex items-center gap-2 bg-white border border-borderColor rounded-full">
                     <EditQuestionDialog
-                        question={JSON.stringify(question)}
+                        question={JSON.stringify(question ?? {})}
                         quizId={quizId}
                         roomId={roomId}
                     />
@@ -49,25 +49,25 @@ const QuestionBox = ({
                     <div className="w-full flex items-center space-x-2">
                         <RadioGroupItem
                             value="A"
-                            id={question.question + question.choices[0]}
+                            id={question.question + question.choices?.[0]}
                         />
                         <Label
-                            htmlFor={question.question + question.choices[0]}
+                            htmlFor={question.question + question.choices?.[0]}
                             className="font-normal"
                         >
-                            A. {question.choices[0]}
+                            A. {question.choices?.[0]}
                         </Label>
                     </div>
                     <div className="w-full flex items-center space-x-2">
                         <RadioGroupItem
                             value="B"
-                            id={question.question + question.choices[1]}
+                            id={question.question + question.choices?.[1]}
                         />
                         <Label
-                            htmlFor={question.question + question.choices[1]}
+                            htmlFor={question.question + question.choices?.[1]}
                             className="font-normal"
                         >
-                            B. {question.choices[1]}
+                            B. {question.choices?.[1]}
                         </Label>
                     </div>
                 </div>
@@ -75,25 +75,25 @@ const QuestionBox = ({
                     <div className="w-full flex items-center space-x-2">
                         <RadioGroupItem
                             value="C"
-                            id={question.question + question.choices[2]}
+                            id={question.question + question.choices?.[2]}
                         />
                         <Label
-                            htmlFor={question.question + question.choices[2]}
+                            htmlFor={question.question + question.choices?.[2]}
                             className="font-normal"
                         >
-                            C. {question.choices[2]}
+                            C. {question.choices?.[2]}
                         </Label>
                     </div>
                     <div className="w-full flex items-center space-x-2">
                         <RadioGroupItem
                             value="D"
-                            id={question.question + question.choices[3]}
+                            id={question.question + question.choices?.[3]}
                         />
                         <Label
-                            htmlFor={question.question + question.choices[3]}
+                            htmlFor={question.question + question.choices?.[3]}
                             className="font-normal"
                         >
-                            D. {question.choices[3]}
+                            D. {question.choices?.[3]}
                         </Label>
                     </div>
                 </div>

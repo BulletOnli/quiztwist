@@ -22,7 +22,7 @@ const SettingsPage = async ({ params }: SettingsPageProps) => {
                 <div className="w-full flex flex-col p-4">
                     <UpdateClassroomForm
                         roomId={params.roomId}
-                        classroomData={JSON.stringify(classroomData)}
+                        classroomData={JSON.stringify(classroomData ?? {})}
                     />
                 </div>
             </div>

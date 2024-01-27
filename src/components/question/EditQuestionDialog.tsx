@@ -86,7 +86,7 @@ const EditQuestionDialog = ({
                             name="optionA"
                             placeholder="Option A"
                             required
-                            defaultValue={questionData?.choices[0]}
+                            defaultValue={questionData?.choices?.[0]}
                         />
                     </div>
                     <div className="flex items-center gap-2">
@@ -97,7 +97,7 @@ const EditQuestionDialog = ({
                             name="optionB"
                             placeholder="Option B"
                             required
-                            defaultValue={questionData?.choices[1]}
+                            defaultValue={questionData?.choices?.[1]}
                         />
                     </div>
                     <div className="flex items-center gap-2">
@@ -108,7 +108,7 @@ const EditQuestionDialog = ({
                             name="optionC"
                             placeholder="Option C"
                             required
-                            defaultValue={questionData?.choices[2]}
+                            defaultValue={questionData?.choices?.[2]}
                         />
                     </div>
                     <div className="flex items-center gap-2">
@@ -119,7 +119,7 @@ const EditQuestionDialog = ({
                             name="optionD"
                             placeholder="Option D"
                             required
-                            defaultValue={questionData?.choices[3]}
+                            defaultValue={questionData?.choices?.[3]}
                         />
                     </div>
                     <div className="flex flex-col gap-2 mt-2">

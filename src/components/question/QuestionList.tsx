@@ -8,18 +8,20 @@ import SampleQuestion from "./SampleQuestion";
 import { toast } from "sonner";
 
 type QuestionListProps = {
-    questions: QuestionType[];
+    questionsString: string;
     quizId: string;
     isTeacher: any;
     roomId: string;
 };
 
 const QuestionList = ({
-    questions,
+    questionsString,
     quizId,
     isTeacher,
     roomId,
 }: QuestionListProps) => {
+    const questionsArray = JSON.parse(questionsString) as QuestionType[];
+
     const router = useRouter();
 
     const submitQuizAction = async (formData: FormData) => {
@@ -34,9 +36,9 @@ const QuestionList = ({
 
     return (
         <form action={submitQuizAction} className="flex flex-col gap-4">
-            {isTeacher && questions.length === 0 && <SampleQuestion />}
+            {isTeacher && questionsArray.length === 0 && <SampleQuestion />}
 
-            {questions.map((question, index) => (
+            {questionsArray.map((question, index) => (
                 <QuestionBox
                     question={question}
                     index={index + 1}
@@ -46,7 +48,7 @@ const QuestionList = ({
                     key={question._id.toString()}
                 />
             ))}
-            {!isTeacher && questions.length !== 0 && (
+            {!isTeacher && questionsArray.length !== 0 && (
                 <Button type="submit">Submit</Button>
             )}
         </form>
