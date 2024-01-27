@@ -1,12 +1,11 @@
 import QuestionList from "@/components/question/QuestionList";
 import NewQuestionDialog from "@/components/question/NewQuestionDialog";
-import { Button } from "@/components/ui/button";
 import { checkUserEligibility, getQuizInfo } from "@/lib/actions/quiz.actions";
 import { getServerSession } from "next-auth";
-import SubmitReportModal from "@/components/quiz/SubmitReportModal";
 import authOptions from "@/utils/authOptions";
 import EditQuizDialog from "@/components/quiz/edit-quiz/EditQuizDialog";
 import QuizSettingsDialog from "@/components/quiz/QuizSettingsDialog";
+import ReportBugDialog from "@/components/quiz/ReportBugDialog";
 
 type QuizPageProps = {
     params: { quizId: string };
@@ -52,8 +51,7 @@ const QuizPage = async ({ params }: QuizPageProps) => {
                 <div className="w-full flex flex-col items-center gap-2 mt-4">
                     {isTeacher && <NewQuestionDialog />}
                     <QuizSettingsDialog />
-                    {/* {!isTeacher && <SubmitReportModal />} */}
-                    <SubmitReportModal />
+                    <ReportBugDialog />
                 </div>
             </div>
 
