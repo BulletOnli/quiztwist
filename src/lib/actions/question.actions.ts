@@ -11,13 +11,11 @@ import authOptions from "@/utils/authOptions";
 type TCreateQuestionAction = {
     formData: FormData;
     quizId: string;
-    roomId: string;
 };
 
 export const createQuestion = async ({
     formData,
     quizId,
-    roomId,
 }: TCreateQuestionAction) => {
     try {
         await connectToDB();
@@ -46,7 +44,7 @@ export const createQuestion = async ({
         quiz?.questions.push(newQuestion._id);
         await quiz?.save();
 
-        revalidatePath(`quiz/${quizId}/questions`);
+        revalidatePath(`/quiz/${quizId}/questions`);
 
         return {
             message: "You've added a Question!",
@@ -62,14 +60,12 @@ type TUpdateQuestionAction = {
     formData: FormData;
     quizId: string;
     questionId: string;
-    roomId: string;
 };
 
 export const updateQuestionAction = async ({
     formData,
     quizId,
     questionId,
-    roomId,
 }: TUpdateQuestionAction) => {
     try {
         await connectToDB();
@@ -102,7 +98,7 @@ export const updateQuestionAction = async ({
         ];
 
         await question.save();
-        revalidatePath(`quiz/${quizId}/questions`);
+        revalidatePath(`/quiz/${quizId}/questions`);
 
         return {
             message: "Question details updated!",
@@ -117,12 +113,10 @@ export const updateQuestionAction = async ({
 type TDeleteQuestionAction = {
     quizId: string;
     questionId: string;
-    roomId: string;
 };
 
 export const deleteQuestionAction = async ({
     quizId,
-    roomId,
     questionId,
 }: TDeleteQuestionAction) => {
     try {
@@ -147,7 +141,7 @@ export const deleteQuestionAction = async ({
         await quiz.save();
         await Question.findByIdAndDelete(questionId);
 
-        revalidatePath(`quiz/${quizId}/questions`);
+        revalidatePath(`/quiz/${quizId}/questions`);
 
         return {
             message: "You've deleted a Question!",

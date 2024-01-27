@@ -45,7 +45,6 @@ const DeleteQuizAlert = ({
             <AlertDialogContent>
                 <AlertDialogHeader>
                     <AlertDialogTitle>Confirm Delete</AlertDialogTitle>
-                    AlertD{" "}
                     <AlertDialogDescription>
                         Are you sure you want to delete this Quiz? This action
                         cannot be undone.

@@ -136,7 +136,7 @@ export const updateQuizAction = async ({
         quiz.description = data.quizDescription;
         await quiz.save();
 
-        revalidatePath(`quiz/${quizId}`);
+        revalidatePath(`/quiz/${quizId}`);
 
         return {
             message: "Quiz info updated!",
