@@ -2,6 +2,7 @@
 import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
+import { Loader2 } from "lucide-react";
 
 const NewQuestionFormBtn = () => {
     const { pending } = useFormStatus();
@@ -14,7 +15,14 @@ const NewQuestionFormBtn = () => {
                 </Button>
             </DialogClose>
             <Button type="submit">
-                {pending ? "Saving..." : "Save Changes"}
+                {pending ? (
+                    <>
+                        <Loader2 className="w-4 h-4 mr-1 animate-spin" />
+                        Saving...
+                    </>
+                ) : (
+                    "Save Changes"
+                )}
             </Button>
         </DialogFooter>
     );

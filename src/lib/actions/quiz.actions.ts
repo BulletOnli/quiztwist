@@ -7,6 +7,7 @@ import User from "../models/user.model";
 import { revalidatePath } from "next/cache";
 import Question from "../models/question.model";
 import authOptions from "@/utils/authOptions";
+import { redirect } from "next/navigation";
 
 // Just checking if the user is already participated in the quiz
 export const checkUserEligibility = async (quizId: string) => {
@@ -145,6 +146,29 @@ export const updateQuizAction = async ({
 
         return {
             message: "Quiz info updated!",
+        };
+    } catch (error) {
+        return {
+            error: getErrorMessage(error),
+        };
+    }
+};
+
+export const deleteQuizAction = async ({ quizId }: { quizId: string }) => {
+    try {
+        await connectToDB();
+        const session = await getServerSession(authOptions);
+        const user = await User.findById(session?.user.id)
+            .select(["_id"])
+            .lean();
+        if (!user || !session) throw new Error("Please login first!");
+
+        await Quiz.findByIdAndDelete(quizId);
+
+        revalidatePath(`/quiz/${quizId}`);
+
+        return {
+            message: "You deleted the Quiz!",
         };
     } catch (error) {
         return {

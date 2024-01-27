@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 import { useFormStatus } from "react-dom";
 
 const UpdateClassroomBtn = () => {
@@ -8,7 +9,14 @@ const UpdateClassroomBtn = () => {
 
     return (
         <Button type="submit" className="w-full mt-2">
-            {pending ? "Saving..." : "Save Changes"}
+            {pending ? (
+                <>
+                    <Loader2 className="w-4 h-4 mr-1 animate-spin" />
+                    Saving...
+                </>
+            ) : (
+                "Save Changes"
+            )}
         </Button>
     );
 };

@@ -3,7 +3,6 @@ import {
     DialogTrigger,
     DialogTitle,
     DialogHeader,
-    DialogFooter,
     DialogContent,
     Dialog,
 } from "@/components/ui/dialog";
@@ -15,9 +14,9 @@ import {
     SelectContent,
     Select,
 } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
+import DeleteQuizAlert from "./delete-quiz/DeleteQuizAlert";
 
-const QuizSettingsDialog = () => {
+const QuizSettingsDialog = ({ quizId }: { quizId: string }) => {
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -59,11 +58,8 @@ const QuizSettingsDialog = () => {
                         </Select>
                     </div>
                 </form>
-                <DialogFooter>
-                    <Button className="w-full text-red-500" variant="outline">
-                        Delete Quiz
-                    </Button>
-                </DialogFooter>
+
+                <DeleteQuizAlert quizId={quizId} />
             </DialogContent>
         </Dialog>
     );

@@ -4,7 +4,7 @@ import { checkUserEligibility, getQuizInfo } from "@/lib/actions/quiz.actions";
 import { getServerSession } from "next-auth";
 import authOptions from "@/utils/authOptions";
 import EditQuizDialog from "@/components/quiz/edit-quiz/EditQuizDialog";
-import QuizSettingsDialog from "@/components/quiz/QuizSettingsDialog";
+import QuizSettingsDialog from "@/components/quiz/settings/QuizSettingsDialog";
 import ReportBugDialog from "@/components/quiz/ReportBugDialog";
 
 type QuizPageProps = {
@@ -49,8 +49,8 @@ const QuizPage = async ({ params }: QuizPageProps) => {
                 </div>
 
                 <div className="w-full flex flex-col items-center gap-2 mt-4">
-                    {isTeacher && <NewQuestionDialog />}
-                    <QuizSettingsDialog />
+                    {/* {isTeacher && <NewQuestionDialog />} */}
+                    <QuizSettingsDialog quizId={params.quizId} />
                     <ReportBugDialog />
                 </div>
             </div>
