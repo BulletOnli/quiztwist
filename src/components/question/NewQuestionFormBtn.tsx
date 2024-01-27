@@ -14,7 +14,7 @@ const NewQuestionFormBtn = () => {
                     Close
                 </Button>
             </DialogClose>
-            <Button type="submit">
+            <Button type="submit" disabled={pending}>
                 {pending ? (
                     <>
                         <Loader2 className="w-4 h-4 mr-1 animate-spin" />

@@ -11,7 +11,7 @@ const DeleteClassroomBtn = ({
     const { pending } = useFormStatus();
 
     return (
-        <Button disabled={!deleteConfirmed} className="text-red-300">
+        <Button disabled={!deleteConfirmed || pending} className="text-red-300">
             {pending ? (
                 <>
                     <Loader2 className="w-4 h-4 mr-1 animate-spin" />

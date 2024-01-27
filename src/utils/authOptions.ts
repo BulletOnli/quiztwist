@@ -41,7 +41,7 @@ const authOptions: NextAuthOptions = {
 
                 return true;
             } catch (error) {
-                console.log(error);
+                console.log("Error from auth options", error);
                 return false;
             }
         },

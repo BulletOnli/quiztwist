@@ -29,7 +29,7 @@ const JoinClassroomModal = () => {
 
         toast.success(response.message);
         setOpen(false);
-        router.push(`/room/${response.roomId}/classwork`);
+        router.push(`/r/${response.roomId}/classwork`);
     };
 
     return (

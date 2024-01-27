@@ -1,26 +1,35 @@
+"use client";
 import { QuestionType } from "@/lib/models/question.model";
 import QuestionBox from "./QuestionBox";
 import { Button } from "../ui/button";
 import { submitQuiz } from "@/lib/actions/quiz.actions";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import SampleQuestion from "./SampleQuestion";
+import { toast } from "sonner";
 
 type QuestionListProps = {
     questions: QuestionType[];
     quizId: string;
     isTeacher: any;
+    roomId: string;
 };
 
-const QuestionList = ({ questions, quizId, isTeacher }: QuestionListProps) => {
+const QuestionList = ({
+    questions,
+    quizId,
+    isTeacher,
+    roomId,
+}: QuestionListProps) => {
+    const router = useRouter();
+
     const submitQuizAction = async (formData: FormData) => {
-        "use server";
         const response = await submitQuiz(formData, quizId);
 
         if (response?.error) {
-            console.log(response.error);
+            toast.error(response.error);
         }
 
-        redirect(`/quiz/${quizId}/results`);
+        router.push(`quiz/${quizId}/results`);
     };
 
     return (
@@ -33,6 +42,7 @@ const QuestionList = ({ questions, quizId, isTeacher }: QuestionListProps) => {
                     index={index + 1}
                     quizId={quizId}
                     isTeacher={isTeacher}
+                    roomId={roomId}
                     key={question._id.toString()}
                 />
             ))}

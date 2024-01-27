@@ -7,7 +7,7 @@ const DeleteQuizBtn = () => {
     const { pending } = useFormStatus();
 
     return (
-        <Button type="submit">
+        <Button type="submit" disabled={pending}>
             {pending ? (
                 <>
                     <Loader2 className="w-4 h-4 mr-1 animate-spin" />

@@ -7,7 +7,7 @@ const OnboardingformButton = () => {
     const { pending } = useFormStatus();
 
     return (
-        <Button className="w-full" type="submit">
+        <Button className="w-full" type="submit" disabled={pending}>
             {pending ? "Saving..." : "Save Changes"}
         </Button>
     );

@@ -10,19 +10,23 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ChevronDown, LayoutDashboard, LogOut, User } from "lucide-react";
-import { redirect, usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { NextAuthUser } from "@/types/next-auth";
 import Link from "next/link";
+import { useEffect } from "react";
 
 const AccountAvatar = ({ user }: { user: NextAuthUser }) => {
     const pathname = usePathname();
+    const router = useRouter();
 
-    if (pathname !== "/") {
-        // Prevents users with the "Guest" role from accessing other routes.
-        if (user?.role === "Guest" && pathname !== "/onboarding") {
-            redirect("/onboarding");
+    useEffect(() => {
+        if (pathname !== "/") {
+            // Prevents users with the "Guest" role from accessing other routes.
+            if (user?.role === "Guest" && pathname !== "/onboarding") {
+                router.push("/onboarding");
+            }
         }
-    }
+    }, []);
 
     return (
         <DropdownMenu>

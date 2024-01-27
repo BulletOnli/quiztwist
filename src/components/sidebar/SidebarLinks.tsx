@@ -7,7 +7,7 @@ const SidebarLinks = ({ classrooms }: { classrooms: ClassroomType[] }) => {
         <div className="w-full flex flex-col">
             {classrooms.map((classroom) => (
                 <Link
-                    href={`/room/${classroom._id}/classwork`}
+                    href={`/r/${classroom._id}/classwork`}
                     key={classroom._id.toString()}
                 >
                     <div className="hover:bg-secondary py-2 px-3 rounded-full flex items-center gap-2">

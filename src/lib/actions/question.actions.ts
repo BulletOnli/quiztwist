@@ -8,7 +8,17 @@ import Quiz from "../models/quiz.model";
 import { revalidatePath } from "next/cache";
 import authOptions from "@/utils/authOptions";
 
-export const createQuestion = async (formData: FormData, quizId: string) => {
+type TCreateQuestionAction = {
+    formData: FormData;
+    quizId: string;
+    roomId: string;
+};
+
+export const createQuestion = async ({
+    formData,
+    quizId,
+    roomId,
+}: TCreateQuestionAction) => {
     try {
         await connectToDB();
         const session = await getServerSession(authOptions);
@@ -33,7 +43,7 @@ export const createQuestion = async (formData: FormData, quizId: string) => {
         quiz?.questions.push(newQuestion._id);
         await quiz?.save();
 
-        revalidatePath(`/quiz/${quizId}/questions`);
+        revalidatePath(`r/${roomId}/quiz/${quizId}`);
 
         return {
             message: "You've added a Question!",
@@ -45,17 +55,19 @@ export const createQuestion = async (formData: FormData, quizId: string) => {
     }
 };
 
-type UpdateQuestionProps = {
+type TUpdateQuestionAction = {
     formData: FormData;
     quizId: string;
     questionId: string;
+    roomId: string;
 };
 
 export const updateQuestionAction = async ({
     formData,
     quizId,
     questionId,
-}: UpdateQuestionProps) => {
+    roomId,
+}: TUpdateQuestionAction) => {
     try {
         await connectToDB();
         const session = await getServerSession(authOptions);
@@ -87,7 +99,7 @@ export const updateQuestionAction = async ({
         ];
 
         await question.save();
-        revalidatePath(`/quiz/${quizId}`);
+        revalidatePath(`r/${roomId}/quiz/${quizId}`);
 
         return {
             message: "Question details updated!",
@@ -99,10 +111,17 @@ export const updateQuestionAction = async ({
     }
 };
 
-export const deleteQuestionAction = async (
-    quizId: string,
-    questionId: string
-) => {
+type TDeleteQuestionAction = {
+    quizId: string;
+    questionId: string;
+    roomId: string;
+};
+
+export const deleteQuestionAction = async ({
+    quizId,
+    roomId,
+    questionId,
+}: TDeleteQuestionAction) => {
     try {
         await connectToDB();
         const session = await getServerSession(authOptions);
@@ -124,7 +143,7 @@ export const deleteQuestionAction = async (
         quiz.questions = filteredQuestions;
         await quiz.save();
         await Question.findByIdAndDelete(questionId);
-        revalidatePath(`/quiz/${quizId}/questions`);
+        revalidatePath(`r/${roomId}/quiz/${quizId}`);
 
         return {
             message: "You've deleted a Question!",

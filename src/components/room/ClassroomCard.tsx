@@ -8,7 +8,7 @@ const ClassroomCard = ({ classroom }: { classroom: ClassroomType }) => {
     return (
         <Link
             key={classroom._id.toString()}
-            href={`/room/${classroom._id.toString()}/classwork`}
+            href={`/r/${classroom._id.toString()}/classwork`}
         >
             <div className="flex-grow min-w-[15rem] max-w-[16rem] h-[9rem] flex flex-col justify-between p-3 bg-secondary hover:shadow rounded-lg border border-borderColor">
                 <div>

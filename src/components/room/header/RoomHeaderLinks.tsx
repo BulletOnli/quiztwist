@@ -9,7 +9,7 @@ const RoomHeaderLinks = ({ roomId }: { roomId: string }) => {
 
     return (
         <ul className="flex items-center justify-end gap-10 mr-[10rem] font-medium bg-none">
-            <Link href={`/room/${roomId}/classwork`}>
+            <Link href={`/r/${roomId}/classwork`}>
                 <li
                     className={`${
                         currentPathname === "classwork"
@@ -20,7 +20,7 @@ const RoomHeaderLinks = ({ roomId }: { roomId: string }) => {
                     Classwork
                 </li>
             </Link>
-            <Link href={`/room/${roomId}/people`}>
+            <Link href={`/r/${roomId}/people`}>
                 <li
                     className={`${
                         currentPathname === "people"
@@ -31,7 +31,7 @@ const RoomHeaderLinks = ({ roomId }: { roomId: string }) => {
                     People
                 </li>
             </Link>
-            <Link href={`/room/${roomId}/settings`}>
+            <Link href={`/r/${roomId}/settings`}>
                 <li
                     className={`${
                         currentPathname === "settings"

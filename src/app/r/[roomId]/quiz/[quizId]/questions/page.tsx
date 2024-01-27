@@ -1,14 +1,14 @@
 import QuestionList from "@/components/question/QuestionList";
-import NewQuestionDialog from "@/components/question/NewQuestionDialog";
 import { checkUserEligibility, getQuizInfo } from "@/lib/actions/quiz.actions";
 import { getServerSession } from "next-auth";
 import authOptions from "@/utils/authOptions";
 import EditQuizDialog from "@/components/quiz/edit-quiz/EditQuizDialog";
 import QuizSettingsDialog from "@/components/quiz/settings/QuizSettingsDialog";
 import ReportBugDialog from "@/components/quiz/ReportBugDialog";
+import NewQuestionDialog from "@/components/question/NewQuestionDialog";
 
 type QuizPageProps = {
-    params: { quizId: string };
+    params: { roomId: string; quizId: string };
 };
 
 const QuizPage = async ({ params }: QuizPageProps) => {
@@ -49,7 +49,7 @@ const QuizPage = async ({ params }: QuizPageProps) => {
                 </div>
 
                 <div className="w-full flex flex-col items-center gap-2 mt-4">
-                    {/* {isTeacher && <NewQuestionDialog />} */}
+                    {isTeacher && <NewQuestionDialog roomId={params.roomId} />}
                     <QuizSettingsDialog quizId={params.quizId} />
                     <ReportBugDialog />
                 </div>
@@ -60,6 +60,7 @@ const QuizPage = async ({ params }: QuizPageProps) => {
                     questions={quizInfo?.questions || []}
                     quizId={params.quizId}
                     isTeacher={isTeacher}
+                    roomId={params.roomId}
                 />
             </div>
         </main>

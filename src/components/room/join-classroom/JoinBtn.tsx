@@ -9,7 +9,7 @@ const JoinBtn = ({ inputLength }: { inputLength: number }) => {
 
     return (
         <DialogFooter>
-            <Button type="submit" disabled={inputLength < 5}>
+            <Button type="submit" disabled={inputLength < 5 || pending}>
                 {pending ? (
                     <>
                         <Loader2 className="w-4 h-4 mr-1 animate-spin" />

@@ -32,7 +32,7 @@ const Sidebar = async () => {
                 <div className="w-full flex flex-col items-center gap-2">
                     {classrooms.map((classroom) => (
                         <Link
-                            href={`/room/${classroom._id}/classwork`}
+                            href={`/r/${classroom._id}/classwork`}
                             key={classroom._id.toString()}
                             className="w-full"
                         >

@@ -9,6 +9,7 @@ type QuestionBoxProps = {
     index: number;
     quizId: string;
     isTeacher: boolean;
+    roomId: string;
 };
 
 const QuestionBox = ({
@@ -16,6 +17,7 @@ const QuestionBox = ({
     index,
     quizId,
     isTeacher,
+    roomId,
 }: QuestionBoxProps) => {
     return (
         <div className="relative min-w-[45rem] max-w-full p-6 bg-white border border-l-4 border-r-4 border-borderColor rounded-xl">
@@ -24,10 +26,12 @@ const QuestionBox = ({
                     <EditQuestionDialog
                         question={JSON.stringify(question)}
                         quizId={quizId}
+                        roomId={roomId}
                     />
                     <DeleteQuestionDialog
                         questionId={question._id.toString()}
                         quizId={quizId}
+                        roomId={roomId}
                     />
                 </div>
             )}

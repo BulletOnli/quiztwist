@@ -20,16 +20,22 @@ import { QuestionType } from "@/lib/models/question.model";
 type EditQuestionDialogProps = {
     question: string;
     quizId: string;
+    roomId: string;
 };
 
-const EditQuestionDialog = ({ question, quizId }: EditQuestionDialogProps) => {
+const EditQuestionDialog = ({
+    question,
+    quizId,
+    roomId,
+}: EditQuestionDialogProps) => {
     const [open, setOpen] = useState(false);
     const questionData = JSON.parse(question) as QuestionType;
 
-    const newQuestionAction = async (formData: FormData) => {
+    const editQuestionAction = async (formData: FormData) => {
         const response = await updateQuestionAction({
             formData,
             quizId,
+            roomId,
             questionId: questionData._id?.toString(),
         });
 
@@ -57,7 +63,7 @@ const EditQuestionDialog = ({ question, quizId }: EditQuestionDialogProps) => {
                     <DialogTitle>Edit Question</DialogTitle>
                 </DialogHeader>
                 <form
-                    action={newQuestionAction}
+                    action={editQuestionAction}
                     className="flex flex-col gap-4"
                 >
                     <div className="flex flex-col gap-2">

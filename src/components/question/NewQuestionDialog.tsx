@@ -18,12 +18,12 @@ import NewQuestionFormBtn from "./NewQuestionFormBtn";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 
-const NewQuestionDialog = () => {
+const NewQuestionDialog = ({ roomId }: { roomId: string }) => {
     const [open, setOpen] = useState(false);
     const quizId = usePathname().split("/")[2];
 
     const newQuestionAction = async (formData: FormData) => {
-        const response = await createQuestion(formData, quizId);
+        const response = await createQuestion({ formData, quizId, roomId });
 
         if (response.error) {
             return toast.error(response.error);

@@ -28,7 +28,7 @@ const CreateClassroomModal = () => {
         }
 
         toast.success(response.message);
-        router.push(`/room/${response.roomId}/classwork`);
+        router.push(`/r/${response.roomId}/classwork`);
         setOpen(false);
     };
 

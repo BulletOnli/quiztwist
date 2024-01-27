@@ -15,8 +15,8 @@ import NewQuizFormBtn from "./NewQuizFormBtn";
 import Image from "next/image";
 
 const NewQuizDialog = () => {
-    const roomId = usePathname().split("/")[2];
     const router = useRouter();
+    const roomId = usePathname().split("/")[2];
 
     const newQuizAction = async (formData: FormData) => {
         const response = await createQuiz(formData, roomId);
@@ -26,7 +26,7 @@ const NewQuizDialog = () => {
         }
 
         toast.success(response.message);
-        router.push(`/quiz/${response.quizId}/questions`);
+        router.push(`quiz/${response.quizId}/questions`);
     };
 
     return (

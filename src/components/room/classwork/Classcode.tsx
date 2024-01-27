@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { toast } from "sonner";
 
 const Classcode = () => {
-    // The last 5 digits in the room id
+    // The last 5 digits in the r id
     const roomId = usePathname().split("/")[2];
     const classCode = roomId.slice(-5);
 

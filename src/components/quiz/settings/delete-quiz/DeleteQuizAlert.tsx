@@ -11,11 +11,13 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { deleteQuizAction } from "@/lib/actions/quiz.actions";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import DeleteQuizBtn from "./DeleteQuizBtn";
 
 const DeleteQuizAlert = ({ quizId }: { quizId: string }) => {
+    const router = useRouter();
+
     const handleDeleteAction = async () => {
         const response = await deleteQuizAction({ quizId });
 
@@ -24,7 +26,7 @@ const DeleteQuizAlert = ({ quizId }: { quizId: string }) => {
         }
 
         toast.success(response.message);
-        redirect("/dashboard");
+        router.push("/dashboard");
     };
 
     return (

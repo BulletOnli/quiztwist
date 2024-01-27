@@ -8,7 +8,7 @@ const UpdateClassroomBtn = () => {
     const { pending } = useFormStatus();
 
     return (
-        <Button type="submit" className="w-full mt-2">
+        <Button type="submit" className="w-full mt-2" disabled={pending}>
             {pending ? (
                 <>
                     <Loader2 className="w-4 h-4 mr-1 animate-spin" />

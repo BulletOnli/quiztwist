@@ -58,7 +58,7 @@ export const createClassroomAction = async (formData: FormData) => {
 
         return {
             message: "New Classroom created!",
-            roomId: classroom._id,
+            roomId: classroom._id.toString(),
         };
     } catch (error) {
         return {
@@ -149,7 +149,7 @@ export const updateClassroomAction = async (
         classroom.section = data.section;
         await classroom.save();
 
-        revalidatePath(`/room/${roomId}`);
+        revalidatePath(`/r/${roomId}`);
 
         return {
             message: "Update classroom Successfully",

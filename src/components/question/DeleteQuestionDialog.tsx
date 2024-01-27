@@ -19,16 +19,22 @@ import { toast } from "sonner";
 type DeleteQuestionDialogProps = {
     questionId: string;
     quizId: string;
+    roomId: string;
 };
 
 const DeleteQuestionDialog = ({
     questionId,
     quizId,
+    roomId,
 }: DeleteQuestionDialogProps) => {
     const [dialogOpen, setDialogOpen] = useState(false);
 
     const handleDelete = async () => {
-        const response = await deleteQuestionAction(quizId, questionId);
+        const response = await deleteQuestionAction({
+            quizId,
+            questionId,
+            roomId,
+        });
 
         if (response.error) {
             return toast.error(response.message);

@@ -24,7 +24,7 @@ const DeleteClassroomDialog = ({ roomId }: DeleteClassroomDialogProps) => {
     const [open, setOpen] = useState(false);
     const [deleteConfirmed, setDeleteConfirmed] = useState(false);
 
-    const joinFormAction = async (formData: FormData) => {
+    const handleDeleteClassroom = async (formData: FormData) => {
         const response = await deleteClassroomAction(formData, roomId);
 
         if (response?.error) {
@@ -50,7 +50,10 @@ const DeleteClassroomDialog = ({ roomId }: DeleteClassroomDialogProps) => {
                         in the box below
                     </DialogDescription>
                 </DialogHeader>
-                <form action={joinFormAction} className="flex flex-col gap-4 ">
+                <form
+                    action={handleDeleteClassroom}
+                    className="flex flex-col gap-4 "
+                >
                     <Input
                         id="confirmDelete"
                         className="text-center"
