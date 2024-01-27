@@ -72,7 +72,12 @@ export const getQuizInfo = async (quizId: string) => {
     return quizInfo;
 };
 
-export const createQuiz = async (formData: FormData, roomId: string) => {
+type CreateQuizType = {
+    formData: FormData;
+    roomId: string;
+};
+
+export const createQuiz = async ({ formData, roomId }: CreateQuizType) => {
     try {
         await connectToDB();
         const session = await getServerSession(authOptions);

@@ -3,9 +3,8 @@ import { Copy } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { toast } from "sonner";
 
-const Classcode = () => {
+const Classcode = ({ roomId }: { roomId: string }) => {
     // The last 5 digits in the r id
-    const roomId = usePathname().split("/")[2];
     const classCode = roomId.slice(-5);
 
     const copyCode = () => {

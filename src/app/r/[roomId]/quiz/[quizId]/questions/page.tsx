@@ -49,7 +49,12 @@ const QuizPage = async ({ params }: QuizPageProps) => {
                 </div>
 
                 <div className="w-full flex flex-col items-center gap-2 mt-4">
-                    {isTeacher && <NewQuestionDialog roomId={params.roomId} />}
+                    {isTeacher && (
+                        <NewQuestionDialog
+                            quizId={params.quizId}
+                            roomId={params.roomId}
+                        />
+                    )}
                     <QuizSettingsDialog quizId={params.quizId} />
                     <ReportBugDialog />
                 </div>

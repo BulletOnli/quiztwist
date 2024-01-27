@@ -14,12 +14,11 @@ import { toast } from "sonner";
 import NewQuizFormBtn from "./NewQuizFormBtn";
 import Image from "next/image";
 
-const NewQuizDialog = () => {
+const NewQuizDialog = ({ roomId }: { roomId: string }) => {
     const router = useRouter();
-    const roomId = usePathname().split("/")[2];
 
     const newQuizAction = async (formData: FormData) => {
-        const response = await createQuiz(formData, roomId);
+        const response = await createQuiz({ formData, roomId });
 
         if (response.error) {
             return toast.error(response.error);

@@ -28,6 +28,9 @@ export const createQuestion = async ({
         if (!user || !session) throw new Error("Please login first!");
 
         const quiz = await Quiz.findById(quizId).select(["questions"]);
+        if (!quiz) {
+            throw new Error("Quiz not found!");
+        }
 
         const newQuestion = await Question.create({
             question: formData.get("question"),
