@@ -15,6 +15,7 @@ import { deleteQuestionAction } from "@/lib/actions/question.actions";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import SubmitBtn from "../common/SubmitBtn";
 
 type DeleteQuestionDialogProps = {
   questionId: string;
@@ -63,7 +64,9 @@ const DeleteQuestionDialog = ({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <Button onClick={handleDelete}>Delete</Button>
+          <form action={handleDelete}>
+            <SubmitBtn defaultName="Delete" onLoadingName="Deleting..." />
+          </form>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

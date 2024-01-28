@@ -12,10 +12,10 @@ import { useState } from "react";
 import { updateQuestionAction } from "@/lib/actions/question.actions";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
-import NewQuestionFormBtn from "./NewQuestionFormBtn";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { QuestionType } from "@/lib/models/question.model";
+import SubmitBtn from "../common/SubmitBtn";
 
 type EditQuestionDialogProps = {
   question: string;
@@ -139,7 +139,7 @@ const EditQuestionDialog = ({ question, quizId }: EditQuestionDialogProps) => {
               </div>
             </RadioGroup>
           </div>
-          <NewQuestionFormBtn />
+          <SubmitBtn defaultName="Save Changes" onLoadingName="Saving..." />
         </form>
       </DialogContent>
     </Dialog>

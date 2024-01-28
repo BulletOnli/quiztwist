@@ -1,8 +1,10 @@
 "use client";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -11,8 +13,9 @@ import { Input } from "@/components/ui/input";
 import { createQuiz } from "@/lib/actions/quiz.actions";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import NewQuizFormBtn from "./NewQuizFormBtn";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import SubmitBtn from "@/components/common/SubmitBtn";
 
 const NewQuizDialog = ({ roomId }: { roomId: string }) => {
   const router = useRouter();
@@ -61,7 +64,14 @@ const NewQuizDialog = ({ roomId }: { roomId: string }) => {
               placeholder="Enter a short description"
             />
           </div>
-          <NewQuizFormBtn />
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button type="button" variant="secondary">
+                Close
+              </Button>
+            </DialogClose>
+            <SubmitBtn defaultName="Create" onLoadingName="Creating..." />
+          </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>

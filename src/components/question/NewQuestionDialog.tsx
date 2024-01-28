@@ -2,8 +2,10 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -13,9 +15,9 @@ import { useState } from "react";
 import { createQuestion } from "@/lib/actions/question.actions";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
-import NewQuestionFormBtn from "./NewQuestionFormBtn";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import SubmitBtn from "../common/SubmitBtn";
 
 const NewQuestionDialog = ({ quizId }: { quizId: string }) => {
   const [open, setOpen] = useState(false);
@@ -119,7 +121,14 @@ const NewQuestionDialog = ({ quizId }: { quizId: string }) => {
               </div>
             </RadioGroup>
           </div>
-          <NewQuestionFormBtn />
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button type="button" variant="secondary">
+                Close
+              </Button>
+            </DialogClose>
+            <SubmitBtn defaultName="Create" onLoadingName="Creating..." />
+          </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>
