@@ -13,28 +13,6 @@ export interface ButtonProps
   onLoadingName: string;
 }
 
-// type SubmitBtnType = {
-//   defaultName: string;
-//   onLoadingName: string;
-// };
-
-// const SubmitBtn = ({ defaultName, onLoadingName, ...props }: SubmitBtnType) => {
-//   const { pending } = useFormStatus();
-
-//   return (
-//     <Button type="submit" disabled={pending} {...props}>
-//       {pending ? (
-//         <>
-//           <Loader2 className="w-4 h-4 mr-1 animate-spin" />
-//           {onLoadingName}
-//         </>
-//       ) : (
-//         defaultName
-//       )}
-//     </Button>
-//   );
-// };
-
 const SubmitBtn = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ defaultName, onLoadingName, ...props }, ref) => {
     const { pending } = useFormStatus();
@@ -53,5 +31,7 @@ const SubmitBtn = React.forwardRef<HTMLButtonElement, ButtonProps>(
     );
   }
 );
+
+SubmitBtn.displayName = "Button";
 
 export default SubmitBtn;

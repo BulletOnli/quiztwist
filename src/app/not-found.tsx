@@ -7,8 +7,8 @@ export default function NotFound() {
       <h1 className="text-9xl font-bold">404</h1>
       <h2 className="mt-4 text-3xl">Page not found.</h2>
       <p className="mt-2 text-lg">
-        Sorry, we can't find that page. You'll find lots to explore on the home
-        page.
+        Sorry, we can&apos;t find that page. You&apos;ll find lots to explore on
+        the home page.
       </p>
       <Link href="/">
         <Button className="mt-8 rounded px-6 py-4">Back to Homepage</Button>
