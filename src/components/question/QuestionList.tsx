@@ -6,17 +6,20 @@ import { submitQuiz } from "@/lib/actions/quiz.actions";
 import { useRouter } from "next/navigation";
 import SampleQuestion from "./SampleQuestion";
 import { toast } from "sonner";
+import Link from "next/link";
 
 type QuestionListProps = {
   questionsString: string;
   quizId: string;
   isTeacher: any;
+  roomId: string;
 };
 
 const QuestionList = ({
   questionsString,
   quizId,
   isTeacher,
+  roomId,
 }: QuestionListProps) => {
   const questionsArray = JSON.parse(questionsString) as QuestionType[];
 
@@ -26,10 +29,10 @@ const QuestionList = ({
     const response = await submitQuiz(formData, quizId);
 
     if (response?.error) {
-      toast.error(response.error);
+      return toast.error(response.error);
     }
 
-    router.push(`quiz/${quizId}/results`);
+    router.replace(`/r/${roomId}/quiz/${quizId}/result`);
   };
 
   return (

@@ -15,7 +15,7 @@ import { deleteQuestionAction } from "@/lib/actions/question.actions";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import SubmitBtn from "../common/SubmitBtn";
+import SubmitBtn from "../shared/SubmitBtn";
 
 type DeleteQuestionDialogProps = {
   questionId: string;

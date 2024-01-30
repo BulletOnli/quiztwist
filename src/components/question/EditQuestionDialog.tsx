@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { QuestionType } from "@/lib/models/question.model";
-import SubmitBtn from "../common/SubmitBtn";
+import SubmitBtn from "../shared/SubmitBtn";
 
 type EditQuestionDialogProps = {
   question: string;

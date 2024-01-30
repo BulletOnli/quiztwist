@@ -8,7 +8,7 @@ import { onboardingAction } from "@/lib/actions/user.actions";
 import { Label } from "@/components/ui/label";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
-import SubmitBtn from "@/components/common/SubmitBtn";
+import SubmitBtn from "@/components/shared/SubmitBtn";
 
 const Onboardingform = () => {
   const { data } = useSession();

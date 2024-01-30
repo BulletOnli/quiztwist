@@ -15,7 +15,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createClassroomAction } from "@/lib/actions/classroom.actions";
-import SubmitBtn from "@/components/common/SubmitBtn";
+import SubmitBtn from "@/components/shared/SubmitBtn";
 
 const CreateClassroomModal = () => {
   const router = useRouter();

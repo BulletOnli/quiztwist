@@ -15,7 +15,9 @@ import { Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QuizSchemaType } from "@/lib/models/quiz.model";
 import { useState } from "react";
-import SubmitBtn from "@/components/common/SubmitBtn";
+import SubmitBtn from "@/components/shared/SubmitBtn";
+
+import moment from "moment";
 
 type EditQuizDialogProps = {
   quizInfo: string;
@@ -25,6 +27,8 @@ type EditQuizDialogProps = {
 const EditQuizDialog = ({ quizInfo, quizId }: EditQuizDialogProps) => {
   const quizInfoData = JSON.parse(quizInfo) as QuizSchemaType;
   const [open, setOpen] = useState(false);
+
+  const deadline = moment(new Date(quizInfoData.deadline));
 
   const handleEditQuiz = async (formData: FormData) => {
     const response = await updateQuizAction({ formData, quizId });
@@ -70,6 +74,14 @@ const EditQuizDialog = ({ quizInfo, quizId }: EditQuizDialogProps) => {
               name="quizDescription"
               placeholder="Enter a short description"
               defaultValue={quizInfoData?.description ?? ""}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <p className="font-medium text-sm">Deadline</p>
+            <Input
+              name="deadline"
+              type="datetime-local"
+              defaultValue={deadline.format().slice(0, 16)}
             />
           </div>
           <DialogFooter>

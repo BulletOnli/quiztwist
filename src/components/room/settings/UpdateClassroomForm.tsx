@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { updateClassroomAction } from "@/lib/actions/classroom.actions";
 import { toast } from "sonner";
 import { ClassroomType } from "@/lib/models/classroom.model";
-import SubmitBtn from "@/components/common/SubmitBtn";
+import SubmitBtn from "@/components/shared/SubmitBtn";
 
 type UpdateClassroomFormProps = {
   roomId: string;

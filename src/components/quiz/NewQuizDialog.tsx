@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import SubmitBtn from "@/components/common/SubmitBtn";
+import SubmitBtn from "@/components/shared/SubmitBtn";
 
 const NewQuizDialog = ({ roomId }: { roomId: string }) => {
   const router = useRouter();
@@ -63,6 +63,10 @@ const NewQuizDialog = ({ roomId }: { roomId: string }) => {
               name="quizDescription"
               placeholder="Enter a short description"
             />
+          </div>
+          <div className="flex flex-col gap-2">
+            <p className="font-medium text-sm">Deadline</p>
+            <Input name="deadline" type="datetime-local" />
           </div>
           <DialogFooter>
             <DialogClose asChild>

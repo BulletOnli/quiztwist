@@ -10,218 +10,209 @@ import authOptions from "@/utils/authOptions";
 
 // Just checking if the user is already participated in the quiz
 export const checkUserEligibility = async (quizId: string) => {
-    try {
-        await connectToDB();
-        const session = await getServerSession(authOptions);
-        const user = await User.findById(session?.user.id)
-            .select(["_id"])
-            .lean();
-        if (!user || !session) throw new Error("Please login first!");
+  try {
+    await connectToDB();
+    const session = await getServerSession(authOptions);
+    const user = await User.findById(session?.user.id).select(["_id"]).lean();
+    if (!user || !session) throw new Error("Please login first!");
 
-        const quizInfo = await Quiz.findById(quizId)
-            .select(["respondents"])
-            .populate({
-                path: "respondents",
-                select: "_id",
-            })
-            .lean();
+    const quizInfo = await Quiz.findById(quizId).select(["respondents"]).lean();
 
-        // Checks if the user id is in the respondents array
-        const isAlreadyAnswered = quizInfo?.respondents.some(
-            (respondent) => respondent._id.toString() === user._id.toString()
-        );
+    // Checks if the user id is in the respondents array
+    const isAlreadyAnswered = quizInfo?.respondents.some(
+      (id) => id.toString() === user._id.toString()
+    );
 
-        if (isAlreadyAnswered) {
-            throw new Error("You already answered this Quiz!");
-        }
-
-        return {
-            message: "You are able to participate in this Quiz!",
-        };
-    } catch (error) {
-        return {
-            error: getErrorMessage(error),
-        };
+    if (isAlreadyAnswered) {
+      throw new Error("You already answered this Quiz!");
     }
+
+    return {
+      message: "You are able to participate in this Quiz!",
+    };
+  } catch (error) {
+    return {
+      error: getErrorMessage(error),
+    };
+  }
 };
 
 export const getAllQuizzes = async (roomId: string) => {
-    const quizzes = await Quiz.find({ r: roomId })
-        .sort({ updatedAt: -1 })
-        .lean();
+  const quizzes = await Quiz.find({ room: roomId })
+    .sort({ updatedAt: -1 })
+    .lean();
 
-    return quizzes;
+  return quizzes;
 };
 
 export const getQuizInfo = async (quizId: string) => {
-    const quizInfo = await Quiz.findById(quizId)
-        .populate([
-            {
-                path: "questions",
-                model: Question,
-            },
-            {
-                path: "teacher",
-                select: ["username"],
-                model: User,
-            },
-        ])
-        .lean();
+  const quizInfo = await Quiz.findById(quizId)
+    .populate([
+      {
+        path: "questions",
+        model: Question,
+      },
+      {
+        path: "teacher",
+        select: ["username"],
+        model: User,
+      },
+    ])
+    .lean();
 
-    return quizInfo;
+  return quizInfo;
 };
 
 type CreateQuizType = {
-    formData: FormData;
-    roomId: string;
+  formData: FormData;
+  roomId: string;
 };
 
 export const createQuiz = async ({ formData, roomId }: CreateQuizType) => {
-    try {
-        await connectToDB();
-        const session = await getServerSession(authOptions);
-        const user = await User.findById(session?.user.id)
-            .select(["_id"])
-            .lean();
-        if (!user || !session) throw new Error("Please login first!");
+  try {
+    await connectToDB();
+    const session = await getServerSession(authOptions);
+    const user = await User.findById(session?.user.id).select(["_id"]).lean();
+    if (!user || !session) throw new Error("Please login first!");
 
-        const newQuiz = await Quiz.create({
-            title: formData.get("quizTitle"),
-            description: formData.get("quizDescription"),
-            teacher: user._id,
-            r: roomId,
-            isOpen: false,
-        });
+    const newQuiz = await Quiz.create({
+      title: formData.get("quizTitle"),
+      description: formData.get("quizDescription"),
+      teacher: user._id,
+      room: roomId,
+      deadline: formData.get("deadline"),
+      isOpen: false,
+    });
 
-        revalidatePath(`/r/${roomId}/classwork`);
+    revalidatePath(`/r/${roomId}/classwork`);
 
-        return {
-            message: "Quiz created!",
-            quizId: newQuiz._id.toString(),
-        };
-    } catch (error) {
-        return {
-            error: getErrorMessage(error),
-        };
-    }
+    return {
+      message: "Quiz created!",
+      quizId: newQuiz._id.toString(),
+    };
+  } catch (error) {
+    return {
+      error: getErrorMessage(error),
+    };
+  }
 };
 
 export const updateQuizAction = async ({
-    formData,
-    quizId,
+  formData,
+  quizId,
 }: {
-    formData: FormData;
-    quizId: string;
+  formData: FormData;
+  quizId: string;
 }) => {
-    try {
-        await connectToDB();
-        const session = await getServerSession(authOptions);
-        const user = await User.findById(session?.user.id)
-            .select(["_id"])
-            .lean();
-        if (!user || !session) throw new Error("Please login first!");
+  try {
+    await connectToDB();
+    const session = await getServerSession(authOptions);
+    const user = await User.findById(session?.user.id).select(["_id"]).lean();
+    if (!user || !session) throw new Error("Please login first!");
 
-        const quiz = await Quiz.findById(quizId).select([
-            "title",
-            "description",
-        ]);
-        if (!quiz) throw new Error("Quiz not found!");
+    const quiz = await Quiz.findById(quizId).select([
+      "title",
+      "description",
+      "deadline",
+    ]);
+    if (!quiz) throw new Error("Quiz not found!");
 
-        const data = Object.fromEntries(formData) as {
-            quizTitle: string;
-            quizDescription?: string;
-        };
+    const data = Object.fromEntries(formData) as unknown as {
+      quizTitle: string;
+      quizDescription?: string;
+      deadline: Date;
+    };
 
-        quiz.title = data.quizTitle;
-        quiz.description = data.quizDescription;
-        await quiz.save();
+    quiz.title = data.quizTitle;
+    quiz.description = data.quizDescription;
+    quiz.deadline = data.deadline;
+    await quiz.save();
 
-        revalidatePath(`/quiz/${quizId}`);
+    revalidatePath(`/quiz/${quizId}`);
 
-        return {
-            message: "Quiz info updated!",
-        };
-    } catch (error) {
-        return {
-            error: getErrorMessage(error),
-        };
-    }
+    return {
+      message: "Quiz info updated!",
+    };
+  } catch (error) {
+    return {
+      error: getErrorMessage(error),
+    };
+  }
 };
 
 export const deleteQuizAction = async ({ quizId }: { quizId: string }) => {
-    try {
-        await connectToDB();
-        const session = await getServerSession(authOptions);
-        const user = await User.findById(session?.user.id)
-            .select(["_id"])
-            .lean();
-        if (!user || !session) throw new Error("Please login first!");
+  try {
+    await connectToDB();
+    const session = await getServerSession(authOptions);
+    const user = await User.findById(session?.user.id).select(["_id"]).lean();
+    if (!user || !session) throw new Error("Please login first!");
 
-        await Quiz.findByIdAndDelete(quizId);
+    await Quiz.findByIdAndDelete(quizId);
 
-        revalidatePath(`/quiz/${quizId}`);
+    revalidatePath(`/quiz/${quizId}`);
 
-        return {
-            message: "You deleted the Quiz!",
-        };
-    } catch (error) {
-        return {
-            error: getErrorMessage(error),
-        };
-    }
+    return {
+      message: "You deleted the Quiz!",
+    };
+  } catch (error) {
+    return {
+      error: getErrorMessage(error),
+    };
+  }
 };
 
 export const submitQuiz = async (formData: FormData, quizId: string) => {
-    try {
-        await connectToDB();
-        const session = await getServerSession(authOptions);
-        const user = await User.findById(session?.user.id).select([
-            "_id",
-            "answeredQuizzes",
-        ]);
+  try {
+    await connectToDB();
+    const session = await getServerSession(authOptions);
+    const user = await User.findById(session?.user.id).select([
+      "_id",
+      "answeredQuizzes",
+    ]);
 
-        if (!user || !session) throw new Error("Please login first!");
+    if (!user || !session) throw new Error("Please login first!");
 
-        const quizInfo = await Quiz.findById(quizId)
-            .populate({
-                path: "questions",
-                select: ["rightAnswer"],
-                model: Question,
-            })
-            .select(["questions", "respondents", "isOpen"]);
+    const quizInfo = await Quiz.findById(quizId)
+      .populate({
+        path: "questions",
+        select: ["rightAnswer"],
+        model: Question,
+      })
+      .select(["questions", "respondents", "isOpen"]);
 
-        if (!quizInfo) {
-            throw new Error("An error occured! Quiz not found!");
-        }
-
-        let SCORE = 0;
-
-        for (let question of quizInfo?.questions) {
-            // The answer of the user per question
-            const user_answer = formData.get(
-                `question#${question._id.toString()}_answer`
-            );
-
-            if (question.rightAnswer === user_answer) SCORE++;
-        }
-
-        // Add the user to the respondents array of the quiz
-        quizInfo?.respondents.push(user._id);
-        await quizInfo.save();
-
-        // Add the quiz to the answeredQuizzes of the user
-        user?.answeredQuizzes.push({
-            quiz: quizInfo._id,
-            score: SCORE,
-        });
-        await user.save();
-
-        return {
-            message: "Thank you for participating in this Quiz!",
-        };
-    } catch (error) {
-        return {
-            error: getErrorMessage(error),
-        };
+    if (!quizInfo) {
+      throw new Error("An error occured! Quiz not found!");
     }
+
+    let SCORE = 0;
+
+    // Counting user score
+    for (let question of quizInfo?.questions) {
+      // The answer of the user per question
+      const user_answer = formData.get(
+        `question#${question._id.toString()}_answer`
+      );
+
+      if (question.rightAnswer === user_answer) SCORE++;
+    }
+
+    // Add the user to the respondents array of the quiz
+    quizInfo?.respondents.push(user._id);
+    await quizInfo.save();
+
+    // Add the quiz to the answeredQuizzes of the user
+    user?.answeredQuizzes.push({
+      quiz: quizInfo._id,
+      score: SCORE,
+    });
+    await user.save();
+
+    return {
+      message: "Thank you for participating in this Quiz!",
+    };
+  } catch (error) {
+    return {
+      error: getErrorMessage(error),
+    };
+  }
 };

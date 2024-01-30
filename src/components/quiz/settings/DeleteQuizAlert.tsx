@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { deleteQuizAction } from "@/lib/actions/quiz.actions";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import SubmitBtn from "@/components/common/SubmitBtn";
+import SubmitBtn from "@/components/shared/SubmitBtn";
 
 const DeleteQuizAlert = ({
   quizId,
@@ -32,7 +32,7 @@ const DeleteQuizAlert = ({
     }
 
     toast.success(response.message);
-    router.push(`/r/${roomId}/classwork`);
+    router.replace(`/r/${roomId}/classwork`);
   };
 
   return (

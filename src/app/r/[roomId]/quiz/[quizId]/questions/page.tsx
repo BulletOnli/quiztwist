@@ -7,6 +7,7 @@ import QuizSettingsDialog from "@/components/quiz/settings/QuizSettingsDialog";
 import ReportBugDialog from "@/components/quiz/ReportBugDialog";
 import NewQuestionDialog from "@/components/question/NewQuestionDialog";
 import NotFound from "@/app/not-found";
+import { CalendarClock, Clock } from "lucide-react";
 
 type QuizPageProps = {
   params: { roomId: string; quizId: string };
@@ -16,23 +17,23 @@ const QuizPage = async ({ params }: QuizPageProps) => {
   const session = await getServerSession(authOptions);
   const isTeacher = session?.user.role === "Teacher";
 
-  // Checks if the user is already participated in the Quiz
-  // Blocks the user from answering again
-  if (!isTeacher) {
-    const isAlreadyAnswered = await checkUserEligibility(params.quizId);
-
-    if (isAlreadyAnswered.error) {
-      return (
-        <main className="w-full relative min-h-screen bg-secondary flex justify-center p-6">
-          <p>{isAlreadyAnswered.error}</p>
-        </main>
-      );
-    }
-  }
-
   const quizInfo = await getQuizInfo(params.quizId);
 
   if (!quizInfo) return <NotFound />;
+
+  // Checks if the user is already participated in the Quiz
+  // Blocks the user from answering again
+  // if (!isTeacher) {
+  //   const isAlreadyAnswered = await checkUserEligibility(params.quizId);
+
+  //   if (isAlreadyAnswered.error) {
+  //     return (
+  //       <main className="w-full relative min-h-screen bg-secondary flex justify-center p-6">
+  //         <p>{isAlreadyAnswered.error}</p>
+  //       </main>
+  //     );
+  //   }
+  // }
 
   return (
     <main className="w-full relative min-h-screen bg-secondary flex justify-center p-6">
@@ -45,8 +46,21 @@ const QuizPage = async ({ params }: QuizPageProps) => {
 
           <h1 className="text-xl font-semibold">{quizInfo?.title}</h1>
           <p className="text-sm ">{quizInfo?.description}</p>
-          <hr className="my-2" />
-          <p className="text-xs">Prepared by: {quizInfo?.teacher.username}</p>
+          <hr className="my-4" />
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-1">
+              <Clock className="w-4 h-4" />
+              <p className="text-xs ">
+                {quizInfo?.deadline.toLocaleTimeString()}
+              </p>
+            </div>
+            <div className="flex items-center gap-1">
+              <CalendarClock className="w-4 h-4" />
+              <p className="text-xs ">
+                {quizInfo?.deadline.toLocaleDateString()}
+              </p>
+            </div>
+          </div>
         </div>
 
         <div className="w-full flex flex-col items-center gap-2 mt-4">
@@ -60,6 +74,7 @@ const QuizPage = async ({ params }: QuizPageProps) => {
         <QuestionList
           questionsString={JSON.stringify(quizInfo?.questions ?? [])}
           quizId={params.quizId}
+          roomId={params.roomId}
           isTeacher={isTeacher}
         />
       </div>
