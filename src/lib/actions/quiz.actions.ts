@@ -7,6 +7,7 @@ import User from "../models/user.model";
 import { revalidatePath } from "next/cache";
 import Question from "../models/question.model";
 import authOptions from "@/utils/authOptions";
+import moment from "moment";
 
 // Just checking if the user is already participated in the quiz
 export const checkUserEligibility = async (quizId: string) => {
@@ -17,6 +18,7 @@ export const checkUserEligibility = async (quizId: string) => {
     if (!user || !session) throw new Error("Please login first!");
 
     const quizInfo = await Quiz.findById(quizId).select(["respondents"]).lean();
+    if (!quizInfo) throw new Error("Quiz not found!");
 
     // Checks if the user id is in the respondents array
     const isAlreadyAnswered = quizInfo?.respondents.some(
@@ -46,19 +48,28 @@ export const getAllQuizzes = async (roomId: string) => {
 };
 
 export const getQuizInfo = async (quizId: string) => {
-  const quizInfo = await Quiz.findById(quizId)
-    .populate([
-      {
-        path: "questions",
-        model: Question,
-      },
-      {
-        path: "teacher",
-        select: ["username"],
-        model: User,
-      },
-    ])
-    .lean();
+  const quizInfo = await Quiz.findById(quizId).populate([
+    {
+      path: "questions",
+      model: Question,
+    },
+    {
+      path: "teacher",
+      select: ["username"],
+      model: User,
+    },
+  ]);
+  if (!quizInfo) {
+    throw new Error("Quiz not found!");
+  }
+
+  const deadline = moment(quizInfo?.deadline).format();
+  const currentDate = moment().format();
+
+  if (currentDate > deadline && quizInfo.isOpen) {
+    quizInfo.isOpen = false;
+    await quizInfo.save();
+  }
 
   return quizInfo;
 };
@@ -209,6 +220,38 @@ export const submitQuiz = async (formData: FormData, quizId: string) => {
 
     return {
       message: "Thank you for participating in this Quiz!",
+    };
+  } catch (error) {
+    return {
+      error: getErrorMessage(error),
+    };
+  }
+};
+
+export const toggleQuizStatusAction = async ({
+  quizId,
+}: {
+  quizId: string;
+}) => {
+  try {
+    await connectToDB();
+    const session = await getServerSession(authOptions);
+    const user = await User.findById(session?.user.id).select([
+      "_id",
+      "answeredQuizzes",
+    ]);
+    if (!user || !session) throw new Error("Please login first!");
+
+    const quiz = await Quiz.findById(quizId).select(["isOpen"]);
+    if (!quiz) throw new Error("Quiz not found!");
+
+    quiz.isOpen = !quiz.isOpen;
+    await quiz.save();
+
+    revalidatePath(`/quiz/${quizId}`);
+
+    return {
+      message: quiz.isOpen ? "Quiz Opened!" : "Quiz closed!",
     };
   } catch (error) {
     return {

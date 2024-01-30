@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   DialogTrigger,
@@ -6,23 +7,38 @@ import {
   DialogContent,
   Dialog,
 } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import {
-  SelectValue,
-  SelectTrigger,
-  SelectItem,
-  SelectContent,
-  Select,
-} from "@/components/ui/select";
 import DeleteQuizAlert from "./DeleteQuizAlert";
+import { Switch } from "@/components/ui/switch";
+import { useState } from "react";
+import { toggleQuizStatusAction } from "@/lib/actions/quiz.actions";
+import { toast } from "sonner";
+import { useFormStatus } from "react-dom";
+
+type QuizSettingsDialogProps = {
+  quizId: string;
+  roomId: string;
+  isOpen: boolean;
+};
 
 const QuizSettingsDialog = ({
   quizId,
   roomId,
-}: {
-  quizId: string;
-  roomId: string;
-}) => {
+  isOpen,
+}: QuizSettingsDialogProps) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleToggleQuiz = async () => {
+    setIsLoading(true);
+    const response = await toggleQuizStatusAction({ quizId });
+    setIsLoading(false);
+
+    if (response.error) {
+      return toast.error(response.error);
+    }
+
+    toast.success(response.message);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -34,32 +50,19 @@ const QuizSettingsDialog = ({
         <DialogHeader>
           <DialogTitle>Quiz Settings</DialogTitle>
         </DialogHeader>
-        <form className="grid gap-4">
-          <div className="grid gap-2">
-            <Label htmlFor="theme">Theme</Label>
-            <Select disabled>
-              <SelectTrigger className="text-gray-500 dark:text-gray-400">
-                <SelectValue placeholder="Select theme" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="light">Light</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System Default</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="language">Language</Label>
-            <Select disabled>
-              <SelectTrigger className="text-gray-500 dark:text-gray-400">
-                <SelectValue placeholder="Select language" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="en">English</SelectItem>
-                <SelectItem value="es">Spanish</SelectItem>
-                <SelectItem value="fr">French</SelectItem>
-              </SelectContent>
-            </Select>
+        <form className="grid gap-4 mt-2">
+          <div className="flex flex-row items-center justify-between rounded-lg border p-4">
+            <div className="space-y-0.5">
+              <p className="text-sm font-medium">Accepting Response?</p>
+              <p className="text-xs">
+                Enable when you're ready to accept responses from Students.
+              </p>
+            </div>
+            <Switch
+              disabled={isLoading}
+              checked={isOpen}
+              onCheckedChange={handleToggleQuiz}
+            />
           </div>
         </form>
 

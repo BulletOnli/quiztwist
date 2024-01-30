@@ -8,6 +8,7 @@ import ReportBugDialog from "@/components/quiz/ReportBugDialog";
 import NewQuestionDialog from "@/components/question/NewQuestionDialog";
 import NotFound from "@/app/not-found";
 import { CalendarClock, Clock } from "lucide-react";
+import { useEffect } from "react";
 
 type QuizPageProps = {
   params: { roomId: string; quizId: string };
@@ -18,7 +19,6 @@ const QuizPage = async ({ params }: QuizPageProps) => {
   const isTeacher = session?.user.role === "Teacher";
 
   // Checks if the user is already participated in the Quiz
-  // Blocks the user from answering again
   if (!isTeacher) {
     const isAlreadyAnswered = await checkUserEligibility(params.quizId);
 
@@ -32,8 +32,18 @@ const QuizPage = async ({ params }: QuizPageProps) => {
   }
 
   const quizInfo = await getQuizInfo(params.quizId);
-
   if (!quizInfo) return <NotFound />;
+
+  // Checks if this quiz is open for respondents or not
+  if (!isTeacher) {
+    if (!quizInfo?.isOpen) {
+      return (
+        <main className="w-full relative min-h-screen bg-secondary flex justify-center p-6">
+          <p>Currently this quiz is not open!</p>
+        </main>
+      );
+    }
+  }
 
   return (
     <main className="w-full relative min-h-screen bg-secondary flex justify-center p-6">
@@ -64,8 +74,16 @@ const QuizPage = async ({ params }: QuizPageProps) => {
         </div>
 
         <div className="w-full flex flex-col items-center gap-2 mt-4">
-          {isTeacher && <NewQuestionDialog quizId={params.quizId} />}
-          <QuizSettingsDialog roomId={params.roomId} quizId={params.quizId} />
+          {isTeacher && (
+            <>
+              <NewQuestionDialog quizId={params.quizId} />
+              <QuizSettingsDialog
+                isOpen={quizInfo?.isOpen}
+                roomId={params.roomId}
+                quizId={params.quizId}
+              />
+            </>
+          )}
           <ReportBugDialog />
         </div>
       </div>
