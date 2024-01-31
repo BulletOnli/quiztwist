@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import QuizTemplates from "@/components/room/classwork/QuizTemplates";
-import UpcomingQuiz from "@/components/room/classwork/UpcomingQuiz";
-import Classcode from "@/components/room/classwork/Classcode";
+import QuizTemplates from "@/components/quiz/QuizTemplates";
+import UpcomingQuiz from "@/components/quiz/UpcomingQuiz";
+import Classcode from "@/components/room/Classcode";
 import { getServerSession } from "next-auth";
 import { getAllQuizzes } from "@/lib/actions/quiz.actions";
 import authOptions from "@/utils/authOptions";

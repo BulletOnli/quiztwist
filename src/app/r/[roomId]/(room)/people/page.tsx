@@ -1,4 +1,4 @@
-import StudentsList from "@/components/room/people/StudentsList";
+import StudentsList from "@/components/room/StudentsList";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getClassroomData } from "@/lib/actions/classroom.actions";
 import type { Metadata } from "next";
