@@ -41,7 +41,10 @@ const PeoplePage = async ({ params }: PeoplePageProps) => {
       </div>
       <hr className="my-6" />
       <div className="w-full flex flex-col gap-4 ">
-        <h1 className="text-xl font-medium">Students</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-xl font-medium">Students</h1>
+          <p className="text-sm text-gray">{classroom?.students.length}</p>
+        </div>
         <StudentsList students={classroom?.students || []} />
       </div>
     </main>
