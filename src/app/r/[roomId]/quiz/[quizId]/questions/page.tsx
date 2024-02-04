@@ -8,7 +8,6 @@ import ReportBugDialog from "@/components/quiz/ReportBugDialog";
 import NewQuestionDialog from "@/components/question/NewQuestionDialog";
 import NotFound from "@/app/not-found";
 import { CalendarClock, Clock } from "lucide-react";
-import { useEffect } from "react";
 
 type QuizPageProps = {
   params: { roomId: string; quizId: string };
