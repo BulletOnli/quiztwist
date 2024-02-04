@@ -8,6 +8,7 @@ import { revalidatePath } from "next/cache";
 import Question from "../models/question.model";
 import authOptions from "@/utils/authOptions";
 import moment from "moment";
+import mongoose from "mongoose";
 
 // Just checking if the user is already participated in the quiz
 export const checkUserEligibility = async (quizId: string) => {
@@ -37,6 +38,35 @@ export const checkUserEligibility = async (quizId: string) => {
       error: getErrorMessage(error),
     };
   }
+};
+
+export const getUpcomingQuizzes = async ({ roomId }: { roomId: string }) => {
+  await connectToDB();
+  const session = await getServerSession(authOptions);
+  const user = await User.findById(session?.user.id).select(["_id"]).lean();
+  if (!user || !session) throw new Error("Please login first!");
+
+  const threeDaysLater = new Date();
+  threeDaysLater.setDate(threeDaysLater.getDate() + 3);
+
+  const quiz = await Quiz.find({ room: roomId }).select([
+    "deadline",
+    "title",
+    "respondents",
+  ]);
+
+  const filteredQuizzes = quiz
+    .filter(
+      ({ deadline }) => deadline <= threeDaysLater && deadline >= new Date()
+    )
+    .filter(({ respondents }) => !respondents.includes(user._id))
+    .map(({ _id, deadline, title }) => ({
+      _id,
+      deadline,
+      title,
+    }));
+
+  return filteredQuizzes;
 };
 
 export const getAllQuizzes = async (roomId: string) => {

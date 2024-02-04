@@ -19,7 +19,7 @@ const ClassworkPage = async ({ params }: { params: { roomId: string } }) => {
   return (
     <main className="w-full max-w-6xl mx-auto flex gap-10 p-6">
       <div className="flex flex-col items-center gap-4">
-        <UpcomingQuiz roomId={params.roomId} quizzes={quizzes} />
+        <UpcomingQuiz roomId={params.roomId} />
         <Classcode roomId={params.roomId} />
       </div>
 
