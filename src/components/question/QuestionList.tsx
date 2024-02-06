@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import SampleQuestion from "./SampleQuestion";
 import { toast } from "sonner";
 import { useEffect, useRef, useState } from "react";
+import SubmitBtn from "../shared/SubmitBtn";
 
 type QuestionListProps = {
   questionsString: string;
@@ -90,7 +91,7 @@ const QuestionList = ({
         />
       ))}
       {!isTeacher && questionsArray.length !== 0 && (
-        <Button type="submit">Submit</Button>
+        <SubmitBtn defaultName="Submit" onLoadingName="Submiting..." />
       )}
     </form>
   );

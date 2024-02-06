@@ -8,6 +8,7 @@ import { revalidatePath } from "next/cache";
 import Question from "../models/question.model";
 import authOptions from "@/utils/authOptions";
 import moment from "moment";
+import mongoose from "mongoose";
 
 // Just checking if the user is already participated in the quiz
 export const checkUserEligibility = async (quizId: string) => {
@@ -281,6 +282,53 @@ export const toggleQuizStatusAction = async ({
 
     return {
       message: quiz.isOpen ? "Quiz Opened!" : "Quiz closed!",
+    };
+  } catch (error) {
+    return {
+      error: getErrorMessage(error),
+    };
+  }
+};
+
+export const getUserQuizResultAction = async ({
+  quizId,
+}: {
+  quizId: string;
+}) => {
+  try {
+    await connectToDB();
+    const session = await getServerSession(authOptions);
+    const user = await User.findById(session?.user.id)
+      .select(["_id", "answeredQuizzes"])
+      .populate({
+        path: "answeredQuizzes",
+        populate: {
+          path: "quiz",
+          select: ["questions"],
+        },
+      });
+    if (!user || !session) throw new Error("Please login first!");
+
+    const answeredQuiz = user.answeredQuizzes.find(
+      ({ quiz }) => quiz?._id.toString() === quizId
+    ) as
+      | {
+          quiz: {
+            questions: mongoose.Types.ObjectId[];
+            _id: mongoose.Schema.Types.ObjectId;
+          };
+          score: number;
+        }
+      | undefined;
+
+    const score = answeredQuiz?.score || 0;
+    const totalQuestions = answeredQuiz?.quiz.questions.length || 0;
+    const scorePercentage = (score / totalQuestions) * 100;
+
+    return {
+      score,
+      totalQuestions,
+      scorePercentage: scorePercentage.toFixed(),
     };
   } catch (error) {
     return {

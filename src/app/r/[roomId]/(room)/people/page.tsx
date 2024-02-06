@@ -44,9 +44,9 @@ const PeoplePage = async ({ params }: PeoplePageProps) => {
       <div className="w-full flex flex-col gap-4 ">
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-medium">Students</h1>
-          {/* <p className="text-sm text-gray">{classroom?.students.length}</p> */}
 
           <div className="flex items-center gap-2">
+            <p className="text-sm text-gray">{classroom?.students.length}</p>
             <AddStudentsModal roomId={params.roomId} />
           </div>
         </div>
