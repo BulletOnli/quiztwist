@@ -1,4 +1,5 @@
-import StudentsList from "@/components/room/StudentsList";
+import AddStudentsModal from "@/components/room/people/AddStudentsModal";
+import StudentsList from "@/components/room/people/StudentsList";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getClassroomData } from "@/lib/actions/classroom.actions";
 import type { Metadata } from "next";
@@ -41,7 +42,14 @@ const PeoplePage = async ({ params }: PeoplePageProps) => {
       </div>
       <hr className="my-6" />
       <div className="w-full flex flex-col gap-4 ">
-        <h1 className="text-xl font-medium">Students</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-xl font-medium">Students</h1>
+
+          <div className="flex items-center gap-2">
+            <p className="text-sm text-gray">{classroom?.students.length}</p>
+            <AddStudentsModal roomId={params.roomId} />
+          </div>
+        </div>
         <StudentsList students={classroom?.students || []} />
       </div>
     </main>

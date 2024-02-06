@@ -4,23 +4,23 @@ import ThemeProvider from "@/context/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 
 type ProvidersProps = {
-    children: React.ReactNode;
+  children: React.ReactNode;
 };
 
 const GlobalProviders = ({ children }: ProvidersProps) => {
-    return (
-        <SessionProvider>
-            <ThemeProvider
-                attribute="class"
-                defaultTheme="light"
-                enableSystem
-                disableTransitionOnChange
-            >
-                {children}
-                <Toaster richColors position="top-right" />
-            </ThemeProvider>
-        </SessionProvider>
-    );
+  return (
+    <SessionProvider>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="light"
+        enableSystem
+        disableTransitionOnChange
+      >
+        {children}
+        <Toaster richColors position="top-right" />
+      </ThemeProvider>
+    </SessionProvider>
+  );
 };
 
 export default GlobalProviders;

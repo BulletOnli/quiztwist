@@ -119,6 +119,58 @@ export const joinClassroomAction = async (formData: FormData) => {
   }
 };
 
+export const addStudentToClassroomAction = async ({
+  formData,
+  roomId,
+}: {
+  formData: FormData;
+  roomId: string;
+}) => {
+  try {
+    await connectToDB();
+    const session = await getServerSession(authOptions);
+    const loggedInUser = await User.findById(session?.user.id)
+      .select(["_id"])
+      .lean();
+    if (!loggedInUser || !session) throw new Error("Please login first!");
+
+    const targetStudent = await User.findOne({
+      email: formData.get("studentEmail") as string,
+    }).select(["classrooms", "role"]);
+
+    if (!targetStudent) {
+      throw new Error("No user found!");
+    }
+    if (targetStudent.role === "Teacher") {
+      throw new Error("Only student is allowed!");
+    }
+
+    const classroom = await Classroom.findById(roomId).select(["students"]);
+    if (!classroom) {
+      throw new Error("Classroom not found!");
+    }
+
+    if (classroom.students.includes(targetStudent._id)) {
+      throw new Error("Student is already in this classroom!");
+    }
+
+    targetStudent.classrooms.push(classroom._id);
+    await targetStudent.save();
+    classroom.students.push(targetStudent._id);
+    await classroom.save();
+
+    revalidatePath(`/r/${roomId}/people`);
+
+    return {
+      message: "You added a new Student!",
+    };
+  } catch (error) {
+    return {
+      error: getErrorMessage(error),
+    };
+  }
+};
+
 export const updateClassroomAction = async (
   formData: FormData,
   roomId: string
@@ -172,6 +224,10 @@ export const deleteClassroomAction = async (
     }
 
     await Classroom.findByIdAndDelete(roomId);
+    user.classrooms = user.classrooms.filter(
+      (classroom) => classroom.toString() !== roomId
+    ) as any;
+    await user.save();
 
     revalidatePath("/dashboard");
 

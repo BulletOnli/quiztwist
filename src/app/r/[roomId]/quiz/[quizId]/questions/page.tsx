@@ -8,7 +8,7 @@ import ReportBugDialog from "@/components/quiz/ReportBugDialog";
 import NewQuestionDialog from "@/components/question/NewQuestionDialog";
 import NotFound from "@/app/not-found";
 import { CalendarClock, Clock } from "lucide-react";
-import { useEffect } from "react";
+import { redirect } from "next/navigation";
 
 type QuizPageProps = {
   params: { roomId: string; quizId: string };
@@ -23,11 +23,7 @@ const QuizPage = async ({ params }: QuizPageProps) => {
     const isAlreadyAnswered = await checkUserEligibility(params.quizId);
 
     if (isAlreadyAnswered.error) {
-      return (
-        <main className="w-full relative min-h-screen bg-secondary flex justify-center p-6">
-          <p>{isAlreadyAnswered.error}</p>
-        </main>
-      );
+      redirect(`/r/${params.roomId}/quiz/${params.quizId}/result`);
     }
   }
 
