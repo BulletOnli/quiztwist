@@ -42,7 +42,6 @@ const authOptions: NextAuthOptions = {
 
         return true;
       } catch (error) {
-        redirect("/login");
         console.log("Error from auth options", error);
         return false;
       }
