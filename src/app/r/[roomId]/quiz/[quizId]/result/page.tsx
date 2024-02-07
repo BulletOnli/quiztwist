@@ -12,7 +12,7 @@ const ResultsPage = async ({ params }: { params: { quizId: string } }) => {
             Congratulations!
           </h1>
           <p className="text-lg text-gray-500 dark:text-gray-400">
-            You've successfully completed the Quiz.
+            You&apos;ve successfully completed the Quiz.
           </p>
           <div className="flex flex-col items-center justify-center space-y-2">
             <div className="text-2xl font-semibold text-gray-900 dark:text-gray-100">

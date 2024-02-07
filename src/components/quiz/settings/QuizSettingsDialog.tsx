@@ -55,7 +55,7 @@ const QuizSettingsDialog = ({
             <div className="space-y-0.5">
               <p className="text-sm font-medium">Accepting Response?</p>
               <p className="text-xs">
-                Enable when you're ready to accept responses from Students.
+                Enable when you&apos;re ready to accept responses from Students.
               </p>
             </div>
             <Switch
