@@ -37,7 +37,7 @@ const Sidebar = async () => {
             >
               <div className="bg-secondary-grayBg border border-borderColor hover:shadow py-1 px-2 rounded-full flex items-center gap-2">
                 <Avatar className="w-9 h-9 ">
-                  <AvatarImage />
+                  <AvatarImage alt="Classroom avatar" />
                   <AvatarFallback>
                     {classroom.subject.slice(0, 2)}
                   </AvatarFallback>

@@ -25,6 +25,7 @@ const StudentsList = ({ students }: { students: UserType[] }) => {
           <Avatar className="w-14 h-14">
             <AvatarImage
               src={student.profilePic || "https://github.com/shadcn.png"}
+              alt="User avatar"
             />
             <AvatarFallback>{student.firstName?.slice(0, 1)}</AvatarFallback>
           </Avatar>

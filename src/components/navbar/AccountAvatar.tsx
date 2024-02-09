@@ -33,7 +33,10 @@ const AccountAvatar = ({ user }: { user: NextAuthUser }) => {
       <DropdownMenuTrigger>
         <div className="flex items-center gap-2">
           <Avatar>
-            <AvatarImage src={user?.image || "https://github.com/shadcn.png"} />
+            <AvatarImage
+              src={user?.image || "https://github.com/shadcn.png"}
+              alt="Account Avatar"
+            />
             <AvatarFallback>{user.name.slice(0, 1)}</AvatarFallback>
           </Avatar>
           <div className="w-[8rem] flex flex-col items-start overflow-x-hidden">

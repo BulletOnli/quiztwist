@@ -27,6 +27,7 @@ const PeoplePage = async ({ params }: PeoplePageProps) => {
                   classroom?.teacher.profilePic ||
                   "https://github.com/shadcn.png"
                 }
+                alt="User avatar"
               />
               <AvatarFallback>
                 {classroom?.teacher.firstName?.slice(0, 1)}

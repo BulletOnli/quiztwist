@@ -1,5 +1,4 @@
 import { getUpcomingQuizzes } from "@/lib/actions/quiz.actions";
-import { QuizSchemaType } from "@/lib/models/quiz.model";
 import Link from "next/link";
 
 const UpcomingQuiz = async ({ roomId }: { roomId: string }) => {
