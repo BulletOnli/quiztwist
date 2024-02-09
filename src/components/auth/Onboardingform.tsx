@@ -9,12 +9,21 @@ import { Label } from "@/components/ui/label";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import SubmitBtn from "@/components/shared/SubmitBtn";
+import { joinClassroomAction } from "@/lib/actions/classroom.actions";
 
 const Onboardingform = () => {
   const { data } = useSession();
 
   const formAction = async (formData: FormData) => {
     const result = await onboardingAction(formData);
+    const isStudent = formData.get("role") === "Student";
+
+    // Add the student to the public classroom
+    if (isStudent) {
+      const newFormData = new FormData();
+      newFormData.append("classCode", "403d7");
+      await joinClassroomAction(newFormData);
+    }
 
     if (result?.error) {
       return toast.error(result.error);

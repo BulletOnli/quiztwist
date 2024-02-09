@@ -72,23 +72,27 @@ export const getUpcomingQuizzes = async ({ roomId }: { roomId: string }) => {
 export const getAllQuizzes = async (roomId: string) => {
   const quizzes = await Quiz.find({ room: roomId })
     .sort({ updatedAt: -1 })
+    .select(["title", "deadline"])
     .lean();
 
   return quizzes;
 };
 
 export const getQuizInfo = async (quizId: string) => {
-  const quizInfo = await Quiz.findById(quizId).populate([
-    {
-      path: "questions",
-      model: Question,
-    },
-    {
-      path: "teacher",
-      select: ["username"],
-      model: User,
-    },
-  ]);
+  const quizInfo = await Quiz.findById(quizId)
+    .populate([
+      {
+        path: "questions",
+        model: Question,
+      },
+      {
+        path: "teacher",
+        select: ["username"],
+        model: User,
+      },
+    ])
+    .select(["-respondents"]);
+
   if (!quizInfo) {
     throw new Error("Quiz not found!");
   }

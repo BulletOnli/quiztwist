@@ -29,7 +29,18 @@ export const getClassrooms = async () => {
 export const getClassroomData = async (id: string) => {
   await connectToDB();
   const classroom = await Classroom.findById(id)
-    .populate(["teacher", "students"])
+    .populate([
+      {
+        path: "teacher",
+        model: User,
+        select: ["profilePic", "firstName", "lastName"],
+      },
+      {
+        path: "students",
+        model: User,
+        select: ["profilePic", "firstName", "lastName"],
+      },
+    ])
     .lean();
 
   return classroom;
