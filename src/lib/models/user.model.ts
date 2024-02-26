@@ -36,6 +36,10 @@ const UserSchema = new mongoose.Schema({
       },
     },
   ],
+  subscription: {
+    type: String,
+    default: "Basic",
+  },
 });
 
 export type UserType = mongoose.InferSchemaType<typeof UserSchema> & {

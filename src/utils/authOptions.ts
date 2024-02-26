@@ -36,7 +36,6 @@ const authOptions: NextAuthOptions = {
             email: user?.email,
             username: user?.name,
             profilePic: user?.image,
-            role: "Guest",
           });
         }
 

@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 import User from "../models/user.model";
 import authOptions from "@/utils/authOptions";
 import getErrorMessage from "@/utils/getErrorMessage";
+import { redirect } from "next/navigation";
 
 export const getClassrooms = async () => {
   await connectToDB();
@@ -50,8 +51,15 @@ export const createClassroomAction = async (formData: FormData) => {
   try {
     await connectToDB();
     const session = await getServerSession(authOptions);
-    const user = await User.findById(session?.user.id).select(["classrooms"]);
+    const user = await User.findById(session?.user.id).select([
+      "classrooms",
+      "subscription",
+    ]);
     if (!user || !session) throw new Error("Please login first!");
+
+    if (user.subscription === "Basic" && user.classrooms.length >= 10) {
+      throw new Error("Maximum classrooms reached for Basic subscription.");
+    }
 
     const classroom = await Classroom.create({
       subject: formData.get("subject"),
