@@ -22,6 +22,7 @@ const authOptions: NextAuthOptions = {
       if (userFromDb) {
         session.user.id = userFromDb?._id.toString();
         session.user.role = userFromDb?.role;
+        session.user.subscription = userFromDb?.subscription;
       }
 
       return session;

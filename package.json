@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "stripe:listen": "stripe listen --forward-to=localhost:3000/api/webhook/stripe",
+    "stripe:trigger": "stripe trigger payment_intent.succeeded"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
@@ -29,7 +31,7 @@
     "lucide-react": "^0.294.0",
     "moment": "^2.30.1",
     "mongoose": "^8.0.2",
-    "next": "^14.0.3",
+    "next": "^14.1.0",
     "next-auth": "^4.24.5",
     "next-themes": "^0.2.1",
     "react": "^18",

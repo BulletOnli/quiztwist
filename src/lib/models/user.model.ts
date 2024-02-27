@@ -38,7 +38,7 @@ const UserSchema = new mongoose.Schema({
   ],
   subscription: {
     type: String,
-    default: "Basic",
+    default: "basic",
   },
 });
 
