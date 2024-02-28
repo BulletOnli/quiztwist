@@ -66,7 +66,12 @@ const NewQuizDialog = ({ roomId }: { roomId: string }) => {
           </div>
           <div className="flex flex-col gap-2">
             <p className="font-medium text-sm">Deadline</p>
-            <Input name="deadline" type="datetime-local" required />
+            <Input
+              name="deadline"
+              type="datetime-local"
+              min={new Date().toISOString().slice(0, 16)}
+              required
+            />
           </div>
           <DialogFooter>
             <DialogClose asChild>

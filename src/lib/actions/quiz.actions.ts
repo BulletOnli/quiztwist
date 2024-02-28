@@ -126,7 +126,6 @@ export const createQuiz = async ({ formData, roomId }: CreateQuizType) => {
       teacher: user._id,
       room: roomId,
       deadline: formData.get("deadline"),
-      isOpen: false,
     });
 
     revalidatePath(`/r/${roomId}/classwork`);
