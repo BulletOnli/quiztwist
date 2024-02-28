@@ -1,6 +1,6 @@
 "use server";
-import { stripe } from "@/app/api/webhook/stripe/route";
 import { redirect } from "next/navigation";
+import { stripe } from "@/utils/stripeConfig";
 
 type CheckoutDetails = {
   plan: string;
