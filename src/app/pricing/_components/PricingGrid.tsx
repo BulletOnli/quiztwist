@@ -1,11 +1,7 @@
 import PricingCard from "@/app/pricing/_components/PricingCard";
+import BasicPricingCard from "./BasicPricingCard";
 
 const PricingData = [
-  {
-    plan: "Basic",
-    price: 0,
-    perks: ["Up to 5 classrooms", "Not available yet", "Not available yet"],
-  },
   {
     plan: "Premium",
     price: 1.99,
@@ -21,6 +17,7 @@ const PricingData = [
 const PricingGrid = () => {
   return (
     <div className="mt-12 grid items-center gap-6 md:grid-cols-2 lg:flex lg:space-x-8">
+      <BasicPricingCard />
       {PricingData.map((data) => (
         <PricingCard
           cardTitle={data.plan}
