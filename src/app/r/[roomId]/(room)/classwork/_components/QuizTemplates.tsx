@@ -1,4 +1,4 @@
-import NewQuizDialog from "@/components/quiz/NewQuizDialog";
+import NewQuizDialog from "@/app/r/[roomId]/quiz/[quizId]/_components/NewQuizDialog";
 
 const QuizTemplates = ({ roomId }: { roomId: string }) => {
   return (

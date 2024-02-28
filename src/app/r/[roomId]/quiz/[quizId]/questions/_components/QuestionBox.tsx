@@ -1,6 +1,9 @@
 import { QuestionType } from "@/lib/models/question.model";
-import { Label } from "../ui/label";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { Label } from "../../../../../../../components/ui/label";
+import {
+  RadioGroup,
+  RadioGroupItem,
+} from "../../../../../../../components/ui/radio-group";
 import DeleteQuestionDialog from "./DeleteQuestionDialog";
 import EditQuestionDialog from "./EditQuestionDialog";
 

@@ -1,4 +1,4 @@
-import GoogleSignInBtn from "@/components/auth/GoogleSignInBtn";
+import GoogleSignInBtn from "@/app/(auth)/_components/GoogleSignInBtn";
 import authOptions from "@/utils/authOptions";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";

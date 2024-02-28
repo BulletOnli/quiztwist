@@ -1,11 +1,11 @@
-import QuestionList from "@/components/question/QuestionList";
+import QuestionList from "@/app/r/[roomId]/quiz/[quizId]/questions/_components/QuestionList";
 import { checkUserEligibility, getQuizInfo } from "@/lib/actions/quiz.actions";
 import { getServerSession } from "next-auth";
 import authOptions from "@/utils/authOptions";
-import EditQuizDialog from "@/components/quiz/EditQuizDialog";
-import QuizSettingsDialog from "@/components/quiz/settings/QuizSettingsDialog";
-import ReportBugDialog from "@/components/quiz/ReportBugDialog";
-import NewQuestionDialog from "@/components/question/NewQuestionDialog";
+import EditQuizDialog from "@/app/r/[roomId]/quiz/[quizId]/_components/EditQuizDialog";
+import QuizSettingsDialog from "@/app/r/[roomId]/quiz/[quizId]/_components/settings/QuizSettingsDialog";
+import ReportBugDialog from "@/app/r/[roomId]/quiz/[quizId]/_components/ReportBugDialog";
+import NewQuestionDialog from "@/app/r/[roomId]/quiz/[quizId]/questions/_components/NewQuestionDialog";
 import NotFound from "@/app/not-found";
 import { CalendarClock, Clock } from "lucide-react";
 import { redirect } from "next/navigation";

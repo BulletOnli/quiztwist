@@ -1,5 +1,5 @@
-import AddStudentsModal from "@/components/room/people/AddStudentsModal";
-import StudentsList from "@/components/room/people/StudentsList";
+import AddStudentsModal from "@/app/r/[roomId]/(room)/people/_components/AddStudentsModal";
+import StudentsList from "@/app/r/[roomId]/(room)/people/_components/StudentsList";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getClassroomData } from "@/lib/actions/classroom.actions";
 import type { Metadata } from "next";

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import QuizTemplates from "@/components/quiz/QuizTemplates";
-import UpcomingQuiz from "@/components/quiz/UpcomingQuiz";
-import Classcode from "@/components/room/Classcode";
+import QuizTemplates from "@/app/r/[roomId]/(room)/classwork/_components/QuizTemplates";
+import UpcomingQuiz from "@/app/r/[roomId]/(room)/classwork/_components/UpcomingQuiz";
+import Classcode from "@/app/r/[roomId]/(room)/classwork/_components/Classcode";
 import { getServerSession } from "next-auth";
 import { getAllQuizzes } from "@/lib/actions/quiz.actions";
 import authOptions from "@/utils/authOptions";
-import QuizCard from "@/components/quiz/QuizCard";
+import QuizCard from "@/app/r/[roomId]/(room)/classwork/_components/QuizCard";
 
 export const metadata: Metadata = {
   title: "Classwork | QuizTwist",
