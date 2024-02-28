@@ -1,8 +1,6 @@
-import Stripe from "stripe";
 import { NextResponse } from "next/server";
 import User from "@/lib/models/user.model";
-
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+import { stripe } from "@/utils/stripeConfig";
 
 export async function POST(req: Request) {
   const body = await req.text();
