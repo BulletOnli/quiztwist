@@ -93,14 +93,10 @@ export const getQuizInfo = async (quizId: string) => {
     ])
     .select(["-respondents"]);
 
-  if (!quizInfo) {
-    throw new Error("Quiz not found!");
-  }
-
   const deadline = moment(quizInfo?.deadline).format();
   const currentDate = moment().format();
 
-  if (currentDate > deadline && quizInfo.isOpen) {
+  if (currentDate > deadline && quizInfo?.isOpen) {
     quizInfo.isOpen = false;
     await quizInfo.save();
   }
