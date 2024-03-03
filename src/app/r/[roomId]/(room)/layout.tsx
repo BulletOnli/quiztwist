@@ -1,5 +1,5 @@
 import RoomHeader from "@/app/r/[roomId]/(room)/_components/header/RoomHeader";
-import Sidebar from "@/components/sidebar/Sidebar";
+import Sidebar from "@/components/shared/Sidebar";
 
 type RoomLayoutProps = {
   children: React.ReactNode;

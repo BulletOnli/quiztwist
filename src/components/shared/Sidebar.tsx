@@ -15,9 +15,9 @@ const Sidebar = async () => {
               Dashboard
             </Button>
           </Link>
-          <Link href="/" className="w-full">
+          <Link href="/calendar" className="w-full">
             <Button variant="outline" size="lg" className="w-full">
-              N/A
+              Calendar
             </Button>
           </Link>
         </div>
@@ -27,7 +27,6 @@ const Sidebar = async () => {
 
       <div className="w-full flex flex-col items-center gap-4">
         <p className="font-medium">Classrooms</p>
-
         <div className="w-full flex flex-col items-center gap-2">
           {classrooms.map((classroom) => (
             <Link
