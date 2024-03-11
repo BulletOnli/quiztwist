@@ -1,6 +1,10 @@
 "use server";
 import { redirect } from "next/navigation";
 import { stripe } from "@/utils/stripeConfig";
+import { getServerSession } from "next-auth";
+import authOptions from "@/utils/authOptions";
+import User from "@/lib/models/user.model";
+import getErrorMessage from "@/utils/getErrorMessage";
 
 type CheckoutDetails = {
   plan: string;
@@ -9,32 +13,43 @@ type CheckoutDetails = {
 };
 
 export const stripeCheckout = async (transDetails: CheckoutDetails) => {
-  const amount = Number(transDetails.price) * 100;
+  try {
+    const nextAuthSession = await getServerSession(authOptions);
+    const user = await User.findById(nextAuthSession?.user.id)
+      .select(["_id"])
+      .lean();
+    if (!user || !nextAuthSession) throw new Error("Please login first!");
 
-  const session = await stripe.checkout.sessions.create({
-    line_items: [
-      {
-        price_data: {
-          currency: "usd",
-          unit_amount: amount,
-          product_data: {
-            name: transDetails.plan,
+    const amount = Number(transDetails.price) * 100;
+
+    const session = await stripe.checkout.sessions.create({
+      line_items: [
+        {
+          price_data: {
+            currency: "usd",
+            unit_amount: amount,
+            product_data: {
+              name: transDetails.plan,
+            },
+            recurring: {
+              interval: "month",
+            },
           },
-          recurring: {
-            interval: "month",
-          },
+          quantity: 1,
         },
-        quantity: 1,
+      ],
+      metadata: {
+        plan: transDetails.plan.toLowerCase(),
+        userId: transDetails.userId,
       },
-    ],
-    metadata: {
-      plan: transDetails.plan.toLowerCase(),
-      userId: transDetails.userId,
-    },
-    mode: "subscription",
-    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/pricing?success=true`,
-    cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/pricing?canceled=true`,
-  });
+      mode: "subscription",
+      success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/pricing?success=true`,
+      cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/pricing?canceled=true`,
+    });
 
-  redirect(session.url!);
+    redirect(session.url!);
+  } catch (error) {
+    console.log(getErrorMessage(error));
+    redirect("/login");
+  }
 };

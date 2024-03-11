@@ -3,6 +3,7 @@ import User from "@/lib/models/user.model";
 import { stripe } from "@/utils/stripeConfig";
 import { revalidatePath } from "next/cache";
 
+// Listen to the stripe event
 export async function POST(req: Request) {
   const body = await req.text();
 
