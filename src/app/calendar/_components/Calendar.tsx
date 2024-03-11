@@ -2,15 +2,31 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 
-const Calendar = () => {
+type CalendarProps = {
+  events:
+    | [
+        {
+          _id: string;
+          room: {
+            _id: string;
+            students: string[];
+          };
+          deadline: Date;
+          title: string;
+        }
+      ]
+    | [];
+};
+
+const Calendar = ({ events }: CalendarProps) => {
   return (
     <FullCalendar
       plugins={[dayGridPlugin]}
       initialView="dayGridMonth"
-      events={[
-        { title: "event 1", date: "2019-04-01" },
-        { title: "event 2", date: "2019-04-02" },
-      ]}
+      events={events.map((event) => ({
+        title: event.title,
+        date: event.deadline,
+      }))}
     />
   );
 };

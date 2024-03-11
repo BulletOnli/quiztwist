@@ -63,7 +63,7 @@ const AccountAvatar = ({ user }: { user: NextAuthUser }) => {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {DROP_DOWN_LINKS.map((link) => (
-          <DropdownMenuItem>
+          <DropdownMenuItem key={link.link}>
             <Link href={link.link} className="flex items-center">
               {link.icon}
               <p>{link.name}</p>
