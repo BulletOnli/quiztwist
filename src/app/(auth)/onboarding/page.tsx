@@ -1,4 +1,4 @@
-import Onboardingform from "@/components/auth/Onboardingform";
+import Onboardingform from "@/app/(auth)/_components/Onboardingform";
 import authOptions from "@/utils/authOptions";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";

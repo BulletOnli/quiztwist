@@ -1,6 +1,6 @@
-import DeleteClassroomDialog from "@/components/room/settings/DeleteClassroomDialog";
-import LeaveClassroomDialog from "@/components/room/settings/LeaveClassroomDialog";
-import UpdateClassroomForm from "@/components/room/settings/UpdateClassroomForm";
+import DeleteClassroomDialog from "@/app/r/[roomId]/(room)/settings/_components/DeleteClassroomDialog";
+import LeaveClassroomDialog from "@/app/r/[roomId]/(room)/settings/_components/LeaveClassroomDialog";
+import UpdateClassroomForm from "@/app/r/[roomId]/(room)/settings/_components/UpdateClassroomForm";
 import { getClassroomData } from "@/lib/actions/classroom.actions";
 import authOptions from "@/utils/authOptions";
 import type { Metadata } from "next";

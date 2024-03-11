@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import User from "@/lib/models/user.model";
 import { stripe } from "@/utils/stripeConfig";
+import { revalidatePath } from "next/cache";
 
 export async function POST(req: Request) {
   const body = await req.text();
@@ -37,6 +38,8 @@ export async function POST(req: Request) {
       user.subscription = metadata?.plan;
       await user.save();
     }
+
+    revalidatePath("/pricing");
 
     return NextResponse.json({
       message: "OK",

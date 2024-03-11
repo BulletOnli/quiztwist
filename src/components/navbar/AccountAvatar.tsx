@@ -15,6 +15,19 @@ import { NextAuthUser } from "@/types/next-auth";
 import Link from "next/link";
 import { useEffect } from "react";
 
+const DROP_DOWN_LINKS = [
+  {
+    link: "/",
+    icon: <User className="mr-2 h-4 w-4" />,
+    name: "Profile",
+  },
+  {
+    link: "/dashboard",
+    icon: <LayoutDashboard className="mr-2 h-4 w-4" />,
+    name: "Dashboard",
+  },
+];
+
 const AccountAvatar = ({ user }: { user: NextAuthUser }) => {
   const pathname = usePathname();
   const router = useRouter();
@@ -49,18 +62,14 @@ const AccountAvatar = ({ user }: { user: NextAuthUser }) => {
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem disabled>
-          <Link href="/" className="flex items-center">
-            <User className="mr-2 h-4 w-4" />
-            <p>Profile</p>
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link href="/dashboard" className="flex items-center">
-            <LayoutDashboard className="mr-2 h-4 w-4" />
-            <p>Dashboard</p>
-          </Link>
-        </DropdownMenuItem>
+        {DROP_DOWN_LINKS.map((link) => (
+          <DropdownMenuItem key={link.link}>
+            <Link href={link.link} className="flex items-center">
+              {link.icon}
+              <p>{link.name}</p>
+            </Link>
+          </DropdownMenuItem>
+        ))}
         <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
           <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>

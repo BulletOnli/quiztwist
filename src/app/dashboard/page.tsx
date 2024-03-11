@@ -1,11 +1,11 @@
-import ClassroomsGrid from "@/components/room/ClassroomsGrid";
+import ClassroomsGrid from "@/app/dashboard/_components/ClassroomsGrid";
 import { getServerSession } from "next-auth";
 import type { Metadata } from "next";
 import authOptions from "@/utils/authOptions";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import CreateClassroomModal from "@/components/room/CreateClassroomModal";
-import JoinClassroomModal from "@/components/room/join-classroom/JoinClassroomModal";
+import CreateClassroomModal from "@/app/dashboard/_components/CreateClassroomModal";
+import JoinClassroomModal from "@/app/dashboard/_components/join-classroom/JoinClassroomModal";
 
 export const metadata: Metadata = {
   title: "Dashboard | QuizTwist",

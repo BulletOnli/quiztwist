@@ -1,7 +1,11 @@
 import { Users } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "../../../components/ui/avatar";
 import { ClassroomType } from "@/lib/models/classroom.model";
 
 const ClassroomCard = ({ classroom }: { classroom: ClassroomType }) => {

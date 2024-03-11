@@ -81,6 +81,7 @@ const EditQuizDialog = ({ quizInfo, quizId }: EditQuizDialogProps) => {
             <Input
               name="deadline"
               type="datetime-local"
+              min={deadline.format().slice(0, 16)}
               defaultValue={deadline.format().slice(0, 16)}
             />
           </div>

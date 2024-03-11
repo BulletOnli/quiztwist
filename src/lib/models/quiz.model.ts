@@ -32,7 +32,7 @@ const QuizSchema = new mongoose.Schema(
     },
     isOpen: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     respondents: [
       {
