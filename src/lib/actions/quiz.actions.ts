@@ -271,8 +271,15 @@ export const toggleQuizStatusAction = async ({
     ]);
     if (!user || !session) throw new Error("Please login first!");
 
-    const quiz = await Quiz.findById(quizId).select(["isOpen"]);
+    const quiz = await Quiz.findById(quizId).select(["isOpen", "deadline"]);
     if (!quiz) throw new Error("Quiz not found!");
+
+    const deadline = moment(quiz?.deadline).format();
+    const currentDate = moment().format();
+
+    if (currentDate > deadline) {
+      throw new Error("Deadline is over!");
+    }
 
     quiz.isOpen = !quiz.isOpen;
     await quiz.save();

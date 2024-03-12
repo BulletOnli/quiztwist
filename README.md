@@ -1,38 +1,65 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Project Overview
+
+This project involves two distinct user roles: Teachers and Students. Teachers have the ability to create classrooms and design quizzes within those classrooms. Students, on the other hand, can join multiple classrooms and actively participate in the quizzes. It's important to note that students are restricted from switching tabs during quizzes, ensuring that the quiz remains focused, and only the answered questions are recorded.
+
+## Technologies Used
+
+- Next.js 14
+- Tailwind CSS
+- ShadcnUI
+- MongoDB
+- Next Auth
+- Stripe
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository:
+
+```bash
+git clone https://github.com/BulletOnli/quiztwist.git
+```
+
+2. Navigate to the project directory:
+
+```bash
+cd mydashboard-fe-next
+```
+
+3. Set up the .env.local file:
+
+```bash
+# MongoDB
+MONGO_URI=
+
+# From Next Auth
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=
+
+# From Google cloud console
+GOOGLE_ID=
+GOOGLE_SECRET=
+
+# From Stripe
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+STRIPE_WEBHOOK_SECRET=
+STRIPE_SECRET_KEY=
+# Pro plan price
+NEXT_PUBLIC_PRO_PRICE_ID=
+# Premium plan price
+NEXT_PUBLIC_PREMIUM_PRICE_ID=
+NEXT_PUBLIC_SERVER_URL=http://localhost:3000
+```
+
+## Usage
+
+To install the required dependencies, use the following command:
+
+```bash
+npm install
+```
+
+To run the application, execute the following command:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-This project is licensed under the MIT License. For more information, please see the `LICENSE` file.

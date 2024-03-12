@@ -19,37 +19,37 @@ export const stripeCheckout = async (transDetails: CheckoutDetails) => {
       .select(["_id"])
       .lean();
     if (!user || !nextAuthSession) throw new Error("Please login first!");
-
-    const amount = Number(transDetails.price) * 100;
-
-    const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price_data: {
-            currency: "usd",
-            unit_amount: amount,
-            product_data: {
-              name: transDetails.plan,
-            },
-            recurring: {
-              interval: "month",
-            },
-          },
-          quantity: 1,
-        },
-      ],
-      metadata: {
-        plan: transDetails.plan.toLowerCase(),
-        userId: transDetails.userId,
-      },
-      mode: "subscription",
-      success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/pricing?success=true`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/pricing?canceled=true`,
-    });
-
-    redirect(session.url!);
   } catch (error) {
     console.log(getErrorMessage(error));
     redirect("/login");
   }
+
+  const amount = Number(transDetails.price) * 100;
+
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        price_data: {
+          currency: "usd",
+          unit_amount: amount,
+          product_data: {
+            name: transDetails.plan,
+          },
+          recurring: {
+            interval: "month",
+          },
+        },
+        quantity: 1,
+      },
+    ],
+    metadata: {
+      plan: transDetails.plan.toLowerCase(),
+      userId: transDetails.userId,
+    },
+    mode: "subscription",
+    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/pricing?success=true`,
+    cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/pricing?canceled=true`,
+  });
+
+  redirect(session.url!);
 };

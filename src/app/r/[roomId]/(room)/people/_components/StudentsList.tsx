@@ -19,7 +19,7 @@ const StudentsList = ({ students }: { students: UserType[] }) => {
 
       {sortedStudents.map((student: UserType) => (
         <div
-          key={student.email}
+          key={student._id.toString()}
           className="min-w-[4rem] max-w-fit flex-grow flex flex-col items-center gap-1"
         >
           <Avatar className="w-14 h-14">
