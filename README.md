@@ -2,6 +2,12 @@
 
 This project involves two distinct user roles: Teachers and Students. Teachers have the ability to create classrooms and design quizzes within those classrooms. Students, on the other hand, can join multiple classrooms and actively participate in the quizzes. It's important to note that students are restricted from switching tabs during quizzes, ensuring that the quiz remains focused, and only the answered questions are recorded.
 
+## Roadmap
+
+- Export students list
+- Real time announcements
+- Games inside the classroom
+
 ## Technologies Used
 
 - Next.js 14
