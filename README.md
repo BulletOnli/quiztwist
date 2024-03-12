@@ -22,7 +22,7 @@ git clone https://github.com/BulletOnli/quiztwist.git
 2. Navigate to the project directory:
 
 ```bash
-cd mydashboard-fe-next
+cd quiztwist
 ```
 
 3. Set up the .env.local file:
