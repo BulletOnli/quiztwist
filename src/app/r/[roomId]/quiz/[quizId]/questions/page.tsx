@@ -9,9 +9,14 @@ import NewQuestionDialog from "@/app/r/[roomId]/quiz/[quizId]/questions/_compone
 import NotFound from "@/app/not-found";
 import { CalendarClock, Clock } from "lucide-react";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
 
 type QuizPageProps = {
   params: { roomId: string; quizId: string };
+};
+
+export const metadata: Metadata = {
+  title: "Questions",
 };
 
 const QuizPage = async ({ params }: QuizPageProps) => {

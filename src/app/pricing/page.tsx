@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import PricingGrid from "./_components/PricingGrid";
 
 export const metadata: Metadata = {
-  title: "Pricing | QuizTwist",
+  title: "Pricing",
 };
 
 const SubscriptionPage = () => {

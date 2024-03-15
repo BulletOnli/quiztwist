@@ -8,7 +8,7 @@ import CreateClassroomModal from "@/app/dashboard/_components/CreateClassroomMod
 import JoinClassroomModal from "@/app/dashboard/_components/join-classroom/JoinClassroomModal";
 
 export const metadata: Metadata = {
-  title: "Dashboard | QuizTwist",
+  title: "Dashboard",
 };
 
 const DashboardPage = async () => {

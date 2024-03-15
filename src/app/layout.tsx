@@ -5,7 +5,10 @@ import GlobalProviders from "@/context/GlobalProviders";
 import { poppins } from "@/utils/googleFonts";
 
 export const metadata: Metadata = {
-  title: "QuizTwist",
+  title: {
+    default: "QuizTwist",
+    template: "%s - QuizTwist",
+  },
   description:
     "Engage students with interactive quizzes and track progress seamlessly.",
   keywords: [

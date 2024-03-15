@@ -3,12 +3,7 @@ import LeaveClassroomDialog from "@/app/r/[roomId]/(room)/settings/_components/L
 import UpdateClassroomForm from "@/app/r/[roomId]/(room)/settings/_components/UpdateClassroomForm";
 import { getClassroomData } from "@/lib/actions/classroom.actions";
 import authOptions from "@/utils/authOptions";
-import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
-
-export const metadata: Metadata = {
-  title: "Settings | QuizTwist",
-};
 
 type SettingsPageProps = {
   params: { roomId: string };

@@ -2,11 +2,6 @@ import AddStudentsModal from "@/app/r/[roomId]/(room)/people/_components/AddStud
 import StudentsList from "@/app/r/[roomId]/(room)/people/_components/StudentsList";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getClassroomData } from "@/lib/actions/classroom.actions";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "People | QuizTwist",
-};
 
 type PeoplePageProps = {
   params: { roomId: string };

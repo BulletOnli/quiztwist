@@ -1,6 +1,11 @@
 import React from "react";
 import Calendar from "./_components/Calendar";
 import { getAllEvents } from "@/lib/actions/calendar.actions";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Quiz Calendar",
+};
 
 const CalendarPage = async () => {
   const events = await getAllEvents();

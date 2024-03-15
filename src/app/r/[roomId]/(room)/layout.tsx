@@ -1,10 +1,22 @@
 import RoomHeader from "@/app/r/[roomId]/(room)/_components/header/RoomHeader";
 import Sidebar from "@/components/shared/Sidebar";
+import { getClassroomData } from "@/lib/actions/classroom.actions";
+import { Metadata } from "next";
 
 type RoomLayoutProps = {
   children: React.ReactNode;
   params: { roomId: string };
 };
+
+export async function generateMetadata({
+  params,
+}: RoomLayoutProps): Promise<Metadata> {
+  const response = await getClassroomData(params.roomId);
+
+  return {
+    title: response?.subject,
+  };
+}
 
 export default async function RoomLayout({
   children,

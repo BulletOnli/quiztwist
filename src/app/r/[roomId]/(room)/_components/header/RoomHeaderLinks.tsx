@@ -2,48 +2,40 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+const HEADER_LINKS = [
+  {
+    title: "Classwork",
+  },
+  {
+    title: "People",
+  },
+  {
+    title: "Settings",
+  },
+];
+
 const RoomHeaderLinks = ({ roomId }: { roomId: string }) => {
-    const pathname = usePathname();
+  const pathname = usePathname();
 
-    const currentPathname = pathname.split("/").pop();
+  const currentPathname = pathname.split("/").pop();
 
-    return (
-        <ul className="flex items-center justify-end gap-10 mr-[10rem] font-medium bg-none">
-            <Link href={`/r/${roomId}/classwork`}>
-                <li
-                    className={`${
-                        currentPathname === "classwork"
-                            ? "border-black"
-                            : "border-transparent"
-                    } border-b-2`}
-                >
-                    Classwork
-                </li>
-            </Link>
-            <Link href={`/r/${roomId}/people`}>
-                <li
-                    className={`${
-                        currentPathname === "people"
-                            ? "border-black"
-                            : "border-transparent"
-                    } border-b-2`}
-                >
-                    People
-                </li>
-            </Link>
-            <Link href={`/r/${roomId}/settings`}>
-                <li
-                    className={`${
-                        currentPathname === "settings"
-                            ? "border-black"
-                            : "border-transparent"
-                    } border-b-2`}
-                >
-                    Settings
-                </li>
-            </Link>
-        </ul>
-    );
+  return (
+    <ul className="flex items-center justify-end gap-10 mr-[10rem] font-medium bg-none">
+      {HEADER_LINKS.map((link) => (
+        <Link href={`/r/${roomId}/${link.title.toLowerCase()}`}>
+          <li
+            className={`${
+              currentPathname === link.title.toLowerCase()
+                ? "border-black"
+                : "border-transparent"
+            } border-b-2`}
+          >
+            {link.title}
+          </li>
+        </Link>
+      ))}
+    </ul>
+  );
 };
 
 export default RoomHeaderLinks;

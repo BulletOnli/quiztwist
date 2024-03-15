@@ -6,7 +6,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Create an account | QuizTwist",
+  title: "Create an account",
 };
 
 const RegisterPage = async () => {

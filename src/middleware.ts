@@ -6,15 +6,15 @@ import { NextResponse, type NextRequest } from "next/server";
 // export { default } from "next-auth/middleware";
 
 export async function middleware(request: NextRequest) {
-    const token = await getToken({ req: request });
+  const token = await getToken({ req: request });
 
-    if (!token) {
-        return NextResponse.redirect(new URL("/login", request.url));
-    }
+  if (!token) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
 
-    return NextResponse.next();
+  return NextResponse.next();
 }
 
 export const config = {
-    matcher: ["/dashboard", "/r/:roomId*"],
+  matcher: ["/dashboard", "/r/:roomId*", "/calendar"],
 };

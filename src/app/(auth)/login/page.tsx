@@ -6,7 +6,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Login | QuizTwist",
+  title: "Login",
 };
 
 const LoginPage = async () => {

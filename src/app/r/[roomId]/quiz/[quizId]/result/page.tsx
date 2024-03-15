@@ -1,8 +1,28 @@
-import { getUserQuizResultAction } from "@/lib/actions/quiz.actions";
+import {
+  checkUserEligibility,
+  getUserQuizResultAction,
+} from "@/lib/actions/quiz.actions";
+import { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
-const ResultsPage = async ({ params }: { params: { quizId: string } }) => {
+export const metadata: Metadata = {
+  title: "Result",
+};
+
+type ResultPageProps = {
+  params: { roomId: string; quizId: string };
+};
+
+const ResultsPage = async ({ params }: ResultPageProps) => {
   const result = await getUserQuizResultAction({ quizId: params.quizId });
+
+  // Checks if the user is already participated in the Quiz
+  const isAlreadyAnswered = await checkUserEligibility(params.quizId);
+
+  if (!isAlreadyAnswered.error) {
+    redirect(`/r/${params.roomId}/quiz/${params.quizId}/questions`);
+  }
 
   return (
     <main className="w-full min-h-[95vh] flex flex-col items-center py-12 bg-gray-100 dark:bg-gray-800">

@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import QuizTemplates from "@/app/r/[roomId]/(room)/classwork/_components/QuizTemplates";
 import UpcomingQuiz from "@/app/r/[roomId]/(room)/classwork/_components/UpcomingQuiz";
 import Classcode from "@/app/r/[roomId]/(room)/classwork/_components/Classcode";
@@ -6,10 +5,6 @@ import { getServerSession } from "next-auth";
 import { getAllQuizzes } from "@/lib/actions/quiz.actions";
 import authOptions from "@/utils/authOptions";
 import QuizCard from "@/app/r/[roomId]/(room)/classwork/_components/QuizCard";
-
-export const metadata: Metadata = {
-  title: "Classwork | QuizTwist",
-};
 
 const ClassworkPage = async ({ params }: { params: { roomId: string } }) => {
   const session = await getServerSession(authOptions);
