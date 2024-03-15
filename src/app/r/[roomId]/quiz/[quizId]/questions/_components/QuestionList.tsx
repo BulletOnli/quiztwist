@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import SampleQuestion from "./SampleQuestion";
 import { toast } from "sonner";
 import { useEffect, useRef, useState } from "react";
-import SubmitBtn from "../../../../../../../components/shared/SubmitBtn";
+import SubmitBtn from "@/components/shared/SubmitBtn";
 
 type QuestionListProps = {
   questionsString: string;

@@ -19,9 +19,6 @@ export async function generateMetadata({
   };
 }
 
-export default async function QuizLayout({
-  children,
-  params,
-}: QuizLayoutProps) {
+export default async function QuizLayout({ children }: QuizLayoutProps) {
   return <>{children}</>;
 }
