@@ -45,10 +45,12 @@ const QuizPage = async ({ params }: QuizPageProps) => {
     <main className="w-full relative min-h-screen bg-secondary flex justify-center p-6">
       <div className="w-[40rem] max-h-[30rem] sticky top-[85px] flex flex-col items-center">
         <div className="relative w-full flex flex-col justify-center p-8 bg-white border border-t-8 border-borderColor rounded-xl">
-          <EditQuizDialog
-            quizInfo={JSON.stringify(quizInfo ?? {})}
-            quizId={params.quizId}
-          />
+          {isTeacher && (
+            <EditQuizDialog
+              quizInfo={JSON.stringify(quizInfo ?? {})}
+              quizId={params.quizId}
+            />
+          )}
 
           <h1 className="text-xl font-semibold">{quizInfo?.title}</h1>
           <p className="text-sm ">{quizInfo?.description}</p>

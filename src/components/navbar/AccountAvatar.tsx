@@ -9,7 +9,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ChevronDown, LayoutDashboard, LogOut, User } from "lucide-react";
+import {
+  Calendar,
+  ChevronDown,
+  LayoutDashboard,
+  LogOut,
+  User,
+} from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { NextAuthUser } from "@/types/next-auth";
 import Link from "next/link";
@@ -25,6 +31,11 @@ const DROP_DOWN_LINKS = [
     link: "/dashboard",
     icon: <LayoutDashboard className="mr-2 h-4 w-4" />,
     name: "Dashboard",
+  },
+  {
+    link: "/calendar",
+    icon: <Calendar className="mr-2 h-4 w-4" />,
+    name: "Quiz Calendar",
   },
 ];
 

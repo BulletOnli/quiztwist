@@ -7,6 +7,7 @@ This project involves two distinct user roles: Teachers and Students. Teachers h
 - Export students list
 - Real time announcements
 - Games inside the classroom
+- Quiz templates
 
 ## Technologies Used
 
