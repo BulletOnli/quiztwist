@@ -22,7 +22,10 @@ const RoomHeaderLinks = ({ roomId }: { roomId: string }) => {
   return (
     <ul className="flex items-center justify-end gap-10 mr-[10rem] font-medium bg-none">
       {HEADER_LINKS.map((link) => (
-        <Link href={`/r/${roomId}/${link.title.toLowerCase()}`}>
+        <Link
+          key={link.title}
+          href={`/r/${roomId}/${link.title.toLowerCase()}`}
+        >
           <li
             className={`${
               currentPathname === link.title.toLowerCase()

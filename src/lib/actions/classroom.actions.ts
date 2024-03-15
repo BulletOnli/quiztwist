@@ -6,7 +6,6 @@ import { revalidatePath } from "next/cache";
 import User from "../models/user.model";
 import authOptions from "@/utils/authOptions";
 import getErrorMessage from "@/utils/getErrorMessage";
-import { redirect } from "next/navigation";
 
 export const getClassrooms = async () => {
   await connectToDB();

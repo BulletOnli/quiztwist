@@ -6,7 +6,13 @@ import { getAllQuizzes } from "@/lib/actions/quiz.actions";
 import authOptions from "@/utils/authOptions";
 import QuizCard from "@/app/r/[roomId]/(room)/classwork/_components/QuizCard";
 
-const ClassworkPage = async ({ params }: { params: { roomId: string } }) => {
+type ClassworkPageProps = {
+  params: {
+    roomId: string;
+  };
+};
+
+const ClassworkPage = async ({ params }: ClassworkPageProps) => {
   const session = await getServerSession(authOptions);
   const isStudent = session?.user.role === "Student";
   const quizzes = await getAllQuizzes(params.roomId);

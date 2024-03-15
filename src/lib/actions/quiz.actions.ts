@@ -70,6 +70,7 @@ export const getUpcomingQuizzes = async ({ roomId }: { roomId: string }) => {
 };
 
 export const getAllQuizzes = async (roomId: string) => {
+  await connectToDB();
   const quizzes = await Quiz.find({ room: roomId })
     .sort({ updatedAt: -1 })
     .select(["title", "deadline"])
@@ -79,6 +80,7 @@ export const getAllQuizzes = async (roomId: string) => {
 };
 
 export const getQuizInfo = async (quizId: string) => {
+  await connectToDB();
   const quizInfo = await Quiz.findById(quizId)
     .populate([
       {

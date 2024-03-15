@@ -6,6 +6,7 @@ import Quiz from "../models/quiz.model";
 import User from "../models/user.model";
 import authOptions from "@/utils/authOptions";
 import mongoose from "mongoose";
+import connectToDB from "../mongoose";
 
 export const getAllEvents = async (): Promise<
   | []
@@ -21,6 +22,7 @@ export const getAllEvents = async (): Promise<
       }
     ]
 > => {
+  await connectToDB();
   const session = await getServerSession(authOptions);
   const user = await User.findById(session?.user.id).select(["_id"]).lean();
   if (!user) {
