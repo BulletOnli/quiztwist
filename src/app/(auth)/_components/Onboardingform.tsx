@@ -43,7 +43,7 @@ const Onboardingform = () => {
       <p className="font-medium">Choose your role</p>
       <RadioGroup
         name="role"
-        defaultValue="Teacher"
+        defaultValue="Student"
         className="flex items-center gap-4 mt-2 mb-6"
       >
         <div className="flex flex-col items-center gap-2">

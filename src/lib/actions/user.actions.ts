@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import getErrorMessage from "@/utils/getErrorMessage";
 import authOptions from "@/utils/authOptions";
+import Classroom from "../models/classroom.model";
 
 export const onboardingAction = async (formData: FormData) => {
   try {
@@ -34,6 +35,21 @@ export const onboardingAction = async (formData: FormData) => {
     user.firstName = result.data.firstName;
     user.lastName = result.data.lastName;
     user.role = result.data.role;
+
+    if (user.role.toLowerCase() === "student") {
+      const classroom = await Classroom.findById("65dea0ee9cacf08fc5ecffe8");
+      if (!classroom) {
+        return {
+          error: "Classroom not found!",
+        };
+      }
+
+      classroom?.students.push(user._id);
+      user.classrooms.push(classroom?._id);
+
+      await classroom.save();
+    }
+
     await user.save();
   } catch (error) {
     return {

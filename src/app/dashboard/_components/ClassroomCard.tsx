@@ -9,9 +9,6 @@ import {
 import { ClassroomType } from "@/lib/models/classroom.model";
 
 const ClassroomCard = ({ classroom }: { classroom: ClassroomType }) => {
-  // Prevent Redering Public Classroom card
-  if (classroom._id.toString() === "65dea0ee9cacf08fc5ecffe8") return null;
-
   return (
     <Link
       key={classroom._id.toString()}

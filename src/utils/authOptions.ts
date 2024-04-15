@@ -17,7 +17,7 @@ const authOptions: NextAuthOptions = {
       await connectToDB();
       const userFromDb = await User.findOne({
         email: session.user?.email,
-      });
+      }).lean();
 
       if (userFromDb) {
         session.user.id = userFromDb?._id.toString();
@@ -30,7 +30,7 @@ const authOptions: NextAuthOptions = {
     async signIn({ user }) {
       try {
         await connectToDB();
-        const isUserExist = await User.findOne({ email: user?.email });
+        const isUserExist = await User.findOne({ email: user?.email }).lean();
 
         if (!isUserExist) {
           await User.create({
