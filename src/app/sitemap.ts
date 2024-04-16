@@ -1,4 +1,4 @@
-import environments from "@/utils/environments";
+import environments from "../../environments/environments";
 import { MetadataRoute } from "next";
 
 const PUBLIC_ROUTES = [

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import User from "@/lib/models/user.model";
 import { stripe } from "@/utils/stripeConfig";
 import { revalidatePath } from "next/cache";
-import environments from "@/utils/environments";
+import environments from "../../../../../environments/environments";
 
 // Listen to the stripe event
 export async function POST(req: Request) {

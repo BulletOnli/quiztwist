@@ -2,7 +2,7 @@ import User from "@/lib/models/user.model";
 import connectToDB from "@/lib/mongoose";
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import environments from "./environments";
+import environments from "../../environments/environments";
 
 const authOptions: NextAuthOptions = {
   secret: environments.NEXTAUTH_SECRET!,

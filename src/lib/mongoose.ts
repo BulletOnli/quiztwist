@@ -1,4 +1,4 @@
-import environments from "@/utils/environments";
+import environments from "../../environments/environments";
 import mongoose from "mongoose";
 
 const connectToDB = async () => {

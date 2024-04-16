@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth";
 import authOptions from "@/utils/authOptions";
 import User from "@/lib/models/user.model";
 import getErrorMessage from "@/utils/getErrorMessage";
-import environments from "@/utils/environments";
+import environments from "../../environments/environments";
 
 type CheckoutDetails = {
   plan: string;
