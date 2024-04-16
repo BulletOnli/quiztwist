@@ -18,13 +18,15 @@ import { useState } from "react";
 import SubmitBtn from "@/components/shared/SubmitBtn";
 
 import moment from "moment";
+import { useParams } from "next/navigation";
 
 type EditQuizDialogProps = {
   quizInfo: string;
-  quizId: string;
 };
 
-const EditQuizDialog = ({ quizInfo, quizId }: EditQuizDialogProps) => {
+const EditQuizDialog = ({ quizInfo }: EditQuizDialogProps) => {
+  const { quizId } = useParams() as { quizId: string };
+
   const quizInfoData = JSON.parse(quizInfo) as QuizSchemaType;
   const [open, setOpen] = useState(false);
 

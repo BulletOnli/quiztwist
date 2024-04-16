@@ -51,10 +51,7 @@ const QuizPage = async ({ params }: QuizPageProps) => {
       <div className="w-[40rem] max-h-[30rem] sticky top-[85px] flex flex-col items-center">
         <div className="relative w-full flex flex-col justify-center p-8 bg-white border border-t-8 border-borderColor rounded-xl">
           {isTeacher && (
-            <EditQuizDialog
-              quizInfo={JSON.stringify(quizInfo ?? {})}
-              quizId={params.quizId}
-            />
+            <EditQuizDialog quizInfo={JSON.stringify(quizInfo ?? {})} />
           )}
 
           <h1 className="text-xl font-semibold">{quizInfo?.title}</h1>
@@ -79,12 +76,8 @@ const QuizPage = async ({ params }: QuizPageProps) => {
         <div className="w-full flex flex-col items-center gap-2 mt-4">
           {isTeacher && (
             <>
-              <NewQuestionDialog quizId={params.quizId} />
-              <QuizSettingsDialog
-                isOpen={quizInfo?.isOpen}
-                roomId={params.roomId}
-                quizId={params.quizId}
-              />
+              <NewQuestionDialog />
+              <QuizSettingsDialog isOpen={quizInfo?.isOpen} />
             </>
           )}
           <ReportBugDialog />
@@ -94,8 +87,6 @@ const QuizPage = async ({ params }: QuizPageProps) => {
       <div className="w-full flex flex-col items-center px-10">
         <QuestionList
           questionsString={JSON.stringify(quizInfo?.questions ?? [])}
-          quizId={params.quizId}
-          roomId={params.roomId}
           isTeacher={isTeacher}
         />
       </div>

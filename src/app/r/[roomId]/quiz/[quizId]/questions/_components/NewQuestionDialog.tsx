@@ -17,9 +17,11 @@ import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import SubmitBtn from "../../../../../../../components/shared/SubmitBtn";
+import { useParams } from "next/navigation";
+import SubmitBtn from "@/components/shared/SubmitBtn";
 
-const NewQuestionDialog = ({ quizId }: { quizId: string }) => {
+const NewQuestionDialog = () => {
+  const { quizId } = useParams() as { quizId: string };
   const [open, setOpen] = useState(false);
 
   const newQuestionAction = async (formData: FormData) => {

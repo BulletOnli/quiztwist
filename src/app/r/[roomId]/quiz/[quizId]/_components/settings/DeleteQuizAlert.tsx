@@ -11,17 +11,15 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { deleteQuizAction } from "@/lib/actions/quiz.actions";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import SubmitBtn from "@/components/shared/SubmitBtn";
 
-const DeleteQuizAlert = ({
-  quizId,
-  roomId,
-}: {
-  quizId: string;
-  roomId: string;
-}) => {
+const DeleteQuizAlert = () => {
+  const { quizId, roomId } = useParams() as {
+    quizId: string;
+    roomId: string;
+  };
   const router = useRouter();
 
   const handleDeleteAction = async () => {

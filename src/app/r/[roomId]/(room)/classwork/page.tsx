@@ -28,7 +28,7 @@ const ClassworkPage = async ({ params }: ClassworkPageProps) => {
         {!isStudent && (
           <>
             <p className="mb-2 font-medium">Start a new Quiz</p>
-            <QuizTemplates roomId={params.roomId} />
+            <QuizTemplates />
           </>
         )}
         <div className="w-full flex flex-col ">

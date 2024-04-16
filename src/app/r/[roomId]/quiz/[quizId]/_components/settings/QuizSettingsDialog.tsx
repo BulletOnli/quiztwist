@@ -12,19 +12,17 @@ import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
 import { toggleQuizStatusAction } from "@/lib/actions/quiz.actions";
 import { toast } from "sonner";
-import { useFormStatus } from "react-dom";
+import { useParams } from "next/navigation";
 
 type QuizSettingsDialogProps = {
-  quizId: string;
-  roomId: string;
   isOpen: boolean;
 };
 
-const QuizSettingsDialog = ({
-  quizId,
-  roomId,
-  isOpen,
-}: QuizSettingsDialogProps) => {
+const QuizSettingsDialog = ({ isOpen }: QuizSettingsDialogProps) => {
+  const { quizId } = useParams() as {
+    quizId: string;
+    roomId: string;
+  };
   const [isLoading, setIsLoading] = useState(false);
 
   const handleToggleQuiz = async () => {
@@ -66,7 +64,7 @@ const QuizSettingsDialog = ({
           </div>
         </form>
 
-        <DeleteQuizAlert roomId={roomId} quizId={quizId} />
+        <DeleteQuizAlert />
       </DialogContent>
     </Dialog>
   );

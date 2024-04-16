@@ -10,28 +10,16 @@ import EditQuestionDialog from "./EditQuestionDialog";
 type QuestionBoxProps = {
   question: QuestionType;
   index: number;
-  quizId: string;
   isTeacher: boolean;
 };
 
-const QuestionBox = ({
-  question,
-  index,
-  quizId,
-  isTeacher,
-}: QuestionBoxProps) => {
+const QuestionBox = ({ question, index, isTeacher }: QuestionBoxProps) => {
   return (
     <div className="relative min-w-[45rem] max-w-full p-6 bg-white border border-l-4 border-r-4 border-borderColor rounded-xl">
       {isTeacher && (
         <div className="absolute -right-4 -top-5 px-2 py-1 flex items-center gap-2 bg-white border border-borderColor rounded-full">
-          <EditQuestionDialog
-            question={JSON.stringify(question ?? {})}
-            quizId={quizId}
-          />
-          <DeleteQuestionDialog
-            questionId={question._id.toString()}
-            quizId={quizId}
-          />
+          <EditQuestionDialog question={JSON.stringify(question ?? {})} />
+          <DeleteQuestionDialog questionId={question._id.toString()} />
         </div>
       )}
 

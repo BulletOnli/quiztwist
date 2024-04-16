@@ -11,13 +11,16 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { createQuiz } from "@/lib/actions/quiz.actions";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import SubmitBtn from "@/components/shared/SubmitBtn";
 
-const NewQuizDialog = ({ roomId }: { roomId: string }) => {
+const NewQuizDialog = () => {
+  const { roomId } = useParams() as {
+    roomId: string;
+  };
   const router = useRouter();
 
   const newQuizAction = async (formData: FormData) => {

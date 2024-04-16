@@ -2,7 +2,7 @@
 import { QuestionType } from "@/lib/models/question.model";
 import QuestionBox from "./QuestionBox";
 import { submitQuiz } from "@/lib/actions/quiz.actions";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import SampleQuestion from "./SampleQuestion";
 import { toast } from "sonner";
 import { useEffect, useRef, useState } from "react";
@@ -10,17 +10,15 @@ import SubmitBtn from "@/components/shared/SubmitBtn";
 
 type QuestionListProps = {
   questionsString: string;
-  quizId: string;
   isTeacher: any;
-  roomId: string;
 };
 
-const QuestionList = ({
-  questionsString,
-  quizId,
-  isTeacher,
-  roomId,
-}: QuestionListProps) => {
+const QuestionList = ({ questionsString, isTeacher }: QuestionListProps) => {
+  const { quizId, roomId } = useParams() as {
+    quizId: string;
+    roomId: string;
+  };
+
   const [life, setLife] = useState(3);
   const questionsArray = JSON.parse(questionsString) as QuestionType[];
   const router = useRouter();

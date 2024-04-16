@@ -15,17 +15,15 @@ import { deleteQuestionAction } from "@/lib/actions/question.actions";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import SubmitBtn from "../../../../../../../components/shared/SubmitBtn";
+import { useParams } from "next/navigation";
+import SubmitBtn from "@/components/shared/SubmitBtn";
 
 type DeleteQuestionDialogProps = {
   questionId: string;
-  quizId: string;
 };
 
-const DeleteQuestionDialog = ({
-  questionId,
-  quizId,
-}: DeleteQuestionDialogProps) => {
+const DeleteQuestionDialog = ({ questionId }: DeleteQuestionDialogProps) => {
+  const { quizId } = useParams() as { quizId: string };
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleDelete = async () => {
