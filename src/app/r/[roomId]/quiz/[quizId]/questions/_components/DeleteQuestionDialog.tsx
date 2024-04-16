@@ -17,13 +17,14 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useParams } from "next/navigation";
 import SubmitBtn from "@/components/shared/SubmitBtn";
+import { ParamsTypes } from "@/types/paramsTypes";
 
 type DeleteQuestionDialogProps = {
   questionId: string;
 };
 
 const DeleteQuestionDialog = ({ questionId }: DeleteQuestionDialogProps) => {
-  const { quizId } = useParams() as { quizId: string };
+  const { quizId } = useParams<ParamsTypes>();
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleDelete = async () => {

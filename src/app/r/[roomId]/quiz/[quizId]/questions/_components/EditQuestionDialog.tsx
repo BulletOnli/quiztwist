@@ -17,13 +17,14 @@ import { Label } from "@/components/ui/label";
 import { QuestionType } from "@/lib/models/question.model";
 import SubmitBtn from "../../../../../../../components/shared/SubmitBtn";
 import { useParams } from "next/navigation";
+import { ParamsTypes } from "@/types/paramsTypes";
 
 type EditQuestionDialogProps = {
   question: string;
 };
 
 const EditQuestionDialog = ({ question }: EditQuestionDialogProps) => {
-  const { quizId } = useParams() as { quizId: string };
+  const { quizId } = useParams<ParamsTypes>();
 
   const [open, setOpen] = useState(false);
   const questionData = JSON.parse(question) as QuestionType;

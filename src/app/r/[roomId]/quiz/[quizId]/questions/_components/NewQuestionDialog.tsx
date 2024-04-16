@@ -19,9 +19,10 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { useParams } from "next/navigation";
 import SubmitBtn from "@/components/shared/SubmitBtn";
+import { ParamsTypes } from "@/types/paramsTypes";
 
 const NewQuestionDialog = () => {
-  const { quizId } = useParams() as { quizId: string };
+  const { quizId } = useParams<ParamsTypes>();
   const [open, setOpen] = useState(false);
 
   const newQuestionAction = async (formData: FormData) => {

@@ -16,11 +16,10 @@ import { toast } from "sonner";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import SubmitBtn from "@/components/shared/SubmitBtn";
+import { ParamsTypes } from "@/types/paramsTypes";
 
 const NewQuizDialog = () => {
-  const { roomId } = useParams() as {
-    roomId: string;
-  };
+  const { roomId } = useParams<ParamsTypes>();
   const router = useRouter();
 
   const newQuizAction = async (formData: FormData) => {

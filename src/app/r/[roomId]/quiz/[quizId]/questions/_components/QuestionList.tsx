@@ -7,6 +7,7 @@ import SampleQuestion from "./SampleQuestion";
 import { toast } from "sonner";
 import { useEffect, useRef, useState } from "react";
 import SubmitBtn from "@/components/shared/SubmitBtn";
+import { ParamsTypes } from "@/types/paramsTypes";
 
 type QuestionListProps = {
   questionsString: string;
@@ -14,10 +15,7 @@ type QuestionListProps = {
 };
 
 const QuestionList = ({ questionsString, isTeacher }: QuestionListProps) => {
-  const { quizId, roomId } = useParams() as {
-    quizId: string;
-    roomId: string;
-  };
+  const { quizId, roomId } = useParams<ParamsTypes>();
 
   const [life, setLife] = useState(3);
   const questionsArray = JSON.parse(questionsString) as QuestionType[];
@@ -82,7 +80,6 @@ const QuestionList = ({ questionsString, isTeacher }: QuestionListProps) => {
         <QuestionBox
           question={question}
           index={index + 1}
-          quizId={quizId}
           isTeacher={isTeacher}
           key={question._id.toString()}
         />

@@ -13,16 +13,14 @@ import { useState } from "react";
 import { toggleQuizStatusAction } from "@/lib/actions/quiz.actions";
 import { toast } from "sonner";
 import { useParams } from "next/navigation";
+import { ParamsTypes } from "@/types/paramsTypes";
 
 type QuizSettingsDialogProps = {
   isOpen: boolean;
 };
 
 const QuizSettingsDialog = ({ isOpen }: QuizSettingsDialogProps) => {
-  const { quizId } = useParams() as {
-    quizId: string;
-    roomId: string;
-  };
+  const { quizId } = useParams<ParamsTypes>();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleToggleQuiz = async () => {

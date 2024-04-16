@@ -14,12 +14,10 @@ import { deleteQuizAction } from "@/lib/actions/quiz.actions";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import SubmitBtn from "@/components/shared/SubmitBtn";
+import { ParamsTypes } from "@/types/paramsTypes";
 
 const DeleteQuizAlert = () => {
-  const { quizId, roomId } = useParams() as {
-    quizId: string;
-    roomId: string;
-  };
+  const { quizId, roomId } = useParams<ParamsTypes>();
   const router = useRouter();
 
   const handleDeleteAction = async () => {

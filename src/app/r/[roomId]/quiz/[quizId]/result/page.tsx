@@ -2,6 +2,7 @@ import {
   checkUserEligibility,
   getUserQuizResultAction,
 } from "@/lib/actions/quiz.actions";
+import { ParamsTypes } from "@/types/paramsTypes";
 import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 type ResultPageProps = {
-  params: { roomId: string; quizId: string };
+  params: ParamsTypes;
 };
 
 const ResultsPage = async ({ params }: ResultPageProps) => {

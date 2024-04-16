@@ -10,9 +10,10 @@ import NotFound from "@/app/not-found";
 import { CalendarClock, Clock } from "lucide-react";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
+import { ParamsTypes } from "@/types/paramsTypes";
 
 type QuizPageProps = {
-  params: { roomId: string; quizId: string };
+  params: ParamsTypes;
 };
 
 export const metadata: Metadata = {

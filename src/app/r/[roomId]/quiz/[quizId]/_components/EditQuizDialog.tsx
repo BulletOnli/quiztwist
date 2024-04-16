@@ -19,13 +19,14 @@ import SubmitBtn from "@/components/shared/SubmitBtn";
 
 import moment from "moment";
 import { useParams } from "next/navigation";
+import { ParamsTypes } from "@/types/paramsTypes";
 
 type EditQuizDialogProps = {
   quizInfo: string;
 };
 
 const EditQuizDialog = ({ quizInfo }: EditQuizDialogProps) => {
-  const { quizId } = useParams() as { quizId: string };
+  const { quizId } = useParams<ParamsTypes>();
 
   const quizInfoData = JSON.parse(quizInfo) as QuizSchemaType;
   const [open, setOpen] = useState(false);
