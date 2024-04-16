@@ -2,13 +2,14 @@ import { NextResponse } from "next/server";
 import User from "@/lib/models/user.model";
 import { stripe } from "@/utils/stripeConfig";
 import { revalidatePath } from "next/cache";
+import environments from "@/utils/environments";
 
 // Listen to the stripe event
 export async function POST(req: Request) {
   const body = await req.text();
 
   const sig = req.headers.get("stripe-signature") as string;
-  const endPointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+  const endPointSecret = environments.STRIPE_WEBHOOK_SECRET!;
 
   let event;
 

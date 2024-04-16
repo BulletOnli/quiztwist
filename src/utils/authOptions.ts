@@ -2,14 +2,14 @@ import User from "@/lib/models/user.model";
 import connectToDB from "@/lib/mongoose";
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { redirect } from "next/navigation";
+import environments from "./environments";
 
 const authOptions: NextAuthOptions = {
-  secret: process.env.NEXTAUTH_SECRET!,
+  secret: environments.NEXTAUTH_SECRET!,
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_ID!,
-      clientSecret: process.env.GOOGLE_SECRET!,
+      clientId: environments.GOOGLE_ID!,
+      clientSecret: environments.GOOGLE_SECRET!,
     }),
   ],
   callbacks: {

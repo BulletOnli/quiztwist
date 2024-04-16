@@ -1,3 +1,4 @@
 import Stripe from "stripe";
+import environments from "./environments";
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+export const stripe = new Stripe(environments.STRIPE_SECRET_KEY!);

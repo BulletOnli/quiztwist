@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import authOptions from "@/utils/authOptions";
 import User from "@/lib/models/user.model";
 import getErrorMessage from "@/utils/getErrorMessage";
+import environments from "@/utils/environments";
 
 type CheckoutDetails = {
   plan: string;
@@ -47,8 +48,8 @@ export const stripeCheckout = async (transDetails: CheckoutDetails) => {
       userId: transDetails.userId,
     },
     mode: "subscription",
-    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/pricing?success=true`,
-    cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/pricing?canceled=true`,
+    success_url: `${environments.NEXT_PUBLIC_SERVER_URL}/pricing?success=true`,
+    cancel_url: `${environments.NEXT_PUBLIC_SERVER_URL}/pricing?canceled=true`,
   });
 
   redirect(session.url!);

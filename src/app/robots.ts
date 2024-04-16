@@ -1,3 +1,4 @@
+import environments from "@/utils/environments";
 import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
@@ -9,6 +10,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/dashboard", "/r/:roomId*", "/calendar"],
       },
     ],
-    sitemap: `${process.env.NEXT_PUBLIC_SERVER_URL}/sitemap.xml`,
+    sitemap: `${environments.NEXT_PUBLIC_SERVER_URL}/sitemap.xml`,
   };
 }
