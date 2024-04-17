@@ -30,7 +30,7 @@ const QuestionBox = ({ question, index, isTeacher }: QuestionBoxProps) => {
 
       <RadioGroup
         name={`question#${question._id}_answer`}
-        className="w-full grid grid-cols-2 items-center p-2 mt-2 place-items-center"
+        className="w-full grid grid-cols-2 gap-4 items-center p-2 mt-2"
       >
         <div className="flex flex-col items-center gap-4">
           <div className="w-full flex items-center space-x-2">

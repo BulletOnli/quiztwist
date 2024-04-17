@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { UserPlus } from "lucide-react";
 import SubmitBtn from "@/components/shared/SubmitBtn";
 import { addStudentToClassroomAction } from "@/lib/actions/classroom.actions";
+import { Button } from "@/components/ui/button";
 
 const AddStudentsModal = ({ roomId }: { roomId: string }) => {
   const [open, setOpen] = useState(false);
@@ -31,7 +32,9 @@ const AddStudentsModal = ({ roomId }: { roomId: string }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <UserPlus className="w-5 h-5 cursor-pointer" />
+        <Button variant="outline" className="w-full">
+          <UserPlus className="w-5 h-5 mr-2" /> Add Student
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
