@@ -53,8 +53,6 @@ NEXT_PUBLIC_PREMIUM_PRICE_ID=
 NEXT_PUBLIC_SERVER_URL=http://localhost:3000
 ```
 
-4. (Optional) [Setup XLSX](https://docs.sheetjs.com/docs/getting-started/installation/frameworks/#vendoring), Download the zipped file and place it inside the vendor folder in the root directory.
-
 ## Usage
 
 To install the required dependencies, use the following command:
