@@ -36,19 +36,19 @@ export const onboardingAction = async (formData: FormData) => {
     user.lastName = result.data.lastName;
     user.role = result.data.role;
 
-    if (user.role.toLowerCase() === "student") {
-      const classroom = await Classroom.findById("65dea0ee9cacf08fc5ecffe8");
-      if (!classroom) {
-        return {
-          error: "Classroom not found!",
-        };
-      }
+    // if (user.role.toLowerCase() === "student") {
+    //   const classroom = await Classroom.findById("65dea0ee9cacf08fc5ecffe8");
+    //   if (!classroom) {
+    //     return {
+    //       error: "Classroom not found!",
+    //     };
+    //   }
 
-      classroom?.students.push(user._id);
-      user.classrooms.push(classroom?._id);
+    //   classroom?.students.push(user._id);
+    //   user.classrooms.push(classroom?._id);
 
-      await classroom.save();
-    }
+    //   await classroom.save();
+    // }
 
     await user.save();
   } catch (error) {

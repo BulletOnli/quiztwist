@@ -9,6 +9,7 @@ import Question from "../models/question.model";
 import authOptions from "@/utils/authOptions";
 import moment from "moment";
 import mongoose from "mongoose";
+import { unknown } from "zod";
 
 // Just checking if the user is already participated in the quiz
 export const checkUserEligibility = async (quizId: string) => {
@@ -227,15 +228,33 @@ export const submitQuiz = async (formData: FormData, quizId: string) => {
     }
 
     let SCORE = 0;
+    let answeredQuizDetails = {
+      quiz: quizId,
+      score: 0,
+      questions: [],
+    } as {
+      quiz: string;
+      score: number;
+      questions: any;
+    };
 
     // Counting user score
     for (let question of quizInfo?.questions) {
       // The answer of the user per question
       const user_answer = formData.get(
         `question#${question._id.toString()}_answer`
-      );
+      ) as string;
 
-      if (question.rightAnswer === user_answer) SCORE++;
+      answeredQuizDetails.questions.push({
+        question: question?._id.toString(),
+        userAnswer: user_answer,
+        isCorrect: question.rightAnswer === user_answer,
+      });
+
+      if (question.rightAnswer === user_answer) {
+        SCORE++;
+        answeredQuizDetails.score++;
+      }
     }
 
     // Add the user to the respondents array of the quiz
@@ -243,10 +262,7 @@ export const submitQuiz = async (formData: FormData, quizId: string) => {
     await quizInfo.save();
 
     // Add the quiz to the answeredQuizzes of the user
-    user?.answeredQuizzes.push({
-      quiz: quizInfo._id,
-      score: SCORE,
-    });
+    user?.answeredQuizzes.push(answeredQuizDetails);
     await user.save();
 
     return {
@@ -311,32 +327,30 @@ export const getUserQuizResultAction = async ({
       .populate({
         path: "answeredQuizzes",
         populate: {
-          path: "quiz",
-          select: ["questions"],
+          path: "questions",
+          populate: {
+            path: "question",
+          },
+          // select: ["title", "description"],
         },
       });
     if (!user || !session) throw new Error("Please login first!");
 
     const answeredQuiz = user.answeredQuizzes.find(
       ({ quiz }) => quiz?._id.toString() === quizId
-    ) as
-      | {
-          quiz: {
-            questions: mongoose.Types.ObjectId[];
-            _id: mongoose.Schema.Types.ObjectId;
-          };
-          score: number;
-        }
-      | undefined;
+    );
+
+    if (!answeredQuiz) throw new Error("Please answer the quiz first!");
 
     const score = answeredQuiz?.score || 0;
-    const totalQuestions = answeredQuiz?.quiz.questions.length || 0;
+    const totalQuestions = answeredQuiz?.questions.length || 0;
     const scorePercentage = (score / totalQuestions) * 100;
 
     return {
       score,
       totalQuestions,
-      scorePercentage: scorePercentage.toFixed(),
+      scorePercentage: Number(scorePercentage.toFixed()),
+      questions: answeredQuiz.questions,
     };
   } catch (error) {
     return {

@@ -10,15 +10,14 @@ import SubmitBtn from "@/components/shared/SubmitBtn";
 import { ParamsTypes } from "@/types/paramsTypes";
 
 type QuestionListProps = {
-  questionsString: string;
-  isTeacher: any;
+  questions: QuestionType[];
+  isTeacher: boolean;
 };
 
-const QuestionList = ({ questionsString, isTeacher }: QuestionListProps) => {
+const QuestionList = ({ questions, isTeacher }: QuestionListProps) => {
   const { quizId, roomId } = useParams<ParamsTypes>();
 
   const [life, setLife] = useState(3);
-  const questionsArray = JSON.parse(questionsString) as QuestionType[];
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -74,9 +73,9 @@ const QuestionList = ({ questionsString, isTeacher }: QuestionListProps) => {
       action={submitQuizAction}
       className="flex flex-col gap-4"
     >
-      {isTeacher && questionsArray.length === 0 && <SampleQuestion />}
+      {isTeacher && questions.length === 0 && <SampleQuestion />}
 
-      {questionsArray.map((question, index) => (
+      {questions.map((question, index) => (
         <QuestionBox
           question={question}
           index={index + 1}
@@ -84,7 +83,7 @@ const QuestionList = ({ questionsString, isTeacher }: QuestionListProps) => {
           key={question._id.toString()}
         />
       ))}
-      {!isTeacher && questionsArray.length !== 0 && (
+      {!isTeacher && questions.length !== 0 && (
         <SubmitBtn defaultName="Submit" onLoadingName="Submiting..." />
       )}
     </form>

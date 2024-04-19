@@ -30,6 +30,16 @@ const UserSchema = new mongoose.Schema({
         ref: "Quiz",
         required: true,
       },
+      questions: [
+        {
+          question: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Question",
+          },
+          userAnswer: String,
+          isCorrect: Boolean,
+        },
+      ],
       score: {
         type: Number,
         required: true,

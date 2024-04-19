@@ -87,7 +87,7 @@ const QuizPage = async ({ params }: QuizPageProps) => {
 
       <div className="w-full flex flex-col items-center px-10">
         <QuestionList
-          questionsString={JSON.stringify(quizInfo?.questions ?? [])}
+          questions={JSON.parse(JSON.stringify(quizInfo?.questions ?? []))}
           isTeacher={isTeacher}
         />
       </div>

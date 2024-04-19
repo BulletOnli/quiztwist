@@ -20,20 +20,19 @@ import { useParams } from "next/navigation";
 import { ParamsTypes } from "@/types/paramsTypes";
 
 type EditQuestionDialogProps = {
-  question: string;
+  question: QuestionType;
 };
 
 const EditQuestionDialog = ({ question }: EditQuestionDialogProps) => {
   const { quizId } = useParams<ParamsTypes>();
 
   const [open, setOpen] = useState(false);
-  const questionData = JSON.parse(question) as QuestionType;
 
   const editQuestionAction = async (formData: FormData) => {
     const response = await updateQuestionAction({
       formData,
       quizId,
-      questionId: questionData._id?.toString(),
+      questionId: question._id?.toString(),
     });
 
     if (response.error) {
@@ -68,7 +67,7 @@ const EditQuestionDialog = ({ question }: EditQuestionDialogProps) => {
               name="question"
               placeholder="Enter a Question"
               required
-              defaultValue={questionData?.question}
+              defaultValue={question?.question}
             />
           </div>
 
@@ -80,7 +79,7 @@ const EditQuestionDialog = ({ question }: EditQuestionDialogProps) => {
               name="optionA"
               placeholder="Option A"
               required
-              defaultValue={questionData?.choices?.[0]}
+              defaultValue={question?.choices?.[0]}
             />
           </div>
           <div className="flex items-center gap-2">
@@ -91,7 +90,7 @@ const EditQuestionDialog = ({ question }: EditQuestionDialogProps) => {
               name="optionB"
               placeholder="Option B"
               required
-              defaultValue={questionData?.choices?.[1]}
+              defaultValue={question?.choices?.[1]}
             />
           </div>
           <div className="flex items-center gap-2">
@@ -102,7 +101,7 @@ const EditQuestionDialog = ({ question }: EditQuestionDialogProps) => {
               name="optionC"
               placeholder="Option C"
               required
-              defaultValue={questionData?.choices?.[2]}
+              defaultValue={question?.choices?.[2]}
             />
           </div>
           <div className="flex items-center gap-2">
@@ -113,7 +112,7 @@ const EditQuestionDialog = ({ question }: EditQuestionDialogProps) => {
               name="optionD"
               placeholder="Option D"
               required
-              defaultValue={questionData?.choices?.[3]}
+              defaultValue={question?.choices?.[3]}
             />
           </div>
           <div className="flex flex-col gap-2 mt-2">
@@ -122,7 +121,7 @@ const EditQuestionDialog = ({ question }: EditQuestionDialogProps) => {
               name="rightAnswer"
               className="w-[70%] mx-auto grid grid-cols-4 place-items-center"
               required
-              defaultValue={questionData?.rightAnswer}
+              defaultValue={question?.rightAnswer}
             >
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="A" id="answerA" className="w-5 h-5" />

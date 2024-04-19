@@ -6,55 +6,75 @@ import {
 } from "../../../../../../../components/ui/radio-group";
 import DeleteQuestionDialog from "./DeleteQuestionDialog";
 import EditQuestionDialog from "./EditQuestionDialog";
+import { cn } from "@/lib/utils";
 
 type QuestionBoxProps = {
-  question: QuestionType;
+  question: QuestionType | any;
   index: number;
   isTeacher: boolean;
+  userAnswer?: string | null;
 };
 
-const QuestionBox = ({ question, index, isTeacher }: QuestionBoxProps) => {
+const QuestionBox = ({
+  question,
+  index,
+  isTeacher,
+  userAnswer,
+}: QuestionBoxProps) => {
+  console.log(userAnswer);
   return (
-    <div className="relative min-w-[45rem] max-w-full p-6 bg-white border border-l-4 border-r-4 border-borderColor rounded-xl">
+    <div
+      className={cn(
+        "relative min-w-[45rem] max-w-full p-6 bg-white border border-borderColor border-l-4 border-r-4  rounded-xl",
+        userAnswer !== undefined &&
+          (userAnswer == question.rightAnswer
+            ? "border-green-600"
+            : "border-red-600")
+      )}
+    >
       {isTeacher && (
         <div className="absolute -right-4 -top-5 px-2 py-1 flex items-center gap-2 bg-white border border-borderColor rounded-full">
-          <EditQuestionDialog question={JSON.stringify(question ?? {})} />
-          <DeleteQuestionDialog questionId={question._id.toString()} />
+          <EditQuestionDialog question={question} />
+          <DeleteQuestionDialog questionId={question?._id.toString()} />
         </div>
       )}
 
       <div className="flex items-center gap-2">
         <p className="text-xs text-gray">{index}.</p>
-        <p>{question.question}</p>
+        <p>{question?.question}</p>
       </div>
 
       <RadioGroup
-        name={`question#${question._id}_answer`}
+        name={`question#${question?._id}_answer`}
         className="w-full grid grid-cols-2 gap-4 items-center p-2 mt-2"
+        defaultValue={userAnswer || undefined}
+        disabled={
+          userAnswer !== undefined && (userAnswer !== "" || userAnswer == null)
+        }
       >
         <div className="flex flex-col items-center gap-4">
           <div className="w-full flex items-center space-x-2">
             <RadioGroupItem
               value="A"
-              id={question.question + question.choices?.[0]}
+              id={question?.question + question?.choices?.[0]}
             />
             <Label
-              htmlFor={question.question + question.choices?.[0]}
+              htmlFor={question?.question + question?.choices?.[0]}
               className="font-normal"
             >
-              A. {question.choices?.[0]}
+              A. {question?.choices?.[0]}
             </Label>
           </div>
           <div className="w-full flex items-center space-x-2">
             <RadioGroupItem
               value="B"
-              id={question.question + question.choices?.[1]}
+              id={question?.question + question?.choices?.[1]}
             />
             <Label
-              htmlFor={question.question + question.choices?.[1]}
+              htmlFor={question?.question + question?.choices?.[1]}
               className="font-normal"
             >
-              B. {question.choices?.[1]}
+              B. {question?.choices?.[1]}
             </Label>
           </div>
         </div>
@@ -62,25 +82,25 @@ const QuestionBox = ({ question, index, isTeacher }: QuestionBoxProps) => {
           <div className="w-full flex items-center space-x-2">
             <RadioGroupItem
               value="C"
-              id={question.question + question.choices?.[2]}
+              id={question?.question + question?.choices?.[2]}
             />
             <Label
-              htmlFor={question.question + question.choices?.[2]}
+              htmlFor={question?.question + question?.choices?.[2]}
               className="font-normal"
             >
-              C. {question.choices?.[2]}
+              C. {question?.choices?.[2]}
             </Label>
           </div>
           <div className="w-full flex items-center space-x-2">
             <RadioGroupItem
               value="D"
-              id={question.question + question.choices?.[3]}
+              id={question?.question + question?.choices?.[3]}
             />
             <Label
-              htmlFor={question.question + question.choices?.[3]}
+              htmlFor={question?.question + question?.choices?.[3]}
               className="font-normal"
             >
-              D. {question.choices?.[3]}
+              D. {question?.choices?.[3]}
             </Label>
           </div>
         </div>

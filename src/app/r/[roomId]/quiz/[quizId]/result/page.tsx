@@ -6,6 +6,10 @@ import { ParamsTypes } from "@/types/paramsTypes";
 import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import authOptions from "@/utils/authOptions";
+import QuestionBox from "../questions/_components/QuestionBox";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Result",
@@ -16,6 +20,8 @@ type ResultPageProps = {
 };
 
 const ResultsPage = async ({ params }: ResultPageProps) => {
+  const session = await getServerSession(authOptions);
+  const isTeacher = session?.user.role === "Teacher";
   const result = await getUserQuizResultAction({ quizId: params.quizId });
 
   // Checks if the user is already participated in the Quiz
@@ -24,6 +30,14 @@ const ResultsPage = async ({ params }: ResultPageProps) => {
   if (!isAlreadyAnswered.error) {
     redirect(`/r/${params.roomId}/quiz/${params.quizId}/questions`);
   }
+
+  const getScoreTextColor = (scorePercentage: number = 0) => {
+    return scorePercentage <= 25
+      ? "text-red-500"
+      : scorePercentage <= 60
+      ? "text-orange-400"
+      : "text-green-600";
+  };
 
   return (
     <main className="w-full min-h-[95vh] flex flex-col items-center py-12 bg-gray-100 dark:bg-gray-800">
@@ -39,8 +53,13 @@ const ResultsPage = async ({ params }: ResultPageProps) => {
             <div className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
               Your Score
             </div>
-            <div className="text-6xl font-bold text-green-600 dark:text-green-400">
-              {result.scorePercentage}%
+            <div
+              className={cn(
+                "text-6xl font-bold dark:text-green-400",
+                getScoreTextColor(result?.scorePercentage)
+              )}
+            >
+              {result?.scorePercentage}%
             </div>
           </div>
           <p className="text-lg text-gray-500 dark:text-gray-400">
@@ -54,6 +73,18 @@ const ResultsPage = async ({ params }: ResultPageProps) => {
             Go back to Dashboard
           </Link>
         </div>
+      </section>
+
+      <section className="w-full flex flex-col items-center gap-4 p-6">
+        {result?.questions?.map((question, index) => (
+          <QuestionBox
+            question={question.question}
+            index={index + 1}
+            isTeacher={isTeacher}
+            key={index}
+            userAnswer={question?.userAnswer}
+          />
+        ))}
       </section>
     </main>
   );
