@@ -50,9 +50,9 @@ const ResultsPage = async ({ params }: ResultPageProps) => {
             You&apos;ve successfully completed the Quiz.
           </p>
           <div className="flex flex-col items-center justify-center space-y-2">
-            <div className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+            {/* <div className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
               Your Score
-            </div>
+            </div> */}
             <div
               className={cn(
                 "text-6xl font-bold dark:text-green-400",
@@ -75,7 +75,7 @@ const ResultsPage = async ({ params }: ResultPageProps) => {
         </div>
       </section>
 
-      <section className="w-full flex flex-col items-center gap-4 p-6">
+      <section className="w-full max-w-4xl flex flex-col items-center gap-4 p-6">
         {result?.questions?.map((question, index) => (
           <QuestionBox
             question={question.question}

@@ -1,9 +1,6 @@
 import { QuestionType } from "@/lib/models/question.model";
-import { Label } from "../../../../../../../components/ui/label";
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "../../../../../../../components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import DeleteQuestionDialog from "./DeleteQuestionDialog";
 import EditQuestionDialog from "./EditQuestionDialog";
 import { cn } from "@/lib/utils";
@@ -21,15 +18,17 @@ const QuestionBox = ({
   isTeacher,
   userAnswer,
 }: QuestionBoxProps) => {
-  console.log(userAnswer);
+  const borderColorClass =
+    userAnswer !== undefined &&
+    (userAnswer === question.rightAnswer
+      ? "border-green-600"
+      : "border-red-600");
+
   return (
     <div
       className={cn(
-        "relative min-w-[45rem] max-w-full p-6 bg-white border border-borderColor border-l-4 border-r-4  rounded-xl",
-        userAnswer !== undefined &&
-          (userAnswer == question.rightAnswer
-            ? "border-green-600"
-            : "border-red-600")
+        "relative w-full  min-w-[45rem] max-w-full p-6 bg-white border border-borderColor border-l-4 border-r-4 rounded-xl",
+        borderColorClass
       )}
     >
       {isTeacher && (
@@ -50,7 +49,7 @@ const QuestionBox = ({
         defaultValue={userAnswer || undefined}
         disabled={
           userAnswer !== undefined && (userAnswer !== "" || userAnswer == null)
-        }
+        } // Disable if there is a userAnswer prop value AND userAnswer is not equal to null OR empty string
       >
         <div className="flex flex-col items-center gap-4">
           <div className="w-full flex items-center space-x-2">

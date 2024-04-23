@@ -56,8 +56,21 @@ export const createClassroomAction = async (formData: FormData) => {
     ]);
     if (!user || !session) throw new Error("Please login first!");
 
-    if (user.subscription === "Basic" && user.classrooms.length >= 10) {
+    //todo: Set maximum classrooms allowed in every subscription
+    if (
+      user.subscription.toLowerCase() === "basic" &&
+      user.classrooms.length >= 10
+    ) {
       throw new Error("Maximum classrooms reached for Basic subscription.");
+    }
+
+    const existingClassroom = await Classroom.find({
+      subject: formData.get("subject"),
+      section: formData.get("section"),
+    }).lean();
+
+    if (existingClassroom.length >= 1) {
+      throw new Error("Classroom already exist");
     }
 
     const classroom = await Classroom.create({
@@ -207,6 +220,15 @@ export const updateClassroomAction = async (
       description: string;
       section: string;
     };
+
+    const existingClassroom = await Classroom.find({
+      subject: data.subject,
+      section: data.section,
+    }).lean();
+
+    if (existingClassroom.length >= 1) {
+      throw new Error("Classroom already exist");
+    }
 
     classroom.subject = data.subject;
     classroom.description = data.description;
