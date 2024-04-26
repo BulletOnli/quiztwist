@@ -221,15 +221,6 @@ export const updateClassroomAction = async (
       section: string;
     };
 
-    const existingClassroom = await Classroom.find({
-      subject: data.subject,
-      section: data.section,
-    }).lean();
-
-    if (existingClassroom.length >= 1) {
-      throw new Error("Classroom already exist");
-    }
-
     classroom.subject = data.subject;
     classroom.description = data.description;
     classroom.section = data.section;

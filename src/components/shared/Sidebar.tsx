@@ -7,7 +7,7 @@ const Sidebar = async () => {
   const classrooms = (await getClassrooms()) || [];
 
   return (
-    <div className="w-[20rem] sticky top-[60px] p-4 flex flex-col items-center border-r border-borderColor">
+    <div className="w-[20rem] h-[93vh] sticky top-[60px] p-4 flex flex-col items-center border-r border-borderColor">
       <div className="w-full">
         <div className="w-full flex flex-col items-center gap-2">
           <Link href="/dashboard" className="w-full">
