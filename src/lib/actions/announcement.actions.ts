@@ -53,8 +53,6 @@ export const newAnnouncementAction = async ({
       content: content?.replace(/\n/g, "<br>"),
     });
 
-    revalidatePath("/announcements");
-
     const classroom = await Classroom.findById(roomId)
       .select(["students", "teacher"])
       .populate([
@@ -68,13 +66,12 @@ export const newAnnouncementAction = async ({
         },
       ]);
 
-    classroom?.students.forEach(async (student: UserType) => {
+    classroom?.students?.forEach(async (student: UserType) => {
       await transforter.sendMail({
         from: `${user.email}`,
         to: student.email,
         subject: `New announcement: "${content.slice(0, 50)}"`,
-        html: `
-        <main style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 6rem;">
+        html: `<main style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 6rem;">
           <div style="display: flex; flex-direction: column; padding: 1rem; border: 1px solid #CED4DA; border-radius: 0.5rem;">
             ${content?.replace(/\n/g, "<br>")}
           </div>
@@ -82,6 +79,8 @@ export const newAnnouncementAction = async ({
         `,
       });
     });
+
+    revalidatePath("/announcements");
 
     return {
       message: "You've added new announcement",
@@ -97,7 +96,10 @@ export const deleteAnnouncementAction = async ({
   announcementId,
 }: {
   announcementId: string;
-}) => {
+}): Promise<{
+  message?: string;
+  error?: string;
+}> => {
   try {
     await connectToDB();
     const session = await getServerSession(authOptions);
