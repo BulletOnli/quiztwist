@@ -2,13 +2,15 @@
 
 import getErrorMessage from "@/utils/getErrorMessage";
 import connectToDB from "../mongoose";
-import User from "../models/user.model";
+import User, { UserType } from "../models/user.model";
 import authOptions from "@/utils/authOptions";
 import { getServerSession } from "next-auth";
 import AnnouncementSchema, {
   AnnouncementType,
 } from "../models/announcement.model";
 import { revalidatePath } from "next/cache";
+import Classroom from "../models/classroom.model";
+import { transforter } from "@/utils/nodemailer";
 
 type NewAnnouncementActionType = {
   formData: FormData;
@@ -32,7 +34,6 @@ export const getAllAnnouncements = async ({
   return JSON.parse(JSON.stringify(announcements));
 };
 
-//todo: SEND EMAIL TO ALL STUDENTS
 export const newAnnouncementAction = async ({
   formData,
   roomId,
@@ -44,15 +45,43 @@ export const newAnnouncementAction = async ({
 
     if (!user || !session) throw new Error("Please login first!");
 
-    const value = formData.get("content") as string;
+    const content = formData.get("content") as string;
 
     await AnnouncementSchema.create({
       room: roomId,
       author: user._id,
-      content: value?.replace(/\n/g, "<br>"),
+      content: content?.replace(/\n/g, "<br>"),
     });
 
     revalidatePath("/announcements");
+
+    const classroom = await Classroom.findById(roomId)
+      .select(["students", "teacher"])
+      .populate([
+        {
+          path: "students",
+          select: ["email"],
+        },
+        {
+          path: "teacher",
+          select: ["firstName", "lastName", "email"],
+        },
+      ]);
+
+    classroom?.students.forEach(async (student: UserType) => {
+      await transforter.sendMail({
+        from: `${classroom?.teacher.email}`,
+        to: student.email,
+        subject: `New announcement: "${content.slice(0, 50)}"`,
+        html: `
+        <main style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 6rem;">
+          <div style="display: flex; flex-direction: column; padding: 1rem; border: 1px solid #CED4DA; border-radius: 0.5rem;">
+            ${content?.replace(/\n/g, "<br>")}
+          </div>
+        </main>
+        `,
+      });
+    });
 
     return {
       message: "You've added new announcement",

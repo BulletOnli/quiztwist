@@ -38,12 +38,12 @@ export const getClassroomData = async (id: string) => {
       {
         path: "students",
         model: User,
-        select: ["profilePic", "firstName", "lastName"],
+        select: ["profilePic", "firstName", "lastName", "email"],
       },
     ])
     .lean();
 
-  return classroom;
+  return JSON.parse(JSON.stringify(classroom));
 };
 
 export const createClassroomAction = async (formData: FormData) => {

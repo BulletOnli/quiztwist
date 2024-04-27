@@ -12,6 +12,8 @@ const environments = {
   NEXT_PUBLIC_SERVER_URL: process.env.NEXT_PUBLIC_SERVER_URL,
   STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
   NEXT_PUBLIC_WEBSOCKET_SERVER: process.env.NEXT_PUBLIC_WEBSOCKET_SERVER,
+  SMTP_EMAIL: process.env.SMTP_EMAIL,
+  SMTP_PASSWORD: process.env.SMTP_PASSWORD,
 };
 
 export default environments;
