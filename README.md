@@ -4,15 +4,26 @@ This project involves two distinct user roles: Teachers and Students. Teachers h
 
 My goal is to learn more about NextJS with this project.
 
+## Features
+
+- Teachers can create a classroom and a quiz (students will receive an email notification whenever a new quiz is added.)
+- Teachers can export all student's info into csv.
+- Students can join multiple classrooms (based on their subscription) and participate in the quizzes
+- Students can only switch tabs once every three lives, and after their allotted lives are used up, the quiz will immediately end.
+- Students can use the calendar to view their upcoming quiz or schedules.
+- Everyone can make announcements inside their classroom, and everyone will receive an instant email notification.
+
 ## Technologies Used
 
 - Next.js 14
 - Tailwind CSS
 - ShadcnUI
 - MongoDB
-- Next Auth
+- Next Auth v4
 - Stripe
+- FullCalendar
 - SheetJS / [XLSX](https://docs.sheetjs.com/docs/getting-started/installation/frameworks#vendoring)
+- Nodemailer / Brevo
 
 ## Getting Started
 
@@ -51,6 +62,10 @@ NEXT_PUBLIC_PRO_PRICE_ID=
 # Premium plan price
 NEXT_PUBLIC_PREMIUM_PRICE_ID=
 NEXT_PUBLIC_SERVER_URL=http://localhost:3000
+
+# From Brevo
+SMTP_EMAIL=
+SMTP_PASSWORD=
 ```
 
 ## Usage
