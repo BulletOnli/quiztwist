@@ -41,7 +41,7 @@ export const newAnnouncementAction = async ({
   try {
     await connectToDB();
     const session = await getServerSession(authOptions);
-    const user = await User.findById(session?.user.id).select(["_id"]);
+    const user = await User.findById(session?.user.id).select(["_id", "email"]);
 
     if (!user || !session) throw new Error("Please login first!");
 
@@ -70,7 +70,7 @@ export const newAnnouncementAction = async ({
 
     classroom?.students.forEach(async (student: UserType) => {
       await transforter.sendMail({
-        from: `${classroom?.teacher.email}`,
+        from: `${user.email}`,
         to: student.email,
         subject: `New announcement: "${content.slice(0, 50)}"`,
         html: `

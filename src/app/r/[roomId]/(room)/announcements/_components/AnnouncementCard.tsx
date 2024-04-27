@@ -16,12 +16,14 @@ import {
 } from "@/components/ui/tooltip";
 import { deleteAnnouncementAction } from "@/lib/actions/announcement.actions";
 import { toast } from "sonner";
+import { useSession } from "next-auth/react";
 
 const AnnouncementCard = ({
   announcement,
 }: {
   announcement: AnnouncementType;
 }) => {
+  const { data: session } = useSession();
   const { _id, author, content, updatedAt } = announcement;
 
   const handleDeleteAnnouncement = async () => {
@@ -63,32 +65,35 @@ const AnnouncementCard = ({
           </div>
         </div>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-ellipsis-vertical"
-            >
-              <circle cx="12" cy="12" r="1" />
-              <circle cx="12" cy="5" r="1" />
-              <circle cx="12" cy="19" r="1" />
-            </svg>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem>Edit</DropdownMenuItem>
-            <DropdownMenuItem onClick={handleDeleteAnnouncement}>
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {session?.user.id === author?._id.toString() && (
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-ellipsis-vertical"
+              >
+                <circle cx="12" cy="12" r="1" />
+                <circle cx="12" cy="5" r="1" />
+                <circle cx="12" cy="19" r="1" />
+              </svg>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>Edit</DropdownMenuItem>
+
+              <DropdownMenuItem onClick={handleDeleteAnnouncement}>
+                Delete
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
       </div>
 
       {/* <p className="text-sm mt-6">{content}</p> */}

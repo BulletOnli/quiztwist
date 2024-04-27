@@ -44,13 +44,15 @@ const NewAnnouncementModal = () => {
             <AvatarImage src={session?.user.image} />
             <AvatarFallback>{session?.user.name.slice(0, 1)}</AvatarFallback>
           </Avatar>
-          <p className="text-sm text-gray">Announce something to your class</p>
+          <p className="text-sm text-gray">Announce something to class</p>
         </div>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Announce to everyone</DialogTitle>
-          <DialogDescription>Lorem ipsum dolor sit amet.</DialogDescription>
+          <DialogDescription>
+            Everyone in this classroom will receive email notifications.
+          </DialogDescription>
         </DialogHeader>
         <form action={handleNewAnnouncement} className="flex flex-col gap-4">
           <div className="flex flex-col">
