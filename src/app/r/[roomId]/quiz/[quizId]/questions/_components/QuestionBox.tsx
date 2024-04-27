@@ -20,7 +20,7 @@ const QuestionBox = ({
 }: QuestionBoxProps) => {
   const borderColorClass =
     userAnswer !== undefined &&
-    (userAnswer === question.rightAnswer
+    (userAnswer === question?.rightAnswer
       ? "border-green-600"
       : "border-red-600");
 

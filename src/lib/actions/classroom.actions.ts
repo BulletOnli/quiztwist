@@ -38,12 +38,12 @@ export const getClassroomData = async (id: string) => {
       {
         path: "students",
         model: User,
-        select: ["profilePic", "firstName", "lastName"],
+        select: ["profilePic", "firstName", "lastName", "email"],
       },
     ])
     .lean();
 
-  return classroom;
+  return JSON.parse(JSON.stringify(classroom));
 };
 
 export const createClassroomAction = async (formData: FormData) => {
@@ -220,15 +220,6 @@ export const updateClassroomAction = async (
       description: string;
       section: string;
     };
-
-    const existingClassroom = await Classroom.find({
-      subject: data.subject,
-      section: data.section,
-    }).lean();
-
-    if (existingClassroom.length >= 1) {
-      throw new Error("Classroom already exist");
-    }
 
     classroom.subject = data.subject;
     classroom.description = data.description;
