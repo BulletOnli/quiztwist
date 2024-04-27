@@ -6,19 +6,60 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { AnnouncementType } from "@/lib/models/announcement.model";
+import moment from "moment";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { deleteAnnouncementAction } from "@/lib/actions/announcement.actions";
+import { toast } from "sonner";
 
-const AnnouncementCard = () => {
+const AnnouncementCard = ({
+  announcement,
+}: {
+  announcement: AnnouncementType;
+}) => {
+  const { _id, author, content, updatedAt } = announcement;
+
+  const handleDeleteAnnouncement = async () => {
+    const response = await deleteAnnouncementAction({
+      announcementId: _id.toString(),
+    });
+
+    if (response.error) {
+      return toast.error(response.error);
+    }
+
+    return toast.success(response.message);
+  };
+
   return (
     <div className="px-6 py-4 rounded-xl border border-borderColor">
       <div className="w-full flex items-center justify-between ">
         <div className="w-full flex items-center gap-4">
           <Avatar className="w-10 h-10">
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarImage src={author?.profilePic || ""} />
+            <AvatarFallback>{author?.firstName?.slice(0, 1)}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
-            <p className="font-medium text-sm">Gemmuel Dela Pena</p>
-            <p className="text-xs text-secondary-grayText">April 30</p>
+            <p className="font-medium text-sm">
+              {author?.firstName} {author?.lastName}
+            </p>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <p className="text-xs text-secondary-grayText">
+                    {moment(updatedAt).startOf("minutes").fromNow()}
+                  </p>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-xs">{moment(updatedAt).format("LLL")}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </div>
 
@@ -31,9 +72,9 @@ const AnnouncementCard = () => {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               className="lucide lucide-ellipsis-vertical"
             >
               <circle cx="12" cy="12" r="1" />
@@ -43,17 +84,18 @@ const AnnouncementCard = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem>Edit</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleDeleteAnnouncement}>
+              Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
 
-      <p className="text-sm mt-6">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat
-        perferendis deserunt error cupiditate, inventore magnam eius maiores
-        amet sit eos. Reprehenderit alias qui accusantium est corporis dolorum
-        maiores officia ratione!
-      </p>
+      {/* <p className="text-sm mt-6">{content}</p> */}
+      <div
+        className="text-sm mt-6"
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
     </div>
   );
 };

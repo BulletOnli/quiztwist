@@ -1,4 +1,6 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
+import { ClassroomType } from "./classroom.model";
+import { UserType } from "./user.model";
 
 const announcementSchema = new mongoose.Schema(
   {
@@ -24,9 +26,11 @@ export type AnnouncementType = mongoose.InferSchemaType<
   typeof announcementSchema
 > & {
   _id: mongoose.Types.ObjectId;
+  room: ClassroomType;
+  author: UserType;
 };
 
-const AnnouncementSchema =
+const AnnouncementSchema: Model<AnnouncementType> =
   mongoose.models.Announcement ||
   mongoose.model("Announcement", announcementSchema);
 

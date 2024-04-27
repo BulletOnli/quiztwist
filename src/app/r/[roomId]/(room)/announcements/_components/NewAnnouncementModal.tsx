@@ -9,30 +9,40 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { createQuiz } from "@/lib/actions/quiz.actions";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { toast } from "sonner";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import SubmitBtn from "@/components/shared/SubmitBtn";
 import { ParamsTypes } from "@/types/paramsTypes";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
+import { newAnnouncementAction } from "@/lib/actions/announcement.actions";
+import { useState } from "react";
+import { useSession } from "next-auth/react";
 
 const NewAnnouncementModal = () => {
+  const { data: session } = useSession();
   const { roomId } = useParams<ParamsTypes>();
-  const router = useRouter();
+  const [openModal, setOpenModal] = useState(false);
 
-  const handleNewAnnouncement = async (formData: FormData) => {};
+  const handleNewAnnouncement = async (formData: FormData) => {
+    const response = await newAnnouncementAction({ formData, roomId });
+
+    if (response.error) {
+      return toast.error(response.error);
+    }
+
+    toast.success(response.message);
+    setOpenModal(false);
+  };
 
   return (
-    <Dialog>
+    <Dialog onOpenChange={setOpenModal} open={openModal}>
       <DialogTrigger className="w-full">
         <div className="w-full border border-borderColor flex items-center gap-4 py-4 px-6 rounded-lg shadow hover:shadow-md cursor-pointer">
           <Avatar className="w-10 h-10">
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarImage src={session?.user.image} />
+            <AvatarFallback>{session?.user.name.slice(0, 1)}</AvatarFallback>
           </Avatar>
           <p className="text-sm text-gray">Announce something to your class</p>
         </div>
@@ -44,7 +54,11 @@ const NewAnnouncementModal = () => {
         </DialogHeader>
         <form action={handleNewAnnouncement} className="flex flex-col gap-4">
           <div className="flex flex-col">
-            <Textarea className="outline-none  max-h-52" />
+            <Textarea
+              rows={10}
+              className="outline-none  max-h-96"
+              name="content"
+            />
           </div>
           <DialogFooter>
             <DialogClose asChild>
