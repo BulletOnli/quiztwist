@@ -60,7 +60,6 @@ const NewAnnouncementModal = () => {
     accept: fileTypes ? generateClientDropzoneAccept(fileTypes) : undefined,
     disabled: isUploading,
     maxFiles: MAX_FILES_UPLOAD,
-    maxSize: 1000000,
     multiple: true,
   });
 
