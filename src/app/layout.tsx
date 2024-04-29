@@ -3,6 +3,9 @@ import "@/styles/globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import GlobalProviders from "@/context/GlobalProviders";
 import { poppins } from "@/utils/googleFonts";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "./api/uploadthing/core";
 
 export const metadata: Metadata = {
   title: {
@@ -34,6 +37,7 @@ export default async function RootLayout({
       <body
         className={`${poppins.className} w-full flex flex-col items-center`}
       >
+        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <GlobalProviders>
           <Navbar />
           {children}

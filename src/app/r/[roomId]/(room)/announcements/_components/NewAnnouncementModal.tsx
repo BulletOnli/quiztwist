@@ -19,14 +19,23 @@ import { Textarea } from "@/components/ui/textarea";
 import { newAnnouncementAction } from "@/lib/actions/announcement.actions";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import { UploadFileResponse } from "@/types/uploadthingTypes";
+import { UploadButton, UploadDropzone } from "@/utils/uploadthing";
+import { ClientUploadedFileData } from "uploadthing/types";
+import UploadedFilePreview from "./UploadedFilePreview";
 
 const NewAnnouncementModal = () => {
   const { data: session } = useSession();
   const { roomId } = useParams<ParamsTypes>();
   const [openModal, setOpenModal] = useState(false);
+  const [fileResponse, setFileResponse] = useState<UploadFileResponse[]>([]);
 
   const handleNewAnnouncement = async (formData: FormData) => {
-    const response = await newAnnouncementAction({ formData, roomId });
+    const response = await newAnnouncementAction({
+      formData,
+      roomId,
+      files: fileResponse,
+    });
 
     if (response.error) {
       return toast.error(response.error);
@@ -58,9 +67,37 @@ const NewAnnouncementModal = () => {
           <div className="flex flex-col">
             <Textarea
               rows={10}
-              className="outline-none  max-h-96"
+              className="outline-none max-h-52"
               name="content"
+              required
             />
+            <main className="flex flex-col items-center justify-between mt-2">
+              <div className="w-full flex flex-col gap-2">
+                {fileResponse?.map((response) => (
+                  <UploadedFilePreview
+                    key={response.key}
+                    response={response}
+                    setFileResponse={setFileResponse}
+                  />
+                ))}
+              </div>
+
+              <UploadButton
+                config={{
+                  mode: "auto",
+                }}
+                endpoint="fileUploader"
+                onClientUploadComplete={(
+                  res: ClientUploadedFileData<null>[]
+                ) => {
+                  setFileResponse((prev) => [res[0], ...prev]);
+                }}
+                onUploadError={(error: Error) => {
+                  toast.error(error.message);
+                }}
+                className="w-full p-4"
+              />
+            </main>
           </div>
           <DialogFooter>
             <DialogClose asChild>

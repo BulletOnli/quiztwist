@@ -17,6 +17,9 @@ import {
 import { deleteAnnouncementAction } from "@/lib/actions/announcement.actions";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
+import UploadedFilePreview from "./UploadedFilePreview";
+import Image from "next/image";
+import Link from "next/link";
 
 const AnnouncementCard = ({
   announcement,
@@ -24,7 +27,7 @@ const AnnouncementCard = ({
   announcement: AnnouncementType;
 }) => {
   const { data: session } = useSession();
-  const { _id, author, content, updatedAt } = announcement;
+  const { _id, author, content, updatedAt, files } = announcement;
 
   const handleDeleteAnnouncement = async () => {
     const response = await deleteAnnouncementAction({
@@ -96,11 +99,33 @@ const AnnouncementCard = ({
         )}
       </div>
 
-      {/* <p className="text-sm mt-6">{content}</p> */}
       <div
         className="text-sm mt-6"
         dangerouslySetInnerHTML={{ __html: content }}
       />
+      <div className="flex flex-wrap items-center gap-2 mt-4">
+        {files?.map((file) => (
+          <Link href={file.url} target="_blank" className="min-w-fit flex-grow">
+            <div
+              key={file?.key}
+              className="relative w-full flex items-center gap-4 border border-borderColor rounded-lg p-2"
+            >
+              <Image
+                src={file?.type?.includes("image") ? file?.url : "/pdf.png"}
+                alt="announcement-icon"
+                width="40"
+                height="40"
+              />
+              <div>
+                <p className="text-sm">{file?.name}</p>
+                <p className="text-[10px] text-secondary-grayText">
+                  {file?.type.toUpperCase()}
+                </p>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };

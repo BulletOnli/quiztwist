@@ -2,6 +2,30 @@ import mongoose, { Model } from "mongoose";
 import { ClassroomType } from "./classroom.model";
 import { UserType } from "./user.model";
 
+const fileSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  size: {
+    type: Number,
+    required: true,
+  },
+  type: {
+    type: String,
+    required: true,
+  },
+  key: {
+    type: String,
+    required: true,
+  },
+  url: {
+    type: String,
+    required: true,
+  },
+  customId: String,
+});
+
 const announcementSchema = new mongoose.Schema(
   {
     room: {
@@ -16,6 +40,7 @@ const announcementSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    files: [fileSchema],
   },
   {
     timestamps: true,

@@ -11,11 +11,7 @@ import AnnouncementSchema, {
 import { revalidatePath } from "next/cache";
 import Classroom from "../models/classroom.model";
 import { transforter } from "@/utils/nodemailer";
-
-type NewAnnouncementActionType = {
-  formData: FormData;
-  roomId: string;
-};
+import { UploadFileResponse } from "@/types/uploadthingTypes";
 
 export const getAllAnnouncements = async ({
   roomId,
@@ -34,9 +30,16 @@ export const getAllAnnouncements = async ({
   return JSON.parse(JSON.stringify(announcements));
 };
 
+type NewAnnouncementActionType = {
+  formData: FormData;
+  roomId: string;
+  files: UploadFileResponse[];
+};
+
 export const newAnnouncementAction = async ({
   formData,
   roomId,
+  files,
 }: NewAnnouncementActionType) => {
   try {
     await connectToDB();
@@ -51,6 +54,7 @@ export const newAnnouncementAction = async ({
       room: roomId,
       author: user._id,
       content: content?.replace(/\n/g, "<br>"),
+      files,
     });
 
     const classroom = await Classroom.findById(roomId)
@@ -66,19 +70,19 @@ export const newAnnouncementAction = async ({
         },
       ]);
 
-    classroom?.students?.forEach(async (student: UserType) => {
-      await transforter.sendMail({
-        from: `${user.email}`,
-        to: student.email,
-        subject: `New announcement: "${content.slice(0, 50)}"`,
-        html: `<main style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 6rem;">
-          <div style="display: flex; flex-direction: column; padding: 1rem; border: 1px solid #CED4DA; border-radius: 0.5rem;">
-            ${content?.replace(/\n/g, "<br>")}
-          </div>
-        </main>
-        `,
-      });
-    });
+    // classroom?.students?.forEach(async (student: UserType) => {
+    //   await transforter.sendMail({
+    //     from: `${user.email}`,
+    //     to: student.email,
+    //     subject: `New announcement: "${content.slice(0, 50)}"`,
+    //     html: `<main style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 6rem;">
+    //       <div style="display: flex; flex-direction: column; padding: 1rem; border: 1px solid #CED4DA; border-radius: 0.5rem;">
+    //         ${content?.replace(/\n/g, "<br>")}
+    //       </div>
+    //     </main>
+    //     `,
+    //   });
+    // });
 
     revalidatePath("/announcements");
 
