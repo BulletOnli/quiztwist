@@ -5,4 +5,5 @@ export type UploadFileResponse = {
   readonly customId: string | null;
   readonly key: string;
   readonly url: string;
+  readonly serverData: string | null;
 };

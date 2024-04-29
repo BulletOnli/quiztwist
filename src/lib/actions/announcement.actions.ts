@@ -1,5 +1,4 @@
 "use server";
-
 import getErrorMessage from "@/utils/getErrorMessage";
 import connectToDB from "../mongoose";
 import User, { UserType } from "../models/user.model";
@@ -12,6 +11,7 @@ import { revalidatePath } from "next/cache";
 import Classroom from "../models/classroom.model";
 import { transforter } from "@/utils/nodemailer";
 import { UploadFileResponse } from "@/types/uploadthingTypes";
+import environments from "../../../environments/environments";
 
 export const getAllAnnouncements = async ({
   roomId,
@@ -70,19 +70,28 @@ export const newAnnouncementAction = async ({
         },
       ]);
 
-    // classroom?.students?.forEach(async (student: UserType) => {
-    //   await transforter.sendMail({
-    //     from: `${user.email}`,
-    //     to: student.email,
-    //     subject: `New announcement: "${content.slice(0, 50)}"`,
-    //     html: `<main style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 6rem;">
-    //       <div style="display: flex; flex-direction: column; padding: 1rem; border: 1px solid #CED4DA; border-radius: 0.5rem;">
-    //         ${content?.replace(/\n/g, "<br>")}
-    //       </div>
-    //     </main>
-    //     `,
-    //   });
-    // });
+    classroom?.students?.forEach(async (student: UserType) => {
+      await transforter.sendMail({
+        from: `${user.email}`,
+        to: student.email,
+        subject: `New announcement: "${content.slice(0, 50)}"`,
+        html: `<a href='${
+          environments.NEXT_PUBLIC_SERVER_URL
+        }/r/${roomId}/announcements' style="color: black; text-decoration: none; font-size: 14px">
+          <main style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 6rem;">
+            <div style="display: flex; flex-direction: column; padding: 1rem; border: 1px solid #CED4DA; border-radius: 0.5rem;"
+            >
+              ${content?.replace(/\n/g, "<br>")}
+            </div>
+            <div style="margin-top: 10px; display: flex; flex-direction: column; padding: 1rem; border: 1px solid #CED4DA; border-radius: 0.5rem;"
+            >
+              *Includes ${files.length} files
+            </div>
+          </main>
+        </a>
+        `,
+      });
+    });
 
     revalidatePath("/announcements");
 

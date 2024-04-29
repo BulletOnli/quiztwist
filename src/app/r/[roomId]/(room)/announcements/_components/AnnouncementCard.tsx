@@ -105,7 +105,12 @@ const AnnouncementCard = ({
       />
       <div className="flex flex-wrap items-center gap-2 mt-4">
         {files?.map((file) => (
-          <Link href={file.url} target="_blank" className="min-w-fit flex-grow">
+          <Link
+            key={file?.key}
+            href={file?.url}
+            target="_blank"
+            className="min-w-fit flex-grow"
+          >
             <div
               key={file?.key}
               className="relative w-full flex items-center gap-4 border border-borderColor rounded-lg p-2"
@@ -115,6 +120,7 @@ const AnnouncementCard = ({
                 alt="announcement-icon"
                 width="40"
                 height="40"
+                className="w-auto"
               />
               <div>
                 <p className="text-sm">{file?.name}</p>

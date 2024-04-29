@@ -17,18 +17,52 @@ import { ParamsTypes } from "@/types/paramsTypes";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
 import { newAnnouncementAction } from "@/lib/actions/announcement.actions";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useSession } from "next-auth/react";
 import { UploadFileResponse } from "@/types/uploadthingTypes";
-import { UploadButton, UploadDropzone } from "@/utils/uploadthing";
-import { ClientUploadedFileData } from "uploadthing/types";
+import { useUploadThing } from "@/utils/uploadthing";
 import UploadedFilePreview from "./UploadedFilePreview";
+import { useDropzone } from "@uploadthing/react";
+import { generateClientDropzoneAccept } from "uploadthing/client";
+import { Loader2 } from "lucide-react";
+
+const MAX_FILES_UPLOAD = 3;
 
 const NewAnnouncementModal = () => {
   const { data: session } = useSession();
   const { roomId } = useParams<ParamsTypes>();
   const [openModal, setOpenModal] = useState(false);
   const [fileResponse, setFileResponse] = useState<UploadFileResponse[]>([]);
+
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    startUpload(acceptedFiles);
+  }, []);
+
+  const { startUpload, permittedFileInfo, isUploading } = useUploadThing(
+    "fileUploader",
+    {
+      onClientUploadComplete: (res) => {
+        setFileResponse((prev) => [...res, ...prev]);
+      },
+      onUploadError: (err) => {
+        // If error, check the "core.ts" first.
+        toast.error(err.message);
+      },
+    }
+  );
+
+  const fileTypes = permittedFileInfo?.config
+    ? Object.keys(permittedFileInfo?.config)
+    : [];
+
+  const { getRootProps, getInputProps, isDragReject } = useDropzone({
+    onDrop,
+    accept: fileTypes ? generateClientDropzoneAccept(fileTypes) : undefined,
+    disabled: isUploading,
+    maxFiles: MAX_FILES_UPLOAD,
+    maxSize: 1000000,
+    multiple: true,
+  });
 
   const handleNewAnnouncement = async (formData: FormData) => {
     const response = await newAnnouncementAction({
@@ -43,6 +77,7 @@ const NewAnnouncementModal = () => {
 
     toast.success(response.message);
     setOpenModal(false);
+    setFileResponse([]);
   };
 
   return (
@@ -81,22 +116,35 @@ const NewAnnouncementModal = () => {
                   />
                 ))}
               </div>
-
-              <UploadButton
-                config={{
-                  mode: "auto",
-                }}
-                endpoint="fileUploader"
-                onClientUploadComplete={(
-                  res: ClientUploadedFileData<null>[]
-                ) => {
-                  setFileResponse((prev) => [res[0], ...prev]);
-                }}
-                onUploadError={(error: Error) => {
-                  toast.error(error.message);
-                }}
-                className="w-full p-4"
-              />
+              {fileResponse.length < MAX_FILES_UPLOAD && (
+                <div
+                  {...getRootProps()}
+                  className="w-full p-4 flex justify-center items-center mt-2 rounded-lg border border-dashed border-borderColor"
+                >
+                  <input {...getInputProps()} />
+                  <div className="flex flex-col items-center gap-2">
+                    <Button
+                      type="button"
+                      className=" px-4"
+                      disabled={isUploading}
+                    >
+                      {isUploading && (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      )}
+                      {isUploading ? "Uploading" : "Browse"}
+                    </Button>
+                    <p className="text-secondary-grayText text-sm">
+                      or drag files here
+                    </p>
+                  </div>
+                </div>
+              )}
+              {isDragReject && (
+                <p className="w-full text-center text-sm text-red-600 font-medium p-2 bg-red-200 mt-2">
+                  A maximum of {MAX_FILES_UPLOAD} files with a total size of
+                  20MB are allowed.
+                </p>
+              )}
             </main>
           </div>
           <DialogFooter>
@@ -105,7 +153,11 @@ const NewAnnouncementModal = () => {
                 Cancel
               </Button>
             </DialogClose>
-            <SubmitBtn defaultName="Post" onLoadingName="Posting..." />
+            <SubmitBtn
+              defaultName="Post"
+              onLoadingName="Posting..."
+              disabled={isUploading}
+            />
           </DialogFooter>
         </form>
       </DialogContent>

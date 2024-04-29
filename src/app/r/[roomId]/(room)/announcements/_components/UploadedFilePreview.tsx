@@ -37,6 +37,7 @@ const UploadedFilePreview: FC<UploadedFilePreviewProps> = ({
         alt="announcement-icon"
         width="40"
         height="40"
+        className="w-auto"
       />
       <div>
         <p className="text-sm">{response?.name}</p>
