@@ -46,7 +46,7 @@ const NewAnnouncementModal = () => {
       },
       onUploadError: (err) => {
         // If error, check the "core.ts" first.
-        toast.error(err.message);
+        toast.error("Maximum file size is 16MB");
       },
     }
   );

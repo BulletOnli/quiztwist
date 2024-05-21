@@ -24,6 +24,7 @@ My goal is to learn more about NextJS with this project.
 - FullCalendar
 - SheetJS / [XLSX](https://docs.sheetjs.com/docs/getting-started/installation/frameworks#vendoring)
 - Nodemailer / Brevo
+- Uploadthing
 
 ## Getting Started
 
@@ -66,6 +67,10 @@ NEXT_PUBLIC_SERVER_URL=http://localhost:3000
 # From Brevo
 SMTP_EMAIL=
 SMTP_PASSWORD=
+
+# From Uploadthing
+UPLOADTHING_SECRET=
+UPLOADTHING_APP_ID=
 ```
 
 ## Usage
