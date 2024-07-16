@@ -10,10 +10,16 @@ const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: environments.GOOGLE_ID!,
       clientSecret: environments.GOOGLE_SECRET!,
+      authorization: {
+        params: {
+          scope:
+            "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/calendar",
+        },
+      },
     }),
   ],
   callbacks: {
-    async session({ session }) {
+    async session({ session, token }) {
       await connectToDB();
       const userFromDb = await User.findOne({
         email: session.user?.email,
@@ -24,10 +30,11 @@ const authOptions: NextAuthOptions = {
         session.user.role = userFromDb?.role;
         session.user.subscription = userFromDb?.subscription;
       }
+      session.accessToken = token?.accessToken as string;
 
       return session;
     },
-    async signIn({ user }) {
+    async signIn({ user, profile }) {
       try {
         await connectToDB();
         const isUserExist = await User.findOne({ email: user?.email }).lean();
@@ -45,6 +52,13 @@ const authOptions: NextAuthOptions = {
         console.log("Error from auth options", error);
         return false;
       }
+    },
+    async jwt({ token, account }) {
+      if (account) {
+        token.accessToken = account.access_token;
+      }
+
+      return token;
     },
   },
 };

@@ -1,17 +1,16 @@
 # Project Overview
 
-This project involves two distinct user roles: Teachers and Students. Teachers have the ability to create classrooms and design quizzes within those classrooms. Students, on the other hand, can join multiple classrooms and actively participate in the quizzes. It's important to note that students are restricted from switching tabs during quizzes, ensuring that the quiz remains focused, and only the answered questions are recorded.
-
-My goal is to learn more about NextJS with this project.
+This project involves two distinct user roles: Teachers and Students. Teachers have the ability to create classrooms and design quizzes within those classrooms. Quizzes are synched with the Google Calendar to let the students track their schedules and be notified when the quiz is about to start. Students, on the other hand, can join multiple classrooms and actively participate in the quizzes. Tab-switching is restricted for fair assessments.
 
 ## Features
 
-- Teachers can create a classroom and a quiz (students will receive an email notification whenever a new quiz is added.)
-- Teachers can export all student's info into csv.
-- Students can join multiple classrooms (based on their subscription) and participate in the quizzes
-- Students can only switch tabs once every three lives, and after their allotted lives are used up, the quiz will immediately end.
-- Students can use the calendar to view their upcoming quiz or schedules.
-- Everyone can make announcements inside their classroom, and everyone will receive an instant email notification.
+- Teachers can create classrooms and quizzes.
+- All quizzes are synched with Google Calendar to help students track their quiz schedules.
+- Teachers can export all students' information into a CSV file.
+- Students can join multiple classrooms (based on their subscription) and participate in the quizzes.
+- Students can only switch tabs three times, and after their allotted attempts are used up, the quiz will immediately end.
+- Students can use the calendar to view their upcoming quiz or directly check the Google Calendar app.
+- Everyone can make announcements inside their classroom, and everyone will receive an email about it.
 
 ## Technologies Used
 
@@ -25,6 +24,7 @@ My goal is to learn more about NextJS with this project.
 - SheetJS / [XLSX](https://docs.sheetjs.com/docs/getting-started/installation/frameworks#vendoring)
 - Nodemailer / Brevo
 - Uploadthing
+- Google Calendar API
 
 ## Getting Started
 
