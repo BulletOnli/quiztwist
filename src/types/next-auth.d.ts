@@ -1,4 +1,5 @@
 import NextAuth from "next-auth";
+import { DefaultJWT } from "next-auth/jwt";
 
 export type NextAuthUser = {
   name: string;
@@ -12,5 +13,6 @@ export type NextAuthUser = {
 declare module "next-auth" {
   interface Session {
     user: NextAuthUser;
+    accessToken: string;
   }
 }

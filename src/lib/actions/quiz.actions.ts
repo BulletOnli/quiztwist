@@ -8,11 +8,9 @@ import { revalidatePath } from "next/cache";
 import Question from "../models/question.model";
 import authOptions from "@/utils/authOptions";
 import moment from "moment";
-import mongoose from "mongoose";
-import { unknown } from "zod";
-import { transforter } from "@/utils/nodemailer";
 import Classroom from "../models/classroom.model";
 import environments from "../../../environments/environments";
+import { createCalendarEvent } from "@/services/googleCalendar";
 
 // Just checking if the user is already participated in the quiz
 export const checkUserEligibility = async (quizId: string) => {
@@ -143,35 +141,38 @@ export const createQuiz = async ({ formData, roomId }: CreateQuizType) => {
           path: "teacher",
           select: ["firstName", "lastName", "email"],
         },
-      ]);
+      ])
+      .lean();
 
-    classroom?.students.forEach(async (student: UserType) => {
-      await transforter.sendMail({
-        from: `${classroom?.teacher.email}`,
-        to: student.email,
-        subject: `New Quiz: "${formData.get("quizTitle")}"`,
-        html: `
-        <main style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 6rem;">
-          <div style="display: flex; flex-direction: column; padding: 1rem;">
-            <div style="min-width: 20rem; max-width: 40rem; padding: 2rem; border: 1px solid #CED4DA; border-radius: 0.5rem;">
-              <p style="font-weight: bold">Title: ${formData.get(
-                "quizTitle"
-              )}</p>
-              <p style="font-size: 14px">Description: ${formData.get(
-                "quizDescription"
-              )}</p>
+    const studentEmails = classroom?.students
+      ?.map((student) => {
+        if (typeof student === "object" && "email" in student) {
+          return { email: student.email as string };
+        }
+        return null;
+      })
+      .filter((email) => email !== null);
 
-              <p style="font-size: 12px; margin-top: 10px">Deadline: ${moment(
-                newQuiz.deadline
-              ).format("LLL")}</p>
-              <a href='${
-                environments.NEXT_PUBLIC_SERVER_URL
-              }/r/${roomId}/quiz/${newQuiz._id.toString()}/questions'>Answer now</a>
-            </div>
-          </div>
-        </main>
-        `,
-      });
+    await createCalendarEvent({
+      summary: formData.get("quizTitle") as string,
+      location: `${environments.NEXT_PUBLIC_SERVER_URL}/r/${classroom?._id}/quiz/${newQuiz?._id}/questions`,
+      description: formData.get("quizDescription") as string,
+      start: {
+        dateTime: new Date().toISOString(),
+        timeZone: "America/Los_Angeles",
+      },
+      end: {
+        dateTime: new Date(formData.get("deadline") as string).toISOString(),
+        timeZone: "America/Los_Angeles",
+      },
+      attendees: studentEmails,
+      reminders: {
+        useDefault: false,
+        overrides: [
+          { method: "email", minutes: 24 * 60 },
+          { method: "popup", minutes: 10 },
+        ],
+      },
     });
 
     return {

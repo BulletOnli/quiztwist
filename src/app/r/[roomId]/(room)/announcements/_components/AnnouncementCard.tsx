@@ -56,7 +56,7 @@ const AnnouncementCard = ({
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <p className="text-xs text-secondary-grayText">
+                  <p className="text-left text-xs text-secondary-grayText">
                     {moment(updatedAt).startOf("minutes").fromNow()}
                   </p>
                 </TooltipTrigger>
@@ -89,7 +89,7 @@ const AnnouncementCard = ({
               </svg>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem>Edit</DropdownMenuItem>
+              <DropdownMenuItem disabled>Edit</DropdownMenuItem>
 
               <DropdownMenuItem onClick={handleDeleteAnnouncement}>
                 Delete

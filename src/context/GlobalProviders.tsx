@@ -17,7 +17,7 @@ const GlobalProviders = ({ children }: ProvidersProps) => {
         disableTransitionOnChange
       >
         {children}
-        <Toaster richColors position="top-right" />
+        <Toaster />
       </ThemeProvider>
     </SessionProvider>
   );
