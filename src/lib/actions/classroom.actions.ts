@@ -56,12 +56,18 @@ export const createClassroomAction = async (formData: FormData) => {
     ]);
     if (!user || !session) throw new Error("Please login first!");
 
-    //todo: Set maximum classrooms allowed in every subscription
     if (
       user.subscription.toLowerCase() === "basic" &&
-      user.classrooms.length >= 10
+      user.classrooms.length >= 5
     ) {
       throw new Error("Maximum classrooms reached for Basic subscription.");
+    }
+
+    if (
+      user.subscription.toLowerCase() === "pro" &&
+      user.classrooms.length >= 10
+    ) {
+      throw new Error("Maximum classrooms reached for Pro subscription.");
     }
 
     const existingClassroom = await Classroom.find({
