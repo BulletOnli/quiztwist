@@ -1,0 +1,41 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: quiz-app
+    ports:
+      - 3000:3000
+    env_file: ".env"
+    environment:
+      MONGO_URI: mongodb://mongodb:27017
+    networks:
+      - node-network
+    volumes:
+      - .:/src
+
+  mongo:
+    image: mongo:6-jammy
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    volumes:
+      - db-data:/data/db
+    networks:
+      - node-network
+
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+    networks:
+      - node-network
+
+volumes:
+  db-data:
+
+networks:
+  node-network:
+    driver: bridge
