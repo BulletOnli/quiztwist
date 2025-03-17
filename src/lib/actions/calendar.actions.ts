@@ -8,6 +8,16 @@ import authOptions from "@/utils/authOptions";
 import mongoose from "mongoose";
 import connectToDB from "../mongoose";
 
+interface QuizType {
+  _id: string;
+  room: {
+    _id: string;
+    students: mongoose.Types.ObjectId[];
+  };
+  deadline: Date;
+  title: string;
+}
+
 export const getAllEvents = async (): Promise<
   | []
   | [
@@ -35,22 +45,11 @@ export const getAllEvents = async (): Promise<
       path: "room",
       select: ["students"],
       model: Classroom,
-    })
-    .lean()) as [
-    {
-      _id: string;
-      room: {
-        _id: string;
-        students: mongoose.Types.ObjectId[];
-      };
-      deadline: Date;
-      title: string;
-    }
-  ];
+    })) as any;
 
-  const events = quizzes.filter((quiz) =>
+  const events = quizzes.filter((quiz: any) =>
     quiz.room.students.some(
-      (student) => student.toString() === user._id.toString()
+      (student: any) => student.toString() === user._id.toString()
     )
   );
 
